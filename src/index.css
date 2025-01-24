@@ -1,68 +1,78 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+  font-family: "montserrat";
+  src: url(/font/Montserrat-Medium.ttf) format("truetype");
+  font-display: fallback;
 }
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+@font-face {
+  font-family: "rubikBold";
+  src: url(/font/Rubik-Bold.ttf) format("truetype");
+  font-display: fallback;
 }
-a:hover {
-  color: #535bf2;
+@font-face {
+  font-family: "rubikRegular";
+  src: url(/font/Rubik-Regular.ttf) format("truetype");
+  font-display: fallback;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
+@layer base {
+  /* Reference color for website
+    primary: #983B00  
+    secondary: #390700
+    accent: #D96E20
+    light: #FAF7F2
+    dark: #C2C2C2*/
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
+  /* Reference color for dashboard
+    dashPrimary: #F5F5F3
+    dashSecondary: #ECECEC
+    dashAccent: #CCCCCC  */
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    --primary-color: 152 59 0;
+    --secondary-color: 57 7 0;
+    --accent-color: 217 110 32;
+    --light-color: 250 247 242;
+    --dark-color: 194 194 194;
+
+    --dashPrimary-color: 245 245 243;
+    --dashSecondary-color: 236 236 236;
+    --dashAccent-color: 204 204 204;
   }
-  a:hover {
-    color: #747bff;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold;
   }
-  button {
-    background-color: #f9f9f9;
+  h2 {
+    @apply text-4xl font-bold;
+  }
+  p {
+    @apply text-sm;
+  }
+  body {
+    @apply leading-relaxed font-[rubikRegular] text-xs min-h-full text-[dark];
+  }
+  pre {
+    @apply font-[rubikRegular];
+  }
+}
+
+@layer components {
+  .customContainer {
+    @apply w-[1460px] mx-auto;
+  }
+  .btn {
+    @apply bg-accent hover:bg-secondary py-4 px-8 transition-all duration-300 rounded-md text-[16px];
+  }
+  .nav {
+    @apply text-light font-montserrat text-[15px] ;
   }
 }
