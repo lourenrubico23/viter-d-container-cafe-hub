@@ -1,15 +1,21 @@
+import Footer from "@/components/partials/Footer";
+import About from "./about/About";
 import ContactUs from "./contact-us/ContactUs";
-import DescriptionSection from "./header/DescriptionSection";
 import Header from "./header/Header";
+import ReachUs from "./reach-us/ReachUs";
 import Services from "./services/Services";
+import Testimonial from "./testimonial/Testimonial";
 
 const Home = () => {
   return (
     <div className="wrapper">
       <Header />
-      <DescriptionSection />
+      <About />
       <Services />
       <ContactUs />
+      <Testimonial />
+      <ReachUs />
+      <Footer />
     </div>
   );
 };

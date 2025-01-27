@@ -5,6 +5,7 @@ const initVal = {
   error: false,
   success: false,
   isShow: false,
+  isAdd: false,
 };
 
 const StoreContext = React.createContext();

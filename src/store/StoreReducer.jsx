@@ -20,6 +20,11 @@ export const StoreReducer = (state, action) => {
         ...state,
         message: action.payload,
       };
+    case "IS_ADD":
+      return {
+        ...state,
+        isAdd: action.payload,
+      };
 
     default:
       return state;

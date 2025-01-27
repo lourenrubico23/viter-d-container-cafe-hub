@@ -22,3 +22,9 @@ export const setMessage = (val) => {
     payload: val,
   };
 };
+export const setIsAdd = (val) => {
+  return {
+    type: "IS_ADD",
+    payload: val,
+  };
+};
