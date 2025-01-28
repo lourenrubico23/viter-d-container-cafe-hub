@@ -11,7 +11,7 @@ const Services = () => {
             <div className="container">
               <div className="lg:grid lg:grid-cols-2 ">
                 <div></div>
-                <div className="dicover flex flex-col gap-4 my-8 lg:my-20 max-w-[686px] md:ml-[74px] md:py-10 md:mb-8">
+                <div className="dicover flex flex-col gap-4 my-8 lg:my-20 max-w-[686px] lg:ml-[74px] md:py-10 md:mb-8">
                   <h2 className="text-[clamp(36px,6vw,24px)] font-rubikBold text-center lg:text-left">
                     Our Coffee
                   </h2>

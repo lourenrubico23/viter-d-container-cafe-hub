@@ -46,7 +46,7 @@ const ContactUsForm = () => {
   return (
     <>
       <ModalWrapperCenter
-        className={`relative transition-all ease-in-out transform duration-200 h-[720px] w-[500px]  overflow-hidden bg-light ${animate}`}
+        className={`relative transition-all ease-in-out transform duration-200 lg:h-[700px] lg:w-[500px] h-screen  w-[320px] bg-light ${animate}`}
         handleClose={handleClose}
       >
         <div
@@ -55,7 +55,7 @@ const ContactUsForm = () => {
         >
           <FaTimes />
         </div>
-        <div className="h-full overflow-y-auto pt-8 pb-4 px-5 bg-light">
+        <div className="h-full overflow-y-auto pt-8 pb-4 px-5 bg-light ">
           <div className="mt-1 mb-2">
             <h4 className="font-rubikBold text-[clamp(30px,4vw,36px)]">
               Get In Touch

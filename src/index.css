@@ -230,4 +230,31 @@
   .tooltip-action-table:hover::after {
     @apply scale-100 opacity-100;
   }
+  /* desktop tool-tip */
+  .tooltip-desktop {
+    @apply bg-transparent leading-none;
+  }
+  .tooltip-desktop::after {
+    @apply content-[attr(data-tooltip)] capitalize absolute -translate-x-2/4 bottom-[35px] bg-black/80 text-white p-1 -ml-3 rounded-sm h-fit leading-none z-20 whitespace-nowrap text-center opacity-0 text-[10px] pointer-events-none transition ease-linear scale-0 duration-75 right-[10px] -top-0.5;
+  }
+  .tooltip-desktop:hover::after {
+    @apply scale-100 opacity-100;
+  }
+  /* mobile tool-tip */
+  .tooltip-phone {
+    @apply bg-transparent leading-none;
+  }
+  .tooltip-phone::after {
+    @apply content-[attr(data-tooltip)] capitalize absolute -translate-x-2/4  bottom-[35px] bg-black/80 text-white p-1 -ml-3 rounded-sm h-fit leading-none z-20 whitespace-nowrap text-center opacity-0 text-[10px] pointer-events-none transition ease-linear scale-0 duration-75 right-[-50px] -top-0.5;
+  }
+  .tooltip-phone:hover::after {
+    @apply scale-100 opacity-100;
+  }
+  .toggle span {
+    @apply w-6 h-[.2rem] block bg-white rounded-full;
+  }
+  .addShadowDash {
+    /* box-shadow: 0px 0px 9px 3px rgb(106, 17, 65, 0.85); */
+    box-shadow: 0px 0px 9px 3px rgb(207, 208, 212, 0.85);
+  }
 }

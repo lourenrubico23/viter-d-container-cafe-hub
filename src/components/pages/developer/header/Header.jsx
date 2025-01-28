@@ -1,10 +1,21 @@
 import { devBaseImgUrl } from "@/components/helpers/functions-general";
-import React from "react";
 import { GrLocation } from "react-icons/gr";
-import Navigation from "../../Navigation";
-import ToggleNavigation from "@/components/partials/ToggleNavigation";
+import { IoImageOutline } from "react-icons/io5";
+
+import Navigation from "./navigation/Navigation";
+import useQueryData from "@/components/custom-hooks/useQueryData";
 
 const Header = () => {
+  // const {
+  //   isFetching,
+  //   error,
+  //   data: headerData,
+  // } = useQueryData(
+  //   "/v1/header", // endpoint
+  //   "get", // method
+  //   "header" // key
+  // );
+
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
     if (section) {

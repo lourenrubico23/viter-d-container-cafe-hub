@@ -17,7 +17,7 @@ const ReachUs = () => {
     <>
       <section id="reachUs">
         <div className="bg-light overflow-hidden">
-          <div className="container flex flex-col lg:flex lg:flex-row gap-7 py-[80px] ">
+          <div className="container flex flex-col lg:grid lg:grid-cols-[_1fr_1.5fr] relative gap-7 py-[80px] ">
             <div className="address flex flex-col gap-16 lg:my-32">
               <h2 className="text-accent font-rubikBold text-[clamp(30px,4vw,36px)] ">
                 D Container Cafe Hub Exquisite Salon Spa
@@ -57,8 +57,8 @@ const ReachUs = () => {
               </button>
             </div>
             <div>
-              <div className="bg-accent w-[50rem] h-[46rem] mt-24 relative hidden lg:block">
-                <div className="mapouter absolute ml-12 -top-24 ">
+              <div className="bg-accent w-[60rem] h-[46rem] mt-24  hidden lg:block absolute">
+                <div className="mapouter ml-12 -top-24 absolute ">
                   <div className="gmap_canvas">
                     <iframe
                       className="gmap_iframe"

@@ -50,56 +50,62 @@ const Footer = () => {
   };
   return (
     <>
-      <div className="bg-secondary">
-        <div className="container flex flex-col md:flex md:flex-row items-center justify-between py-[76px] gap-5">
-          <img
-            src={`${devBaseImgUrl}/logo.png`}
-            alt=""
-            className="max-w-[98px] max-h-[90px]"
-          />
-          <ul className="nav md:flex gap-12 text-center">
-            <li
-              className={
-                activeSection === "about" ? "cursor-pointer" : "cursor-pointer"
-              }
-              onClick={() => scrollToSection("about")}
-            >
-              About
-            </li>
-            <li
-              className={
-                activeSection === "coffee" ? "cursor-pointer" : "cursor-pointer"
-              }
-              onClick={() => scrollToSection("coffee")}
-            >
-              Coffee
-            </li>
-            <li
-              className={
-                activeSection === "spaSalon"
-                  ? "cursor-pointer"
-                  : "cursor-pointer"
-              }
-              onClick={() => scrollToSection("spaSalon")}
-            >
-              Spa Salon
-            </li>
-            <li
-              className={
-                activeSection === "reachUs"
-                  ? "cursor-pointer"
-                  : "cursor-pointer"
-              }
-              onClick={() => scrollToSection("reachUs")}
-            >
-              Reach Us
-            </li>
-          </ul>
-          <h3 className="text-center text-[clamp(.5rem,4vw,16px)] text-white font-rubikRegular font-light">
-            &copy; D'ConTainerHUB
-          </h3>
+      <section id="footer">
+        <div className="bg-secondary">
+          <div className="container flex flex-col md:flex md:flex-row items-center justify-between py-[76px] gap-5">
+            <img
+              src={`${devBaseImgUrl}/logo.png`}
+              alt=""
+              className="max-w-[98px] max-h-[90px]"
+            />
+            <ul className="nav md:flex gap-12 text-center">
+              <li
+                className={
+                  activeSection === "about"
+                    ? "cursor-pointer"
+                    : "cursor-pointer"
+                }
+                onClick={() => scrollToSection("about")}
+              >
+                About
+              </li>
+              <li
+                className={
+                  activeSection === "coffee"
+                    ? "cursor-pointer"
+                    : "cursor-pointer"
+                }
+                onClick={() => scrollToSection("coffee")}
+              >
+                Coffee
+              </li>
+              <li
+                className={
+                  activeSection === "spaSalon"
+                    ? "cursor-pointer"
+                    : "cursor-pointer"
+                }
+                onClick={() => scrollToSection("spaSalon")}
+              >
+                Spa Salon
+              </li>
+              <li
+                className={
+                  activeSection === "reachUs"
+                    ? "cursor-pointer"
+                    : "cursor-pointer"
+                }
+                onClick={() => scrollToSection("reachUs")}
+              >
+                Reach Us
+              </li>
+            </ul>
+            <h3 className="text-center text-[clamp(.5rem,4vw,16px)] text-white font-rubikRegular font-light">
+              &copy; D'ConTainerHUB
+            </h3>
+          </div>
         </div>
-      </div>
+      </section>
     </>
   );
 };

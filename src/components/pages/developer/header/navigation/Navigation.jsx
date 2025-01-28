@@ -3,7 +3,7 @@ import ToggleNavigation from "@/components/partials/ToggleNavigation";
 import { setIsShow } from "@/store/StoreAction";
 import { StoreContext } from "@/store/StoreContext";
 import React from "react";
-import { FaBars } from "react-icons/fa";
+import { FaBars, FaRegImages } from "react-icons/fa";
 import { RxHamburgerMenu } from "react-icons/rx";
 
 const Navigation = () => {
@@ -29,6 +29,13 @@ const Navigation = () => {
     <>
       <div className="container absolute lg:flex  justify-between top-0 lg:top-6 items-center px-0 lg:px-12 ">
         <div className="flex justify-between items-center bg-black lg:bg-transparent py-3 px-4 lg:px-0 lg:py-0">
+          <a
+            className="z-[2] relative cursor-pointer tooltip-header"
+            data-tooltip="Upload Logo"
+            // onClick={AddLogo}
+          >
+            <FaRegImages className=" bg-[#C7AC27] rounded-full w-[25px] h-[25px] p-1 border-[1px]" />
+          </a>
           <img
             src={`${devBaseImgUrl}/logo.png`}
             alt=""
