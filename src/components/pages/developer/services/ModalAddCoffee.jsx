@@ -1,4 +1,4 @@
-import { InputText } from "@/components/helpers/FormInputs";
+import { InputText, InputTextArea } from "@/components/helpers/FormInputs";
 import { queryData } from "@/components/helpers/queryData";
 import ModalWrapper from "@/components/partials/modal/ModalWrapper";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
@@ -10,7 +10,7 @@ import React from "react";
 import { GrFormClose } from "react-icons/gr";
 import * as Yup from "yup";
 
-const ModalAddNavigation = ({ setIsNav, headerData, itemEdit }) => {
+const ModalAddCoffee = ({ itemEdit, setIsCoffee, servicesData }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [animate, setAnimate] = React.useState("translate-x-full");
 
@@ -18,7 +18,7 @@ const ModalAddNavigation = ({ setIsNav, headerData, itemEdit }) => {
     setAnimate("translate-x-full");
     document.body.classList.remove("overflow-hidden");
     setTimeout(() => {
-      setIsNav(false);
+      setIsCoffee(false);
     }, 200);
   };
 
@@ -27,19 +27,19 @@ const ModalAddNavigation = ({ setIsNav, headerData, itemEdit }) => {
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        `/v1/header/${headerData?.data[0]?.header_aid}`, // update
+        `/v1/services/${servicesData?.data[0]?.services_aid}`, // update
         "put",
         values
       ),
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ["header"] });
+      queryClient.invalidateQueries({ queryKey: ["services"] });
       if (!data.success) {
         dispatch(setError(true));
         dispatch(setMessage(data.error));
         dispatch(setSuccess(false));
       } else {
         console.log("Success");
-        setIsNav(false);
+        setIsCoffee(false);
         document.body.classList.remove("overflow-hidden");
         dispatch(setSuccess(true));
         dispatch(setMessage(`Successfully Updated.`));
@@ -52,22 +52,41 @@ const ModalAddNavigation = ({ setIsNav, headerData, itemEdit }) => {
   }, []);
 
   const initVal = {
-    isUpdateHeader: itemEdit,
-    header_nav_a: headerData ? headerData?.data[0].header_nav_a : "",
-    header_nav_b: headerData ? headerData?.data[0].header_nav_b : "",
-    header_nav_c: headerData ? headerData?.data[0].header_nav_c : "",
-    header_nav_d: headerData ? headerData?.data[0].header_nav_d : "",
+    isUpdateServices: itemEdit,
+    services_coffee_title: servicesData
+      ? servicesData?.data[0]?.services_coffee_title
+      : "",
+    services_coffee_description: servicesData
+      ? servicesData?.data[0]?.services_coffee_description
+      : "",
+    services_product_a: servicesData
+      ? servicesData?.data[0]?.services_product_a
+      : "",
+    services_product_b: servicesData
+      ? servicesData?.data[0]?.services_product_b
+      : "",
+    services_product_c: servicesData
+      ? servicesData?.data[0]?.services_product_c
+      : "",
+    services_product_description_a: servicesData
+      ? servicesData?.data[0]?.services_product_description_a
+      : "",
+    services_product_description_b: servicesData
+      ? servicesData?.data[0]?.services_product_description_b
+      : "",
+    services_product_description_c: servicesData
+      ? servicesData?.data[0]?.services_product_description_c
+      : "",
   };
 
   const yupSchema = Yup.object({});
-
   return (
     <ModalWrapper
       className={`transition-all ease-linear transform duration-200 ${animate}`}
       handleClose={handleClose}
     >
       <div className="modal-title">
-        <h2 className="text-sm">Edit Navigation</h2>
+        <h2 className="text-sm">Edit Contents</h2>
         <button onClick={handleClose}>
           <GrFormClose className="text-[25px]" />
         </button>
@@ -86,33 +105,65 @@ const ModalAddNavigation = ({ setIsNav, headerData, itemEdit }) => {
                 <div className="form-input">
                   <div className="input-wrapper">
                     <InputText
-                      label="Navigation 1"
+                      label="Title"
                       type="text"
-                      name="header_nav_a"
+                      name="services_coffee_title"
+                      disabled={mutation.isPending}
+                    />
+                  </div>
+                  <div className="input-wrapper">
+                    <InputTextArea
+                      label="Description"
+                      type="text"
+                      name="services_coffee_description"
                       disabled={mutation.isPending}
                     />
                   </div>
                   <div className="input-wrapper">
                     <InputText
-                      label="Navigation 2"
+                      label="Title of first services"
                       type="text"
-                      name="header_nav_b"
+                      name="services_product_a"
+                      disabled={mutation.isPending}
+                    />
+                  </div>
+                  <div className="input-wrapper">
+                    <InputTextArea
+                      label="Description of the first services"
+                      type="text"
+                      name="services_product_description_a"
                       disabled={mutation.isPending}
                     />
                   </div>
                   <div className="input-wrapper">
                     <InputText
-                      label="Navigation 3"
+                      label="Title of second services"
                       type="text"
-                      name="header_nav_c"
+                      name="services_product_b"
+                      disabled={mutation.isPending}
+                    />
+                  </div>
+                  <div className="input-wrapper">
+                    <InputTextArea
+                      label="Description of the second services"
+                      type="text"
+                      name="services_product_description_b"
                       disabled={mutation.isPending}
                     />
                   </div>
                   <div className="input-wrapper">
                     <InputText
-                      label="Navigation 4"
+                      label="Title of third services"
                       type="text"
-                      name="header_nav_d"
+                      name="services_product_c"
+                      disabled={mutation.isPending}
+                    />
+                  </div>
+                  <div className="input-wrapper">
+                    <InputTextArea
+                      label="Description of the third services"
+                      type="text"
+                      name="services_product_description_c"
                       disabled={mutation.isPending}
                     />
                   </div>
@@ -144,4 +195,4 @@ const ModalAddNavigation = ({ setIsNav, headerData, itemEdit }) => {
   );
 };
 
-export default ModalAddNavigation;
+export default ModalAddCoffee;

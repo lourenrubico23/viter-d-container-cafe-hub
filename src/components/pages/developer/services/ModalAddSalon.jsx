@@ -1,4 +1,4 @@
-import { InputText } from "@/components/helpers/FormInputs";
+import { InputText, InputTextArea } from "@/components/helpers/FormInputs";
 import { queryData } from "@/components/helpers/queryData";
 import ModalWrapper from "@/components/partials/modal/ModalWrapper";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
@@ -10,7 +10,7 @@ import React from "react";
 import { GrFormClose } from "react-icons/gr";
 import * as Yup from "yup";
 
-const ModalAddNavigation = ({ setIsNav, headerData, itemEdit }) => {
+const ModalAddSalon = ({ itemEdit, setIsSalon, servicesData }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [animate, setAnimate] = React.useState("translate-x-full");
 
@@ -18,7 +18,7 @@ const ModalAddNavigation = ({ setIsNav, headerData, itemEdit }) => {
     setAnimate("translate-x-full");
     document.body.classList.remove("overflow-hidden");
     setTimeout(() => {
-      setIsNav(false);
+      setIsSalon(false);
     }, 200);
   };
 
@@ -27,19 +27,19 @@ const ModalAddNavigation = ({ setIsNav, headerData, itemEdit }) => {
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        `/v1/header/${headerData?.data[0]?.header_aid}`, // update
+        `/v1/services/${servicesData?.data[0]?.services_aid}`, // update
         "put",
         values
       ),
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ["header"] });
+      queryClient.invalidateQueries({ queryKey: ["services"] });
       if (!data.success) {
         dispatch(setError(true));
         dispatch(setMessage(data.error));
         dispatch(setSuccess(false));
       } else {
         console.log("Success");
-        setIsNav(false);
+        setIsSalon(false);
         document.body.classList.remove("overflow-hidden");
         dispatch(setSuccess(true));
         dispatch(setMessage(`Successfully Updated.`));
@@ -52,11 +52,19 @@ const ModalAddNavigation = ({ setIsNav, headerData, itemEdit }) => {
   }, []);
 
   const initVal = {
-    isUpdateHeader: itemEdit,
-    header_nav_a: headerData ? headerData?.data[0].header_nav_a : "",
-    header_nav_b: headerData ? headerData?.data[0].header_nav_b : "",
-    header_nav_c: headerData ? headerData?.data[0].header_nav_c : "",
-    header_nav_d: headerData ? headerData?.data[0].header_nav_d : "",
+    isUpdateServices: itemEdit,
+    services_salon_title: servicesData
+      ? servicesData?.data[0]?.services_salon_title
+      : "",
+    services_salon_description_a: servicesData
+      ? servicesData?.data[0]?.services_salon_description_a
+      : "",
+    services_salon_description_b: servicesData
+      ? servicesData?.data[0]?.services_salon_description_b
+      : "",
+    services_contact: servicesData
+      ? servicesData?.data[0]?.services_contact
+      : "",
   };
 
   const yupSchema = Yup.object({});
@@ -67,7 +75,7 @@ const ModalAddNavigation = ({ setIsNav, headerData, itemEdit }) => {
       handleClose={handleClose}
     >
       <div className="modal-title">
-        <h2 className="text-sm">Edit Navigation</h2>
+        <h2 className="text-sm">Edit Contents</h2>
         <button onClick={handleClose}>
           <GrFormClose className="text-[25px]" />
         </button>
@@ -86,33 +94,33 @@ const ModalAddNavigation = ({ setIsNav, headerData, itemEdit }) => {
                 <div className="form-input">
                   <div className="input-wrapper">
                     <InputText
-                      label="Navigation 1"
+                      label="Title"
                       type="text"
-                      name="header_nav_a"
+                      name="services_salon_title"
+                      disabled={mutation.isPending}
+                    />
+                  </div>
+                  <div className="input-wrapper">
+                    <InputTextArea
+                      label="First Description"
+                      type="text"
+                      name="services_salon_description_a"
+                      disabled={mutation.isPending}
+                    />
+                  </div>
+                  <div className="input-wrapper">
+                    <InputTextArea
+                      label="Second Description"
+                      type="text"
+                      name="services_salon_description_b"
                       disabled={mutation.isPending}
                     />
                   </div>
                   <div className="input-wrapper">
                     <InputText
-                      label="Navigation 2"
+                      label="Contact No."
                       type="text"
-                      name="header_nav_b"
-                      disabled={mutation.isPending}
-                    />
-                  </div>
-                  <div className="input-wrapper">
-                    <InputText
-                      label="Navigation 3"
-                      type="text"
-                      name="header_nav_c"
-                      disabled={mutation.isPending}
-                    />
-                  </div>
-                  <div className="input-wrapper">
-                    <InputText
-                      label="Navigation 4"
-                      type="text"
-                      name="header_nav_d"
+                      name="services_contact"
                       disabled={mutation.isPending}
                     />
                   </div>
@@ -144,4 +152,4 @@ const ModalAddNavigation = ({ setIsNav, headerData, itemEdit }) => {
   );
 };
 
-export default ModalAddNavigation;
+export default ModalAddSalon;

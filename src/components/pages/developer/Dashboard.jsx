@@ -5,11 +5,11 @@ import DashboardUpperNav from "@/components/partials/dashboard/DashboardUpperNav
 import ModalSuccess from "@/components/partials/modal/ModalSuccess";
 import ModalError from "@/components/partials/modal/ModalError";
 
-import About from "../website/home/about/About";
-import Services from "../website/home/services/Services";
 import ReachUs from "../website/home/reach-us/ReachUs";
 import Footer from "@/components/partials/Footer";
 import Header from "./header/Header";
+import About from "./about/About";
+import Services from "./services/Services";
 
 const Dashboard = () => {
   const { store, dispatch } = React.useContext(StoreContext);

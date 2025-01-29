@@ -1,0 +1,25 @@
+RewriteEngine On
+
+# use for authentication
+
+RewriteCond %{HTTP:Authorization} ^(.+)$
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+
+Header set Access-Control-Allow-Origin *
+
+RewriteRule ^upload-photo$ core/upload-photo.php [L]
+RewriteRule ^upload-multiple-photo$ core/upload-multiple-photo.php [L]
+
+# HEADER
+RewriteRule ^header$ controllers/developer/header/header.php [L]
+RewriteRule ^header/([0-9]+)$ controllers/developer/header/header.php?headerid=$1 [L]
+
+# ABOUT
+RewriteRule ^about$ controllers/developer/about/about.php [L]
+RewriteRule ^about/([0-9]+)$ controllers/developer/about/about.php?aboutid=$1 [L]
+
+# SERVICES
+RewriteRule ^services$ controllers/developer/services/services.php [L]
+RewriteRule ^services/([0-9]+)$ controllers/developer/services/services.php?servicesid=$1 [L]

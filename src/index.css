@@ -190,7 +190,7 @@
     @apply translate-y-0;
   }
   .modal-wrapper {
-    @apply bg-[white] h-[82dvh] flex flex-col max-w-[110dvh] w-full p-5 place-self-center rounded-lg;
+    @apply bg-white h-full flex flex-col max-w-[400px] w-full p-5;
   }
   .modal-wrapper-menu {
     @apply bg-[white] h-full flex flex-col max-w-[506px] w-full p-5;
@@ -203,6 +203,12 @@
   }
   .modal-form {
     @apply flex flex-col justify-between h-full;
+  }
+  .form-btn {
+    @apply flex gap-2 pt-4;
+  }
+  .btnImgUpload button {
+    @apply text-2xl text-white bg-black bg-opacity-50 transition-all opacity-0 group-hover:opacity-40 w-full grid place-items-center h-full absolute top-0 left-0;
   }
   .input-wrapper {
     @apply mb-2 my-[20px] relative flex flex-col gap-2;
@@ -248,6 +254,26 @@
     @apply content-[attr(data-tooltip)] capitalize absolute -translate-x-2/4  bottom-[35px] bg-black/80 text-white p-1 -ml-3 rounded-sm h-fit leading-none z-20 whitespace-nowrap text-center opacity-0 text-[10px] pointer-events-none transition ease-linear scale-0 duration-75 right-[-50px] -top-0.5;
   }
   .tooltip-phone:hover::after {
+    @apply scale-100 opacity-100;
+  }
+  /* header tool-tip */
+  .tooltip-header {
+    @apply p-1 mr-1.5 bg-transparent leading-none;
+  }
+  .tooltip-header::after {
+    @apply content-[attr(data-tooltip)] capitalize absolute -translate-x-2/4 bottom-full top-[7px] bg-black/80 text-white p-1 ml-3 rounded-sm h-fit leading-none z-20 whitespace-nowrap text-center opacity-0 text-[10px] pointer-events-none transition ease-linear scale-0 duration-75 left-16;
+  }
+  .tooltip-header:hover::after {
+    @apply scale-100 opacity-100;
+  }
+  /* header-nav tool-tip */
+  .tooltip-header-nav {
+    @apply p-1 mr-1.5 bg-transparent leading-none;
+  }
+  .tooltip-header-nav::after {
+    @apply content-[attr(data-tooltip)] capitalize absolute -translate-x-2/4 bottom-full top-[9px] bg-black/80 text-white p-1 -ml-3 rounded-sm h-fit leading-none z-20 whitespace-nowrap text-center opacity-0 text-[10px] pointer-events-none transition ease-linear scale-0 duration-75 right-4;
+  }
+  .tooltip-header-nav:hover::after {
     @apply scale-100 opacity-100;
   }
   .toggle span {
