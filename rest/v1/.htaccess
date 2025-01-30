@@ -23,3 +23,7 @@ RewriteRule ^about/([0-9]+)$ controllers/developer/about/about.php?aboutid=$1 [L
 # SERVICES
 RewriteRule ^services$ controllers/developer/services/services.php [L]
 RewriteRule ^services/([0-9]+)$ controllers/developer/services/services.php?servicesid=$1 [L]
+
+# CONTACT US
+RewriteRule ^contactUs$ controllers/developer/contact-us/contactUs.php [L]
+RewriteRule ^contactUs/([0-9]+)$ controllers/developer/contact-us/contactUs.php?contactUsid=$1 [L]

@@ -21,6 +21,7 @@ const DashboardNavigation = () => {
       "about",
       "coffee",
       "spaSalon",
+      "contactUs",
       "reachUs",
       "footer",
     ];
@@ -133,6 +134,16 @@ const DashboardNavigation = () => {
                 onClick={() => scrollToSection("spaSalon")}
               >
                 <a className="cursor-pointer">Spa Salon</a>
+              </li>
+              <li
+                className={
+                  activeSection === "contactUs"
+                    ? "text-black underline underline-offset-4"
+                    : "text-dashAccent"
+                }
+                onClick={() => scrollToSection("contactUs")}
+              >
+                <a className="cursor-pointer">Contact Us</a>
               </li>
               <li
                 className={

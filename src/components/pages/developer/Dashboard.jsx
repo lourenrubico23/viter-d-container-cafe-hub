@@ -10,6 +10,7 @@ import Footer from "@/components/partials/Footer";
 import Header from "./header/Header";
 import About from "./about/About";
 import Services from "./services/Services";
+import ContactUs from "./contact-us/ContactUs";
 
 const Dashboard = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -22,16 +23,10 @@ const Dashboard = () => {
           <div className=" w-[calc(100%_-_10px)] pt-[70px] relative">
             <div className="headerCover fixed top-0 left-[200px] w-full h-[76px]  bg-dashPrimary z-[9]"></div>
             <div className="addShadow bg-[#f5f5f3] ">
-              {/* <Header />
-              <OurOrigin />
-              <Menu />
-              <ReserveSeat />
-              <Events />
-              <Footer /> */}
-
               <Header />
               <About />
               <Services />
+              <ContactUs />
               <ReachUs />
               <Footer />
             </div>

@@ -26,9 +26,18 @@ const ModalAddNavigation = ({ setIsNav, headerData, itemEdit }) => {
 
   const mutation = useMutation({
     mutationFn: (values) =>
+      // queryData(
+      //   headerData
+      //     ? `/v1/header/${headerData?.data[0]?.header_aid}` // update
+      //     : `/v1/header`, //create
+      //   headerData ? "post" : "put",
+      //   values
+      // ),
       queryData(
-        `/v1/header/${headerData?.data[0]?.header_aid}`, // update
-        "put",
+        headerData?.data?.length
+          ? `/v1/header/${headerData.data[0].header_aid}` // update
+          : `/v1/header`, // create
+        headerData?.data?.length ? "put" : "post",
         values
       ),
     onSuccess: (data) => {
@@ -51,12 +60,20 @@ const ModalAddNavigation = ({ setIsNav, headerData, itemEdit }) => {
     setAnimate("");
   }, []);
 
+  // const initVal = {
+  //   isUpdateHeader: itemEdit,
+  //   header_nav_a: headerData ? headerData?.data[0]?.header_nav_a : "",
+  //   header_nav_b: headerData ? headerData?.data[0]?.header_nav_b : "",
+  //   header_nav_c: headerData ? headerData?.data[0]?.header_nav_c : "",
+  //   header_nav_d: headerData ? headerData?.data[0]?.header_nav_d : "",
+  // };
+
   const initVal = {
     isUpdateHeader: itemEdit,
-    header_nav_a: headerData ? headerData?.data[0].header_nav_a : "",
-    header_nav_b: headerData ? headerData?.data[0].header_nav_b : "",
-    header_nav_c: headerData ? headerData?.data[0].header_nav_c : "",
-    header_nav_d: headerData ? headerData?.data[0].header_nav_d : "",
+    header_nav_a: headerData?.data?.[0]?.header_nav_a ?? "", // Use optional chaining with fallback
+    header_nav_b: headerData?.data?.[0]?.header_nav_b ?? "",
+    header_nav_c: headerData?.data?.[0]?.header_nav_c ?? "",
+    header_nav_d: headerData?.data?.[0]?.header_nav_d ?? "",
   };
 
   const yupSchema = Yup.object({});

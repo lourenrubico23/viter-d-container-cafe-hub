@@ -35,6 +35,34 @@ class About
         return $query;
     }
 
+    public function create()
+    {
+        try {
+            $sql = "insert into {$this->tblAbout}";
+            $sql .= "(about_img, ";
+            $sql .= "about_description_a, ";
+            $sql .= "about_description_b, ";
+            $sql .= "about_description_c, ";
+            $sql .= "about_datetime ) values ( ";
+            $sql .= ":about_img, ";
+            $sql .= ":about_description_a, ";
+            $sql .= ":about_description_b, ";
+            $sql .= ":about_description_c, ";
+            $sql .= ":about_datetime )";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "about_img" => $this->about_img,
+                "about_description_a" => $this->about_description_a,
+                "about_description_b" => $this->about_description_b,
+                "about_description_c" => $this->about_description_c,
+                "about_datetime" => $this->about_datetime,
+            ]);
+            $this->lastInsertedId = $this->connection->lastInsertId();
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
 
     public function update()
     {

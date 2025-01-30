@@ -37,8 +37,10 @@ const ModalAddLogo = ({ setIsLogo, headerData, itemEdit }) => {
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        `/v1/header/${headerData?.data[0]?.header_aid}`, // update
-        "put",
+        headerData?.data?.length
+          ? `/v1/header/${headerData.data[0].header_aid}` // update
+          : `/v1/header`, // create
+        headerData?.data?.length ? "put" : "post",
         values
       ),
     onSuccess: (data) => {
@@ -63,7 +65,7 @@ const ModalAddLogo = ({ setIsLogo, headerData, itemEdit }) => {
 
   const initVal = {
     isUpdateHeader: itemEdit,
-    header_logo_img: headerData ? headerData?.data[0]?.header_logo_img : "",
+    header_logo_img: headerData?.data?.[0]?.header_logo_img ?? "",
   };
 
   const yupSchema = Yup.object({});
@@ -84,12 +86,12 @@ const ModalAddLogo = ({ setIsLogo, headerData, itemEdit }) => {
           initialValues={initVal}
           validationSchema={yupSchema}
           onSubmit={async (values) => {
-            // to get all of the data of image
             const data = {
               ...values,
-              header_logo_img: photo?.name || headerData.header_logo_img,
+              header_logo_img:
+                photo?.name || headerData?.data?.[0]?.header_logo_img || "",
             };
-            uploadPhoto(); // to save the photo when submit
+            uploadPhoto();
             mutation.mutate(data);
           }}
         >
@@ -100,34 +102,21 @@ const ModalAddLogo = ({ setIsLogo, headerData, itemEdit }) => {
                   <div className="mt-5">
                     <span className="top-20 px-2 text-[12px]">Logo</span>
                     <div className="relative w-fit m-auto group">
-                      {headerData === null && photo === null ? (
+                      {!headerData?.data?.[0]?.header_logo_img && !photo ? (
                         <div className="group-hover:opacity-20 bg-dashAccent mb-4 items-center gap-2 w-[322px] h-[90px] border rounded-md p-2 grid place-items-center">
-                          <div className="">
-                            <IoImageOutline className="text-[40px] text-[gray] mx-auto" />
-                            <h1 className="mb-0 leading-tight text-[gray] text-[15px] text-center">
-                              Upload Image
-                            </h1>
-                          </div>
-                        </div>
-                      ) : (headerData?.data[0]?.header_logo_img === "" &&
-                          photo === null) ||
-                        photo === "" ? (
-                        <div className="group-hover:opacity-20 mb-4 bg-dashAccent grid place-items-center items-center gap-2 w-[322px] h-[90px] p-2">
-                          <div>
-                            <IoImageOutline className="text-[40px] text-[gray] mx-auto" />
-                            <h1 className="mb-0 leading-tight grid place-items-center text-gray text-[gray] text-sm text-center">
-                              Upload Image
-                            </h1>
-                          </div>
+                          <IoImageOutline className="text-[40px] text-[gray] mx-auto" />
+                          <h1 className="mb-0 leading-tight text-[gray] text-[15px] text-center">
+                            Upload Image
+                          </h1>
                         </div>
                       ) : (
                         <img
                           src={
                             photo
-                              ? URL.createObjectURL(photo) // preview
-                              : devBaseImgUrl +
-                                "/" +
-                                headerData?.data[0]?.header_logo_img // check db
+                              ? URL.createObjectURL(photo)
+                              : headerData?.data?.[0]?.header_logo_img
+                              ? `${devBaseImgUrl}/${headerData.data[0].header_logo_img}`
+                              : ""
                           }
                           alt="Logo"
                           className="group-hover:opacity-30 duration-200 relative h-[90px] object-contain object-[50%,50%] m-auto"
@@ -159,8 +148,7 @@ const ModalAddLogo = ({ setIsLogo, headerData, itemEdit }) => {
                       className="btn-modal-submit"
                       type="submit"
                       disabled={
-                        ((mutation.isPending || !props.dirty) &&
-                          photo === null) ||
+                        ((mutation.isPending || !props.dirty) && !photo) ||
                         photo === "" ||
                         initVal.header_logo_img === photo?.name
                       }

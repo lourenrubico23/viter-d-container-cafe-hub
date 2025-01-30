@@ -86,25 +86,37 @@ const Navigation = ({ headerData, setItemEdit, itemEdit }) => {
           </a>
           <ul className="nav flex flex-col md:flex md:flex-row gap-12 [&>li]:cursor-pointer">
             <li onClick={() => scrollToSection("about")}>
-              {headerData?.data[0].header_nav_a
-                ? headerData?.data[0].header_nav_a
-                : ""}
+              {headerData?.data?.length > 0 &&
+              headerData.data[0]?.header_nav_a ? (
+                headerData?.data[0].header_nav_a
+              ) : (
+                <p className="text-black">Navigation 1</p>
+              )}
             </li>
 
             <li onClick={() => scrollToSection("coffee")}>
-              {headerData?.data[0].header_nav_b
-                ? headerData?.data[0].header_nav_b
-                : ""}
+              {headerData?.data?.length > 0 &&
+              headerData.data[0]?.header_nav_b ? (
+                headerData?.data[0].header_nav_b
+              ) : (
+                <p className="text-black">Navigation 2</p>
+              )}
             </li>
             <li onClick={() => scrollToSection("spaSalon")}>
-              {headerData?.data[0].header_nav_c
-                ? headerData?.data[0].header_nav_c
-                : ""}
+              {headerData?.data?.length > 0 &&
+              headerData.data[0]?.header_nav_c ? (
+                headerData?.data[0].header_nav_c
+              ) : (
+                <p className="text-black">Navigation 3</p>
+              )}
             </li>
             <li onClick={() => scrollToSection("reachUs")}>
-              {headerData?.data[0].header_nav_d
-                ? headerData?.data[0].header_nav_d
-                : ""}
+              {headerData?.data?.length > 0 &&
+              headerData.data[0]?.header_nav_d ? (
+                headerData?.data[0].header_nav_d
+              ) : (
+                <p className="text-black">Navigation 4</p>
+              )}
             </li>
           </ul>
         </div>

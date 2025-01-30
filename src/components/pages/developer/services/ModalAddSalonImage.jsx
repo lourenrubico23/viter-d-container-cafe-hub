@@ -38,8 +38,10 @@ const ModalAddSalonImage = ({ itemEdit, setIsSalonImg, servicesData }) => {
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        `/v1/services/${servicesData?.data[0]?.services_aid}`, // update
-        "put",
+        servicesData?.data?.length
+          ? `/v1/services/${servicesData.data[0].services_aid}` // update
+          : `/v1/services`, // create
+        servicesData?.data?.length ? "put" : "post",
         values
       ),
     onSuccess: (data) => {
@@ -64,9 +66,7 @@ const ModalAddSalonImage = ({ itemEdit, setIsSalonImg, servicesData }) => {
 
   const initVal = {
     isUpdateServices: itemEdit,
-    services_salon_img: servicesData
-      ? servicesData?.data[0]?.services_salon_img
-      : "",
+    services_salon_img: servicesData?.data[0]?.services_salon_img ?? "",
   };
 
   const yupSchema = Yup.object({});
@@ -89,8 +89,9 @@ const ModalAddSalonImage = ({ itemEdit, setIsSalonImg, servicesData }) => {
             // to get all of the data of image
             const data = {
               ...values,
-              services_salon_img:
-                photo?.name || servicesData.services_salon_img,
+              services_salon_img: photo
+                ? photo.name
+                : servicesData?.data?.[0]?.services_salon_img,
             };
             uploadPhoto(); // to save the photo when submit
             mutation.mutate(data);
@@ -103,7 +104,8 @@ const ModalAddSalonImage = ({ itemEdit, setIsSalonImg, servicesData }) => {
                   <div className="mt-5">
                     <span className="top-20 px-2 text-[12px]">Image</span>
                     <div className="relative w-fit m-auto group">
-                      {servicesData === null && photo === null ? (
+                      {!servicesData?.data?.[0]?.services_salon_img &&
+                      !photo ? (
                         <div className="group-hover:opacity-20 bg-dashAccent mb-4 items-center gap-2 w-[322px] h-[90px] border rounded-md p-2 grid place-items-center">
                           <div className="">
                             <IoImageOutline className="text-[40px] text-[gray] mx-auto" />
@@ -112,25 +114,14 @@ const ModalAddSalonImage = ({ itemEdit, setIsSalonImg, servicesData }) => {
                             </h1>
                           </div>
                         </div>
-                      ) : (servicesData?.data[0]?.services_salon_img === "" &&
-                          photo === null) ||
-                        photo === "" ? (
-                        <div className="group-hover:opacity-20 mb-4 bg-dashAccent grid place-items-center items-center gap-2 w-[322px] h-[90px] p-2">
-                          <div>
-                            <IoImageOutline className="text-[40px] text-[gray] mx-auto" />
-                            <h1 className="mb-0 leading-tight grid place-items-center text-gray text-[gray] text-sm text-center">
-                              Upload Image
-                            </h1>
-                          </div>
-                        </div>
                       ) : (
                         <img
                           src={
                             photo
-                              ? URL.createObjectURL(photo) // preview
-                              : devBaseImgUrl +
-                                "/" +
-                                servicesData?.data[0]?.services_salon_img // check db
+                              ? URL.createObjectURL(photo)
+                              : servicesData?.data?.[0]?.services_salon_img // Get image from servicesData if no new photo
+                              ? `${devBaseImgUrl}/${servicesData.data[0].services_salon_img}`
+                              : ""
                           }
                           alt="Logo"
                           className="group-hover:opacity-30 duration-200 relative h-[90px] object-contain object-[50%,50%] m-auto"

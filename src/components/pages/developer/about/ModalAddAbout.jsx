@@ -41,8 +41,10 @@ const ModalAddAbout = ({ itemEdit, setIsAbout, aboutData }) => {
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        `/v1/about/${aboutData?.data[0].about_aid}`, // update
-        "put",
+        aboutData?.data?.length
+          ? `/v1/about/${aboutData.data[0].about_aid}` // update
+          : `/v1/about`, // create
+        aboutData?.data?.length ? "put" : "post",
         values
       ),
     onSuccess: (data) => {
@@ -67,16 +69,10 @@ const ModalAddAbout = ({ itemEdit, setIsAbout, aboutData }) => {
 
   const initVal = {
     isUpdateAbout: itemEdit,
-    about_img: aboutData ? aboutData?.data[0].about_img : "",
-    about_description_a: aboutData
-      ? aboutData?.data[0].about_description_a
-      : "",
-    about_description_b: aboutData
-      ? aboutData?.data[0].about_description_b
-      : "",
-    about_description_c: aboutData
-      ? aboutData?.data[0].about_description_c
-      : "",
+    about_img: aboutData?.data?.[0]?.about_img ?? "",
+    about_description_a: aboutData?.data?.[0]?.about_description_a ?? "",
+    about_description_b: aboutData?.data?.[0]?.about_description_b ?? "",
+    about_description_c: aboutData?.data?.[0]?.about_description_c ?? "",
   };
 
   const yupSchema = Yup.object({});
@@ -100,7 +96,7 @@ const ModalAddAbout = ({ itemEdit, setIsAbout, aboutData }) => {
             // to get all of the data of image
             const data = {
               ...values,
-              about_img: photo?.name || aboutData.about_img,
+              about_img: photo ? photo.name : aboutData?.data?.[0]?.about_img,
             };
             uploadPhoto(); // to save the photo when submit
             mutation.mutate(data);
@@ -113,7 +109,7 @@ const ModalAddAbout = ({ itemEdit, setIsAbout, aboutData }) => {
                   <div className="mt-5">
                     <span className="top-20 px-2 text-[12px]">About Image</span>
                     <div className="relative w-fit m-auto group">
-                      {aboutData === null && photo === null ? (
+                      {!aboutData?.data?.[0]?.about_img && !photo ? (
                         <div className="group-hover:opacity-20 bg-dashAccent mb-4 items-center gap-2 w-[322px] h-[90px] border rounded-md p-2 grid place-items-center">
                           <div className="">
                             <IoImageOutline className="text-[40px] text-[gray] mx-auto" />
@@ -122,25 +118,14 @@ const ModalAddAbout = ({ itemEdit, setIsAbout, aboutData }) => {
                             </h1>
                           </div>
                         </div>
-                      ) : (aboutData?.data[0]?.about_img === "" &&
-                          photo === null) ||
-                        photo === "" ? (
-                        <div className="group-hover:opacity-20 mb-4 bg-dashAccent grid place-items-center items-center gap-2 w-[322px] h-[90px] p-2">
-                          <div>
-                            <IoImageOutline className="text-[40px] text-[gray] mx-auto" />
-                            <h1 className="mb-0 leading-tight grid place-items-center text-gray text-[gray] text-sm text-center">
-                              Upload Image
-                            </h1>
-                          </div>
-                        </div>
                       ) : (
                         <img
                           src={
                             photo
-                              ? URL.createObjectURL(photo) // preview
-                              : devBaseImgUrl +
-                                "/" +
-                                aboutData?.data[0]?.about_img // check db
+                              ? URL.createObjectURL(photo)
+                              : aboutData?.data?.[0]?.about_img // Get image from aboutData if no new photo
+                              ? `${devBaseImgUrl}/${aboutData.data[0].about_img}`
+                              : ""
                           }
                           alt="Logo"
                           className="group-hover:opacity-30 duration-200 relative h-[90px] object-contain object-[50%,50%] m-auto"

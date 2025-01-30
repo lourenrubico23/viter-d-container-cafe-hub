@@ -10,7 +10,7 @@ import React from "react";
 import { GrFormClose } from "react-icons/gr";
 import * as Yup from "yup";
 
-const ModalAddCoffee = ({ itemEdit, setIsCoffee, servicesData }) => {
+const ModalAddContactUs = ({ contactUsData, itemEdit, setIsContact }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [animate, setAnimate] = React.useState("translate-x-full");
 
@@ -18,7 +18,7 @@ const ModalAddCoffee = ({ itemEdit, setIsCoffee, servicesData }) => {
     setAnimate("translate-x-full");
     document.body.classList.remove("overflow-hidden");
     setTimeout(() => {
-      setIsCoffee(false);
+      setIsContact(false);
     }, 200);
   };
 
@@ -27,21 +27,21 @@ const ModalAddCoffee = ({ itemEdit, setIsCoffee, servicesData }) => {
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        servicesData?.data?.length
-          ? `/v1/services/${servicesData.data[0].services_aid}` // update
-          : `/v1/services`, // create
-        servicesData?.data?.length ? "put" : "post",
+        contactUsData?.data?.length
+          ? `/v1/contactUs/${contactUsData.data[0].contact_us_aid}` // update
+          : `/v1/contactUs`, // create
+        contactUsData?.data?.length ? "put" : "post",
         values
       ),
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ["services"] });
+      queryClient.invalidateQueries({ queryKey: ["contactUs"] });
       if (!data.success) {
         dispatch(setError(true));
         dispatch(setMessage(data.error));
         dispatch(setSuccess(false));
       } else {
         console.log("Success");
-        setIsCoffee(false);
+        setIsContact(false);
         document.body.classList.remove("overflow-hidden");
         dispatch(setSuccess(true));
         dispatch(setMessage(`Successfully Updated.`));
@@ -54,34 +54,17 @@ const ModalAddCoffee = ({ itemEdit, setIsCoffee, servicesData }) => {
   }, []);
 
   const initVal = {
-    isUpdateServices: itemEdit,
-    services_coffee_title: servicesData
-      ? servicesData?.data[0]?.services_coffee_title
+    isUpdateContactUs: itemEdit,
+    contact_us_description: contactUsData
+      ? contactUsData?.data[0]?.contact_us_description
       : "",
-    services_coffee_description: servicesData
-      ? servicesData?.data[0]?.services_coffee_description
-      : "",
-    services_product_a: servicesData
-      ? servicesData?.data[0]?.services_product_a
-      : "",
-    services_product_b: servicesData
-      ? servicesData?.data[0]?.services_product_b
-      : "",
-    services_product_c: servicesData
-      ? servicesData?.data[0]?.services_product_c
-      : "",
-    services_product_description_a: servicesData
-      ? servicesData?.data[0]?.services_product_description_a
-      : "",
-    services_product_description_b: servicesData
-      ? servicesData?.data[0]?.services_product_description_b
-      : "",
-    services_product_description_c: servicesData
-      ? servicesData?.data[0]?.services_product_description_c
+    contact_us_button: contactUsData
+      ? contactUsData?.data[0]?.contact_us_button
       : "",
   };
 
   const yupSchema = Yup.object({});
+
   return (
     <ModalWrapper
       className={`transition-all ease-linear transform duration-200 ${animate}`}
@@ -106,66 +89,18 @@ const ModalAddCoffee = ({ itemEdit, setIsCoffee, servicesData }) => {
               <Form className="modal-form">
                 <div className="form-input">
                   <div className="input-wrapper">
-                    <InputText
-                      label="Title"
-                      type="text"
-                      name="services_coffee_title"
-                      disabled={mutation.isPending}
-                    />
-                  </div>
-                  <div className="input-wrapper">
                     <InputTextArea
-                      label="Description"
+                      label="Message"
                       type="text"
-                      name="services_coffee_description"
+                      name="contact_us_description"
                       disabled={mutation.isPending}
                     />
                   </div>
                   <div className="input-wrapper">
                     <InputText
-                      label="Title of first services"
+                      label="Button"
                       type="text"
-                      name="services_product_a"
-                      disabled={mutation.isPending}
-                    />
-                  </div>
-                  <div className="input-wrapper">
-                    <InputTextArea
-                      label="Description of the first services"
-                      type="text"
-                      name="services_product_description_a"
-                      disabled={mutation.isPending}
-                    />
-                  </div>
-                  <div className="input-wrapper">
-                    <InputText
-                      label="Title of second services"
-                      type="text"
-                      name="services_product_b"
-                      disabled={mutation.isPending}
-                    />
-                  </div>
-                  <div className="input-wrapper">
-                    <InputTextArea
-                      label="Description of the second services"
-                      type="text"
-                      name="services_product_description_b"
-                      disabled={mutation.isPending}
-                    />
-                  </div>
-                  <div className="input-wrapper">
-                    <InputText
-                      label="Title of third services"
-                      type="text"
-                      name="services_product_c"
-                      disabled={mutation.isPending}
-                    />
-                  </div>
-                  <div className="input-wrapper">
-                    <InputTextArea
-                      label="Description of the third services"
-                      type="text"
-                      name="services_product_description_c"
+                      name="contact_us_button"
                       disabled={mutation.isPending}
                     />
                   </div>
@@ -197,4 +132,4 @@ const ModalAddCoffee = ({ itemEdit, setIsCoffee, servicesData }) => {
   );
 };
 
-export default ModalAddCoffee;
+export default ModalAddContactUs;

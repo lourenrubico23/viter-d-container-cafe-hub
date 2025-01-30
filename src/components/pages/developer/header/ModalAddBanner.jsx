@@ -42,8 +42,10 @@ const ModalAddBanner = ({ itemEdit, headerData, setIsBanner }) => {
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        `/v1/header/${headerData?.data[0]?.header_aid}`, // update
-        "put",
+        headerData?.data?.length
+          ? `/v1/header/${headerData.data[0].header_aid}` // update
+          : `/v1/header`, // create
+        headerData?.data?.length ? "put" : "post",
         values
       ),
     onSuccess: (data) => {
@@ -68,13 +70,9 @@ const ModalAddBanner = ({ itemEdit, headerData, setIsBanner }) => {
 
   const initVal = {
     isUpdateHeader: itemEdit,
-    header_banner_img: headerData ? headerData?.data[0].header_banner_img : "",
-    header_banner_title: headerData
-      ? headerData?.data[0].header_banner_title
-      : "",
-    header_button_text: headerData
-      ? headerData?.data[0].header_button_text
-      : "",
+    header_banner_img: headerData?.data?.[0]?.header_banner_img ?? "",
+    header_banner_title: headerData?.data?.[0]?.header_banner_title ?? "",
+    header_button_text: headerData?.data?.[0]?.header_button_text ?? "",
   };
 
   const yupSchema = Yup.object({});
@@ -98,7 +96,9 @@ const ModalAddBanner = ({ itemEdit, headerData, setIsBanner }) => {
             // to get all of the data of image
             const data = {
               ...values,
-              header_banner_img: photo?.name || headerData.header_banner_img,
+              header_banner_img: photo
+                ? photo.name
+                : headerData?.data?.[0]?.header_banner_img,
             };
             uploadPhoto(); // to save the photo when submit
             mutation.mutate(data);
@@ -113,34 +113,21 @@ const ModalAddBanner = ({ itemEdit, headerData, setIsBanner }) => {
                       Banner Image
                     </span>
                     <div className="relative w-fit m-auto group">
-                      {headerData === null && photo === null ? (
+                      {!headerData?.data?.[0]?.header_banner_img && !photo ? (
                         <div className="group-hover:opacity-20 bg-dashAccent mb-4 items-center gap-2 w-[322px] h-[90px] border rounded-md p-2 grid place-items-center">
-                          <div className="">
-                            <IoImageOutline className="text-[40px] text-[gray] mx-auto" />
-                            <h1 className="mb-0 leading-tight text-[gray] text-[15px] text-center">
-                              Upload Image
-                            </h1>
-                          </div>
-                        </div>
-                      ) : (headerData?.data[0]?.header_banner_img === "" &&
-                          photo === null) ||
-                        photo === "" ? (
-                        <div className="group-hover:opacity-20 mb-4 bg-dashAccent grid place-items-center items-center gap-2 w-[322px] h-[90px] p-2">
-                          <div>
-                            <IoImageOutline className="text-[40px] text-[gray] mx-auto" />
-                            <h1 className="mb-0 leading-tight grid place-items-center text-gray text-[gray] text-sm text-center">
-                              Upload Image
-                            </h1>
-                          </div>
+                          <IoImageOutline className="text-[40px] text-[gray] mx-auto" />
+                          <h1 className="mb-0 leading-tight text-[gray] text-[15px] text-center">
+                            Upload Image
+                          </h1>
                         </div>
                       ) : (
                         <img
                           src={
                             photo
-                              ? URL.createObjectURL(photo) // preview
-                              : devBaseImgUrl +
-                                "/" +
-                                headerData?.data[0]?.header_banner_img // check db
+                              ? URL.createObjectURL(photo)
+                              : headerData?.data?.[0]?.header_banner_img // Get image from headerData if no new photo
+                              ? `${devBaseImgUrl}/${headerData.data[0].header_banner_img}`
+                              : ""
                           }
                           alt="Logo"
                           className="group-hover:opacity-30 duration-200 relative h-[90px] object-contain object-[50%,50%] m-auto"
@@ -155,7 +142,7 @@ const ModalAddBanner = ({ itemEdit, headerData, setIsBanner }) => {
                             type="file"
                             id="myFile"
                             accept="image/*"
-                            title="Upload Image"
+                            title="Upload Logo"
                             onChange={(e) =>
                               handleChangePhoto(e, initVal.header_banner_img)
                             }

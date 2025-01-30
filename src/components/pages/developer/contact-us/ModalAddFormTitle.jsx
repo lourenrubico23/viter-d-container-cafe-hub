@@ -1,4 +1,4 @@
-import { InputText, InputTextArea } from "@/components/helpers/FormInputs";
+import { InputText } from "@/components/helpers/FormInputs";
 import { queryData } from "@/components/helpers/queryData";
 import ModalWrapper from "@/components/partials/modal/ModalWrapper";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
@@ -10,7 +10,7 @@ import React from "react";
 import { GrFormClose } from "react-icons/gr";
 import * as Yup from "yup";
 
-const ModalAddSalon = ({ itemEdit, setIsSalon, servicesData }) => {
+const ModalAddFormTitle = ({ contactUsData, setIsFormTitle, itemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [animate, setAnimate] = React.useState("translate-x-full");
 
@@ -18,7 +18,7 @@ const ModalAddSalon = ({ itemEdit, setIsSalon, servicesData }) => {
     setAnimate("translate-x-full");
     document.body.classList.remove("overflow-hidden");
     setTimeout(() => {
-      setIsSalon(false);
+      setIsFormTitle(false);
     }, 200);
   };
 
@@ -27,21 +27,21 @@ const ModalAddSalon = ({ itemEdit, setIsSalon, servicesData }) => {
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        servicesData?.data?.length
-          ? `/v1/services/${servicesData.data[0].services_aid}` // update
-          : `/v1/services`, // create
-        servicesData?.data?.length ? "put" : "post",
+        contactUsData?.data?.length
+          ? `/v1/contactUs/${contactUsData.data[0].contact_us_aid}` // update
+          : `/v1/contactUs`, // create
+        contactUsData?.data?.length ? "put" : "post",
         values
       ),
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ["services"] });
+      queryClient.invalidateQueries({ queryKey: ["contactUs"] });
       if (!data.success) {
         dispatch(setError(true));
         dispatch(setMessage(data.error));
         dispatch(setSuccess(false));
       } else {
         console.log("Success");
-        setIsSalon(false);
+        setIsFormTitle(false);
         document.body.classList.remove("overflow-hidden");
         dispatch(setSuccess(true));
         dispatch(setMessage(`Successfully Updated.`));
@@ -54,26 +54,16 @@ const ModalAddSalon = ({ itemEdit, setIsSalon, servicesData }) => {
   }, []);
 
   const initVal = {
-    isUpdateServices: itemEdit,
-    services_salon_title: servicesData
-      ? servicesData?.data[0]?.services_salon_title
-      : "",
-    services_salon_description_a: servicesData
-      ? servicesData?.data[0]?.services_salon_description_a
-      : "",
-    services_salon_description_b: servicesData
-      ? servicesData?.data[0]?.services_salon_description_b
-      : "",
-    services_contact: servicesData
-      ? servicesData?.data[0]?.services_contact
+    isUpdateContactUs: itemEdit,
+    contact_us_form_title: contactUsData
+      ? contactUsData?.data[0]?.contact_us_form_title
       : "",
   };
 
   const yupSchema = Yup.object({});
-
   return (
     <ModalWrapper
-      className={`transition-all ease-linear transform duration-200 ${animate}`}
+      className={`transition-all ease-linear transform duration-200 z-[9999] ${animate}`}
       handleClose={handleClose}
     >
       <div className="modal-title">
@@ -98,31 +88,7 @@ const ModalAddSalon = ({ itemEdit, setIsSalon, servicesData }) => {
                     <InputText
                       label="Title"
                       type="text"
-                      name="services_salon_title"
-                      disabled={mutation.isPending}
-                    />
-                  </div>
-                  <div className="input-wrapper">
-                    <InputTextArea
-                      label="First Description"
-                      type="text"
-                      name="services_salon_description_a"
-                      disabled={mutation.isPending}
-                    />
-                  </div>
-                  <div className="input-wrapper">
-                    <InputTextArea
-                      label="Second Description"
-                      type="text"
-                      name="services_salon_description_b"
-                      disabled={mutation.isPending}
-                    />
-                  </div>
-                  <div className="input-wrapper">
-                    <InputText
-                      label="Contact No."
-                      type="text"
-                      name="services_contact"
+                      name="contact_us_form_title"
                       disabled={mutation.isPending}
                     />
                   </div>
@@ -154,4 +120,4 @@ const ModalAddSalon = ({ itemEdit, setIsSalon, servicesData }) => {
   );
 };
 
-export default ModalAddSalon;
+export default ModalAddFormTitle;
