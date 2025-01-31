@@ -4,13 +4,12 @@ import DashboardNavigation from "@/components/partials/dashboard/DashboardNaviga
 import DashboardUpperNav from "@/components/partials/dashboard/DashboardUpperNav";
 import ModalSuccess from "@/components/partials/modal/ModalSuccess";
 import ModalError from "@/components/partials/modal/ModalError";
-
-import ReachUs from "../website/home/reach-us/ReachUs";
 import Footer from "@/components/partials/Footer";
 import Header from "./header/Header";
 import About from "./about/About";
 import Services from "./services/Services";
 import ContactUs from "./contact-us/ContactUs";
+import ReachUs from "./reach-us/ReachUs";
 
 const Dashboard = () => {
   const { store, dispatch } = React.useContext(StoreContext);

@@ -27,3 +27,7 @@ RewriteRule ^services/([0-9]+)$ controllers/developer/services/services.php?serv
 # CONTACT US
 RewriteRule ^contactUs$ controllers/developer/contact-us/contactUs.php [L]
 RewriteRule ^contactUs/([0-9]+)$ controllers/developer/contact-us/contactUs.php?contactUsid=$1 [L]
+
+# REACH US
+RewriteRule ^reachUs$ controllers/developer/reach-us/reachUs.php [L]
+RewriteRule ^reachUs/([0-9]+)$ controllers/developer/reach-us/reachUs.php?reachUsid=$1 [L]

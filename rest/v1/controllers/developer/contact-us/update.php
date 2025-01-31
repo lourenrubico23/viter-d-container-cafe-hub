@@ -34,7 +34,7 @@ if (array_key_exists("contactUsid", $_GET)) {
     $query = checkUpdateFormTitle($contact_us);
   }
 
-  returnSuccess($contact_us, "header", $query);
+  returnSuccess($contact_us, "contactUs", $query);
 }
 
 // return 404 error if endpoint not available

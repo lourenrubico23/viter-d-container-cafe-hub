@@ -67,3 +67,27 @@ export const fetchFormData = (url, fd = {}) => {
     });
   return data;
 };
+
+// to extract the google map link
+export const getGoogleMapEmbededUrl = (url) => {
+  if (!url || !url.includes("google.com/maps")) {
+    // Handle invalid or undefined URLs
+    return null;
+  }
+
+  // Try to extract the "place ID" or coordinates from the Google Maps link
+  const urlPattern = /(?:place|maps)\/([^?&]+)/;
+  const match = url.match(urlPattern);
+
+  if (!match) {
+    return null; // Invalid URL format
+  }
+
+  // Extract the place ID or coordinates
+  const place = match[1];
+
+  // Construct the embed URL using the extracted place information
+  const embedUrl = `https://www.google.com/maps/embed?pb=${place}`;
+
+  return embedUrl;
+};
