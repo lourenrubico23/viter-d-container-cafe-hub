@@ -68,26 +68,25 @@ export const fetchFormData = (url, fd = {}) => {
   return data;
 };
 
-// to extract the google map link
+// extract google map link
 export const getGoogleMapEmbededUrl = (url) => {
   if (!url || !url.includes("google.com/maps")) {
-    // Handle invalid or undefined URLs
-    return null;
+    return null; // Return null for invalid or missing URLs
   }
 
-  // Try to extract the "place ID" or coordinates from the Google Maps link
-  const urlPattern = /(?:place|maps)\/([^?&]+)/;
-  const match = url.match(urlPattern);
-
-  if (!match) {
-    return null; // Invalid URL format
+  // If already an embedded URL, return as is
+  if (url.includes("embed?pb=")) {
+    return url;
   }
 
-  // Extract the place ID or coordinates
-  const place = match[1];
+  // Extract latitude & longitude from a "Place" or "Search" URL
+  const coordinatesMatch = url.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
 
-  // Construct the embed URL using the extracted place information
-  const embedUrl = `https://www.google.com/maps/embed?pb=${place}`;
+  if (coordinatesMatch) {
+    const lat = coordinatesMatch[1];
+    const lng = coordinatesMatch[2];
+    return `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1000!2d${lng}!3d${lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sph!4v1694518739393`;
+  }
 
-  return embedUrl;
+  return null; // Return null if no coordinates are found
 };

@@ -1,16 +1,12 @@
 import { devBaseImgUrl } from "@/components/helpers/functions-general";
 import ToggleNavigation from "@/components/partials/ToggleNavigation";
-import { setIsShow } from "@/store/StoreAction";
-import { StoreContext } from "@/store/StoreContext";
 import React from "react";
-import { FaBars, FaRegImages } from "react-icons/fa";
-import { RxHamburgerMenu } from "react-icons/rx";
+import { FaRegImages } from "react-icons/fa";
 import { HiPencil } from "react-icons/hi";
-import ModalAddLogo from "./ModalAddLogo";
-import useQueryData from "@/components/custom-hooks/useQueryData";
-import ModalAddNavigation from "./ModalAddNavigation";
-import Header from "@/components/pages/website/home/header/Header";
 import { IoImageOutline } from "react-icons/io5";
+import { RxHamburgerMenu } from "react-icons/rx";
+import ModalAddLogo from "./ModalAddLogo";
+import ModalAddNavigation from "./ModalAddNavigation";
 
 const Navigation = ({ headerData, setItemEdit, itemEdit }) => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -53,7 +49,7 @@ const Navigation = ({ headerData, setItemEdit, itemEdit }) => {
             <div className="logo-img w-[55px] lg:w-[98px] lg:h-[90px]">
               <img
                 src={`${devBaseImgUrl}/${headerData.data[0].header_logo_img}`}
-                alt=""
+                alt="Logo Image"
                 className="w-[55px] lg:w-[98px] lg:h-[90px]"
               />
             </div>

@@ -7,10 +7,21 @@ import ButtonSpinner from "../spinners/ButtonSpinner";
 import { Form, Formik } from "formik";
 import { InputText, InputTextArea } from "@/components/helpers/FormInputs";
 import * as Yup from "yup";
+import useQueryData from "@/components/custom-hooks/useQueryData";
 
 const ContactUsForm = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [animate, setAnimate] = React.useState("opacity-0");
+
+  const {
+    isFetching,
+    error,
+    data: contactUsData,
+  } = useQueryData(
+    "/v1/contactUs", // endpoint
+    "get", // method
+    "contactUs" // key
+  );
 
   const handleClose = () => {
     // set animation
@@ -58,7 +69,10 @@ const ContactUsForm = () => {
         <div className="h-full overflow-y-auto pt-8 pb-4 px-5 bg-light ">
           <div className="mt-1 mb-2">
             <h4 className="font-rubikBold text-[clamp(30px,4vw,36px)]">
-              Get In Touch
+              {contactUsData?.data?.length > 0 &&
+              contactUsData.data[0]?.contact_us_form_title
+                ? contactUsData?.data[0].contact_us_form_title
+                : "Lorem Ipsum"}
             </h4>
           </div>
 

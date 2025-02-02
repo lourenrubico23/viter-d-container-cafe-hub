@@ -10,7 +10,7 @@ import React from "react";
 import { GrFormClose } from "react-icons/gr";
 import * as Yup from "yup";
 
-const ModalAddNavigation = ({ setIsNav, headerData, itemEdit }) => {
+const ModalAddCopyright = ({ copyrightData, itemEdit, setIsCopyright }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [animate, setAnimate] = React.useState("translate-x-full");
 
@@ -18,7 +18,7 @@ const ModalAddNavigation = ({ setIsNav, headerData, itemEdit }) => {
     setAnimate("translate-x-full");
     document.body.classList.remove("overflow-hidden");
     setTimeout(() => {
-      setIsNav(false);
+      setIsCopyright(false);
     }, 200);
   };
 
@@ -26,29 +26,22 @@ const ModalAddNavigation = ({ setIsNav, headerData, itemEdit }) => {
 
   const mutation = useMutation({
     mutationFn: (values) =>
-      // queryData(
-      //   headerData
-      //     ? `/v1/header/${headerData?.data[0]?.header_aid}` // update
-      //     : `/v1/header`, //create
-      //   headerData ? "post" : "put",
-      //   values
-      // ),
       queryData(
-        headerData?.data?.length
-          ? `/v1/header/${headerData.data[0].header_aid}` // update
-          : `/v1/header`, // create
-        headerData?.data?.length ? "put" : "post",
+        copyrightData?.data?.length
+          ? `/v1/copyright/${copyrightData.data[0].copyright_aid}` // update
+          : `/v1/copyright`, // create
+        copyrightData?.data?.length ? "put" : "post",
         values
       ),
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ["header"] });
+      queryClient.invalidateQueries({ queryKey: ["copyright"] });
       if (!data.success) {
         dispatch(setError(true));
         dispatch(setMessage(data.error));
         dispatch(setSuccess(false));
       } else {
         console.log("Success");
-        setIsNav(false);
+        setIsCopyright(false);
         document.body.classList.remove("overflow-hidden");
         dispatch(setSuccess(true));
         dispatch(setMessage(`Successfully Updated.`));
@@ -60,14 +53,9 @@ const ModalAddNavigation = ({ setIsNav, headerData, itemEdit }) => {
     setAnimate("");
   }, []);
 
-
-
   const initVal = {
-    isUpdateHeader: itemEdit,
-    header_nav_a: headerData?.data?.[0]?.header_nav_a ?? "", // Use optional chaining with fallback
-    header_nav_b: headerData?.data?.[0]?.header_nav_b ?? "",
-    header_nav_c: headerData?.data?.[0]?.header_nav_c ?? "",
-    header_nav_d: headerData?.data?.[0]?.header_nav_d ?? "",
+    isUpdateCopyright: itemEdit,
+    copyright_title: copyrightData?.data?.[0]?.copyright_title ?? "",
   };
 
   const yupSchema = Yup.object({});
@@ -78,7 +66,7 @@ const ModalAddNavigation = ({ setIsNav, headerData, itemEdit }) => {
       handleClose={handleClose}
     >
       <div className="modal-title">
-        <h2 className="text-sm">Edit Navigation</h2>
+        <h2 className="text-sm">Edit Copyright</h2>
         <button onClick={handleClose}>
           <GrFormClose className="text-[25px]" />
         </button>
@@ -97,33 +85,9 @@ const ModalAddNavigation = ({ setIsNav, headerData, itemEdit }) => {
                 <div className="form-input">
                   <div className="input-wrapper">
                     <InputText
-                      label="Navigation 1"
+                      label="Copyright"
                       type="text"
-                      name="header_nav_a"
-                      disabled={mutation.isPending}
-                    />
-                  </div>
-                  <div className="input-wrapper">
-                    <InputText
-                      label="Navigation 2"
-                      type="text"
-                      name="header_nav_b"
-                      disabled={mutation.isPending}
-                    />
-                  </div>
-                  <div className="input-wrapper">
-                    <InputText
-                      label="Navigation 3"
-                      type="text"
-                      name="header_nav_c"
-                      disabled={mutation.isPending}
-                    />
-                  </div>
-                  <div className="input-wrapper">
-                    <InputText
-                      label="Navigation 4"
-                      type="text"
-                      name="header_nav_d"
+                      name="copyright_title"
                       disabled={mutation.isPending}
                     />
                   </div>
@@ -155,4 +119,4 @@ const ModalAddNavigation = ({ setIsNav, headerData, itemEdit }) => {
   );
 };
 
-export default ModalAddNavigation;
+export default ModalAddCopyright;

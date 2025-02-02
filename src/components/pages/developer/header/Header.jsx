@@ -58,7 +58,7 @@ const Header = () => {
             <div className="logo-img w-[55px] lg:w-[98px] lg:h-[90px]">
               <img
                 src={`${devBaseImgUrl}/${headerData.data[0].header_banner_img}`}
-                alt=""
+                alt="Banner Image"
                 className="absolute inset-0 w-full h-full object-cover "
               />
             </div>

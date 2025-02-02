@@ -31,3 +31,7 @@ RewriteRule ^contactUs/([0-9]+)$ controllers/developer/contact-us/contactUs.php?
 # REACH US
 RewriteRule ^reachUs$ controllers/developer/reach-us/reachUs.php [L]
 RewriteRule ^reachUs/([0-9]+)$ controllers/developer/reach-us/reachUs.php?reachUsid=$1 [L]
+
+# COPYRIGHT
+RewriteRule ^copyright$ controllers/developer/copyright/copyright.php [L]
+RewriteRule ^copyright/([0-9]+)$ controllers/developer/copyright/copyright.php?copyrightid=$1 [L]

@@ -1,9 +1,14 @@
-import React from "react";
-import { devBaseImgUrl } from "../helpers/functions-general";
-import useQueryData from "../custom-hooks/useQueryData";
+import useQueryData from "@/components/custom-hooks/useQueryData";
+import { devBaseImgUrl } from "@/components/helpers/functions-general";
+import React, { useState } from "react";
+import { HiPencil } from "react-icons/hi";
+import { IoImageOutline } from "react-icons/io5";
+import ModalAddCopyRight from "./ModalAddCopyright";
 
 const Footer = () => {
   const [activeSection, setActiveSection] = React.useState("#header");
+  const [itemEdit, setItemEdit] = React.useState("");
+  const [isCopyright, setIsCopyright] = React.useState(false);
 
   const {
     isFetching,
@@ -34,16 +39,31 @@ const Footer = () => {
       });
     }
   };
+
+  const handleAddCopyRight = () => {
+    setIsCopyright(true);
+    setItemEdit("copyrightUpdate");
+  };
   return (
     <>
       <section id="footer">
         <div className="bg-secondary">
           <div className="container flex flex-col md:flex md:flex-row items-center justify-between py-[76px] gap-5">
-            <img
-              src={`${devBaseImgUrl}/${headerData?.data[0].header_logo_img}`}
-              alt="Logo Image"
-              className="max-w-[98px] max-h-[90px]"
-            />
+            {headerData?.data?.length > 0 &&
+            headerData.data[0]?.header_logo_img ? (
+              <div className="logo-img max-w-[98px] max-h-[90px]">
+                <img
+                  src={`${devBaseImgUrl}/${headerData.data[0].header_logo_img}`}
+                  alt="Logo Image"
+                  className="max-w-[98px] max-h-[90px]"
+                />
+              </div>
+            ) : (
+              <div className="logo-img max-w-[98px] max-h-[90px] place-content-center">
+                <IoImageOutline className="text-[40px] mx-auto text-gray-500" />
+              </div>
+            )}
+
             <ul className="nav md:flex gap-12 text-center">
               <li
                 className={
@@ -106,8 +126,16 @@ const Footer = () => {
                 )}
               </li>
             </ul>
-            <h3 className="text-center text-[clamp(.5rem,4vw,16px)] text-white font-rubikRegular font-light">
-              &copy;{" "}
+
+            <h3 className="text-center text-[clamp(.5rem,4vw,16px)] text-white font-rubikRegular font-light flex ">
+              <a
+                className="cursor-pointer relative tooltip-header-nav"
+                data-tooltip="Edit text"
+                onClick={handleAddCopyRight}
+              >
+                <HiPencil className=" bg-[#C7AC27] rounded-full  w-[25px] h-[25px] p-[5px] border-[1px]" />
+              </a>
+              &copy;
               {copyrightData?.data?.length > 0 &&
               copyrightData.data[0]?.copyright_title ? (
                 copyrightData?.data[0].copyright_title
@@ -120,6 +148,14 @@ const Footer = () => {
           </div>
         </div>
       </section>
+
+      {isCopyright && (
+        <ModalAddCopyRight
+          copyrightData={copyrightData}
+          itemEdit={itemEdit}
+          setIsCopyright={setIsCopyright}
+        />
+      )}
     </>
   );
 };

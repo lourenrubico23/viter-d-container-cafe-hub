@@ -182,7 +182,7 @@ const Services = () => {
                   <div className="lg:w-full lg:h-full object-cover md:w-full">
                     <img
                       src={`${devBaseImgUrl}/${servicesData.data[0].services_coffee_img}`}
-                      alt=""
+                      alt="Coffee"
                       className="lg:w-full lg:h-full object-cover md:w-full"
                     />
                   </div>

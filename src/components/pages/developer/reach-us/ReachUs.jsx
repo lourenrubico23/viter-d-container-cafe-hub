@@ -122,14 +122,21 @@ const ReachUs = () => {
                       className="gmap_iframe"
                       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3878.640442131787!2d121.2459161!3d14.0598172!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd6900286aaa39%3A0xb75fae24b925907a!2sD'Container%20Cafe%20Hub!5e0!3m2!1sen!2sph!4v1694518739393!5m2!1sen!2sph"
                     ></iframe> */}
+
                     {reachUsData?.data?.length > 0 &&
                     reachUsData.data[0]?.reach_us_map_link ? (
                       <iframe
                         className="gmap_iframe"
                         src={getGoogleMapEmbededUrl(
-                          reachUsData?.data[0].reach_us_map_link
+                          reachUsData?.data[0]?.reach_us_map_link
                         )}
-                      ></iframe>
+                        width="600"
+                        height="450"
+                        style={{ border: 0 }}
+                        allowFullScreen=""
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                      />
                     ) : (
                       <div className="gmap_iframe w-[50rem] h-[40rem] my-[150px]">
                         <CiMap className="lg:w-full lg:h-full object-cover md:w-full mx-auto text-gray-500" />
