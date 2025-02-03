@@ -35,3 +35,7 @@ RewriteRule ^reachUs/([0-9]+)$ controllers/developer/reach-us/reachUs.php?reachU
 # COPYRIGHT
 RewriteRule ^copyright$ controllers/developer/copyright/copyright.php [L]
 RewriteRule ^copyright/([0-9]+)$ controllers/developer/copyright/copyright.php?copyrightid=$1 [L]
+
+# TESTIMONIAL
+RewriteRule ^testimonial$ controllers/developer/testimonial/testimonial.php [L]
+RewriteRule ^testimonial/([0-9]+)$ controllers/developer/testimonial/testimonial.php?testimonialid=$1 [L]
