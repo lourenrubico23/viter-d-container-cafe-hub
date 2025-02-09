@@ -8,15 +8,17 @@ import Testimonial from "./testimonial/Testimonial";
 
 const Home = () => {
   return (
-    <div className="wrapper">
-      <Header />
-      <About />
-      <Services />
-      <ContactUs />
-      <Testimonial />
-      <ReachUs />
-      <Footer />
-    </div>
+    <div className="outer-wrapper">
+  <div className="wrapper">
+    <Header />
+    <About />
+    <Services />
+    <ContactUs />
+    <Testimonial />
+    <ReachUs />
+    <Footer />
+  </div>
+</div>
   );
 };
 

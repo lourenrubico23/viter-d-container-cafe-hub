@@ -15,13 +15,31 @@ const About = () => {
 
   return (
     <section id="about">
-      <div className="h-[708px] bg-light  ">
-        <div className="flex flex-col gap-6 items-center py-[157px]">
-          <img
-            src={`${devBaseImgUrl}/${aboutData?.data[0].about_img}`}
-            alt=""
-            className="w-[150px] md:w-[202px] md:h-[186px]"
-          />
+      <div className="h-[498px] bg-light  ">
+        <div className="flex flex-col gap-16 items-center py-[75px]">
+          <div className="flex gap-16">
+            {aboutData?.data?.length > 0 &&
+              aboutData.data[0]?.about_img &&
+              (() => {
+                const imageList = aboutData.data[0].about_img
+                  .split(",")
+                  .map((img) => img.trim()) // Trim spaces
+                  .filter((img) => img !== ""); // Remove empty values
+
+                return imageList.length > 0 ? (
+                  <div className="flex gap-16">
+                    {imageList.map((img, index) => (
+                      <img
+                        key={index}
+                        src={`${devBaseImgUrl}/${img}`}
+                        alt={`About Image ${index + 1}`}
+                        className="w-[150px] md:w-[170px] object-cover"
+                      />
+                    ))}
+                  </div>
+                ) : null;
+              })()}
+          </div>
           <div className="text-center flex flex-col gap-6 max-w-[851px]">
             <p>
               {aboutData?.data?.length > 0 &&

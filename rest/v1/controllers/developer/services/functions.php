@@ -9,10 +9,26 @@ function checkCreateCoffeeServices($object)
 }
 
 // create Salon Image
+function checkCreateCoffeeGallery($object)
+{
+    $query = $object->createCoffeeGallery();
+    checkQuery($query, "There's a problem processing your request. (create coffee gallery)");
+    return $query;
+}
+
+// create Salon Image
 function checkCreateSalonImg($object)
 {
     $query = $object->createSalonImg();
     checkQuery($query, "There's a problem processing your request. (create salon image)");
+    return $query;
+}
+
+// create Salon Gallery
+function checkCreateSalonGallery($object)
+{
+    $query = $object->createSalonGallery();
+    checkQuery($query, "There's a problem processing your request. (create salon gallery)");
     return $query;
 }
 
@@ -32,11 +48,27 @@ function checkUpdateCoffeeServices($object)
     return $query;
 }
 
+// Update Coffee gallery
+function checkUpdateCoffeeGallery($object)
+{
+    $query = $object->updateCoffeeGallery();
+    checkQuery($query, "There's a problem processing your request. (update coffee gallery)");
+    return $query;
+}
+
 // Update Salon image
 function checkUpdateSalonImg($object)
 {
     $query = $object->updateSalonImg();
     checkQuery($query, "There's a problem processing your request. (update salon image)");
+    return $query;
+}
+
+// Update Salon gallery
+function checkUpdateSalonGallery($object)
+{
+    $query = $object->updateSalonGallery();
+    checkQuery($query, "There's a problem processing your request. (update salon gallery)");
     return $query;
 }
 

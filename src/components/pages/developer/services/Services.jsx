@@ -1,17 +1,16 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
 import { devBaseImgUrl } from "@/components/helpers/functions-general";
 import React from "react";
-import {
-  FaAngleDoubleRight,
-  FaAngleDoubleUp,
-  FaRegImages,
-} from "react-icons/fa";
+import { FaAngleDoubleRight, FaRegImages } from "react-icons/fa";
 import { HiPencil } from "react-icons/hi";
+import { IoImageOutline } from "react-icons/io5";
+import Slider from "react-slick";
 import ModalAddCoffee from "./ModalAddCoffee";
+import ModalAddCoffeeGallery from "./ModalAddCoffeeGallery";
 import ModalAddCoffeeImage from "./ModalAddCoffeeImage";
 import ModalAddSalon from "./ModalAddSalon";
+import ModalAddSalonGallery from "./ModalAddSalonGallery";
 import ModalAddSalonImage from "./ModalAddSalonImage";
-import { IoImageOutline } from "react-icons/io5";
 
 const Services = () => {
   const [itemEdit, setItemEdit] = React.useState("");
@@ -19,6 +18,29 @@ const Services = () => {
   const [isSalon, setIsSalon] = React.useState(false);
   const [isCoffeeImg, setIsCoffeeImg] = React.useState(false);
   const [isSalonImg, setIsSalonImg] = React.useState(false);
+  const [isCoffeeGallery, setIsCoffeeGallery] = React.useState(false);
+  const [isSalonGallery, setIsSalonGallery] = React.useState(false);
+
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 6,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    arrows: false,
+    centerMode: true,
+    centerPadding: "-90px",
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: { slidesToShow: 3, centerPadding: "15px" },
+      },
+      { breakpoint: 768, settings: { slidesToShow: 2, centerPadding: "10px" } },
+      { breakpoint: 480, settings: { slidesToShow: 1, centerPadding: "5px" } },
+    ],
+  };
 
   const {
     isFetching,
@@ -53,6 +75,36 @@ const Services = () => {
     setItemEdit("salonImgUpdate");
     document.body.classList.toggle("overflow-hidden");
   };
+
+  const handleAddCoffeeGallery = () => {
+    setIsCoffeeGallery(true);
+    setItemEdit("coffeeGalleryUpdate");
+    document.body.classList.toggle("overflow-hidden");
+  };
+
+  const handleAddSalonGallery = () => {
+    setIsSalonGallery(true);
+    setItemEdit("salonGalleryUpdate");
+    document.body.classList.toggle("overflow-hidden");
+  };
+
+  // Get images from API data or use placeholders
+  const coffeeGallery = servicesData?.data[0]?.services_coffee_gallery
+    ? servicesData.data[0].services_coffee_gallery
+        .split(",")
+        .map((img) => img.trim())
+        .filter((img) => img !== "") // Remove empty strings
+        .map((img) => `${devBaseImgUrl}/${img}`)
+    : []; // Default to empty array if no images
+
+  // Get images from API data or use placeholders
+  const salonGallery = servicesData?.data[0]?.services_salon_gallery
+    ? servicesData.data[0].services_salon_gallery
+        .split(",")
+        .map((img) => img.trim())
+        .filter((img) => img !== "") // Remove empty strings
+        .map((img) => `${devBaseImgUrl}/${img}`)
+    : []; // Default to empty array if no images
 
   return (
     <>
@@ -194,6 +246,38 @@ const Services = () => {
               </div>
             </div>
           </section>
+          <a
+            className="absolute cursor-pointer tooltip-header z-[1] left-0 m-2"
+            data-tooltip="Upload Images"
+            onClick={handleAddCoffeeGallery}
+          >
+            <FaRegImages className=" bg-[#C7AC27] text-black rounded-full w-[25px] h-[25px] p-1 border-[1px]" />
+          </a>
+
+          <div className=" lg:right-0 lg:top-0 h-full my-8 lg:my-8 lg:mb-8 lg:w-full block overflow-hidden">
+            <Slider {...settings}>
+              {coffeeGallery.length > 0
+                ? coffeeGallery.map((image, index) => (
+                    <div key={index} className="w-48 h-48 md:w-80 md:h-64 px-2">
+                      <img
+                        src={image}
+                        alt={`Service ${index + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  ))
+                : Array.from({ length: settings.slidesToShow || 1 }).map(
+                    (_, index) => (
+                      <div
+                        key={index}
+                        className="w-48 h-48 md:w-80 md:h-64 px-2 flex items-center justify-center bg-gray-100"
+                      >
+                        <IoImageOutline className="w-16 h-16 text-gray-500" />
+                      </div>
+                    )
+                  )}
+            </Slider>
+          </div>
         </div>
 
         <section id="spaSalon">
@@ -267,6 +351,37 @@ const Services = () => {
               </div>
             </div>
           </div>
+          <a
+            className="absolute cursor-pointer tooltip-header z-[1] left-0 m-2"
+            data-tooltip="Upload Images"
+            onClick={handleAddSalonGallery}
+          >
+            <FaRegImages className=" bg-[#C7AC27] text-black rounded-full w-[25px] h-[25px] p-1 border-[1px]" />
+          </a>
+          <div className=" lg:right-0 lg:top-0 h-full my-8 lg:my-8 lg:mb-8 lg:w-full block overflow-hidden">
+            <Slider {...settings}>
+              {salonGallery.length > 0
+                ? salonGallery.map((image, index) => (
+                    <div key={index} className="w-48 h-48 md:w-80 md:h-64 px-2">
+                      <img
+                        src={image}
+                        alt={`Service ${index + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  ))
+                : Array.from({ length: settings.slidesToShow || 1 }).map(
+                    (_, index) => (
+                      <div
+                        key={index}
+                        className="w-48 h-48 md:w-80 md:h-64 px-2 flex items-center justify-center bg-gray-100"
+                      >
+                        <IoImageOutline className="w-16 h-16 text-gray-500" />
+                      </div>
+                    )
+                  )}
+            </Slider>
+          </div>
         </section>
       </div>
 
@@ -298,6 +413,22 @@ const Services = () => {
         <ModalAddSalonImage
           itemEdit={itemEdit}
           setIsSalonImg={setIsSalonImg}
+          servicesData={servicesData}
+        />
+      )}
+
+      {isCoffeeGallery && (
+        <ModalAddCoffeeGallery
+          itemEdit={itemEdit}
+          setIsCoffeeGallery={setIsCoffeeGallery}
+          servicesData={servicesData}
+        />
+      )}
+
+      {isSalonGallery && (
+        <ModalAddSalonGallery
+          itemEdit={itemEdit}
+          setIsSalonGallery={setIsSalonGallery}
           servicesData={servicesData}
         />
       )}

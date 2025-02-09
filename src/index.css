@@ -22,7 +22,8 @@
   /* Reference color for website
     primary: #983B00  
     secondary: #390700
-    accent: #D96E20
+    accent_old: #D96E20
+    accent:#BC7B75
     light: #FAF7F2
     dark: #C2C2C2*/
 
@@ -34,7 +35,7 @@
   :root {
     --primary-color: 152 59 0;
     --secondary-color: 57 7 0;
-    --accent-color: 217 110 32;
+    --accent-color: 188 123 117;
     --light-color: 250 247 242;
     --dark-color: 194 194 194;
 
@@ -141,8 +142,11 @@
 }
 
 @layer components {
+  .outer-wrapper {
+    @apply w-full relative;
+  }
   .wrapper {
-    @apply relative transition-all duration-150 ease-linear;
+    @apply relative max-w-[1660px] w-full mx-auto;
   }
   .customContainer {
     @apply w-[1460px] mx-auto;

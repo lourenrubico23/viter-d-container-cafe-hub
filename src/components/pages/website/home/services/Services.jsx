@@ -1,9 +1,32 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
 import { devBaseImgUrl } from "@/components/helpers/functions-general";
-import React from "react";
-import { FaAngleDoubleRight, FaAngleDoubleUp } from "react-icons/fa";
+import { FaAngleDoubleRight } from "react-icons/fa";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 
 const Services = () => {
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 6,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    arrows: false,
+    centerMode: true,
+    centerPadding: "-90px",
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: { slidesToShow: 3, centerPadding: "15px" },
+      },
+      { breakpoint: 768, settings: { slidesToShow: 2, centerPadding: "10px" } },
+      { breakpoint: 480, settings: { slidesToShow: 1, centerPadding: "5px" } },
+    ],
+  };
+
   const {
     isFetching,
     error,
@@ -13,6 +36,24 @@ const Services = () => {
     "get", // method
     "services" // key
   );
+
+  // Get images from API data or use placeholders
+  const coffeeGallery = servicesData?.data[0]?.services_coffee_gallery
+    ? servicesData.data[0].services_coffee_gallery
+        .split(",")
+        .map((img) => img.trim())
+        .filter((img) => img !== "") // Remove empty strings
+        .map((img) => `${devBaseImgUrl}/${img}`)
+    : []; // Default to empty array if no images
+
+  // Get images from API data or use placeholders
+  const salonGallery = servicesData?.data[0]?.services_salon_gallery
+    ? servicesData.data[0].services_salon_gallery
+        .split(",")
+        .map((img) => img.trim())
+        .filter((img) => img !== "") // Remove empty strings
+        .map((img) => `${devBaseImgUrl}/${img}`)
+    : []; // Default to empty array if no images
 
   return (
     <div className="text-accent">
@@ -122,11 +163,29 @@ const Services = () => {
               <img
                 src={`${devBaseImgUrl}/${servicesData?.data[0].services_coffee_img}`}
                 alt="Coffee"
-                className="lg:w-full lg:h-full object-cover md:w-full"
+                className="lg:w-full lg:h-[740px] object-cover md:w-full"
               />
             </div>
           </div>
         </section>
+
+        <div className=" lg:right-0 lg:top-0 h-full my-8 lg:my-0 lg:mb-8 lg:w-full block overflow-hidden">
+          {coffeeGallery?.length > 0 && (
+            <Slider {...settings}>
+              {coffeeGallery.map((image, index) =>
+                image ? ( // Ensure image is valid before rendering
+                  <div key={index} className="w-48 h-48 md:w-80 md:h-64 px-2">
+                    <img
+                      src={image}
+                      alt={`Gallery Image ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ) : null
+              )}
+            </Slider>
+          )}
+        </div>
       </div>
 
       <section id="spaSalon">
@@ -135,9 +194,10 @@ const Services = () => {
             <img
               src={`${devBaseImgUrl}/${servicesData?.data[0].services_salon_img}`}
               alt=""
-              className="lg:w-full lg:h-full object-cover md:w-full"
+              className="lg:w-full lg:h-[740px] object-cover md:w-full"
             />
           </div>
+
           <div className="container">
             <div className="lg:grid lg:grid-cols-2 lg:mr-20 lg:pr-10 md:py-10 md:mb-8 ">
               <div className="dicover flex flex-col gap-8 py-10 ">
@@ -176,6 +236,23 @@ const Services = () => {
               </div>
             </div>
           </div>
+        </div>
+        <div className=" lg:right-0 lg:top-0 h-full my-8 lg:my-0 lg:mb-8 lg:w-full block overflow-hidden">
+          {salonGallery?.length > 0 && (
+            <Slider {...settings}>
+              {salonGallery.map((image, index) =>
+                image ? ( // Ensure image is valid before rendering
+                  <div key={index} className="w-48 h-48 md:w-80 md:h-64 px-2">
+                    <img
+                      src={image}
+                      alt={`Gallery Image ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ) : null
+              )}
+            </Slider>
+          )}
         </div>
       </section>
     </div>

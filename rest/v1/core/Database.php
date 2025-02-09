@@ -11,7 +11,7 @@ class Database
 
         // Localhost
         $host = "localhost";
-        $dbname = "viter_d_container_cafe_hub";
+        $dbname = "viter_dcontainer_cafe_hub";
         $username = "root";
         $password = "";
 

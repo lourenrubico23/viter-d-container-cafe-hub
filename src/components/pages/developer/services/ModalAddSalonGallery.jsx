@@ -1,9 +1,5 @@
 import useUploadMultiplePhoto from "@/components/custom-hooks/useUploadMultiplePhoto";
-import useUploadPhoto from "@/components/custom-hooks/useUploadPhoto";
-import {
-  InputPhotoUpload,
-  InputTextArea,
-} from "@/components/helpers/FormInputs";
+import { InputPhotoUpload } from "@/components/helpers/FormInputs";
 import {
   devApiVersion,
   devBaseImgUrl,
@@ -21,7 +17,11 @@ import { IoImageOutline } from "react-icons/io5";
 import { MdOutlineFileUpload } from "react-icons/md";
 import * as Yup from "yup";
 
-const ModalAddAbout = ({ itemEdit, setIsAbout, aboutData }) => {
+const ModalAddSalonGallery = ({
+  itemEdit,
+  setIsSalonGallery,
+  servicesData,
+}) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [animate, setAnimate] = React.useState("translate-x-full");
   const {
@@ -38,7 +38,7 @@ const ModalAddAbout = ({ itemEdit, setIsAbout, aboutData }) => {
     setAnimate("translate-x-full");
     document.body.classList.remove("overflow-hidden");
     setTimeout(() => {
-      setIsAbout(false);
+      setIsSalonGallery(false);
     }, 200);
   };
 
@@ -47,21 +47,21 @@ const ModalAddAbout = ({ itemEdit, setIsAbout, aboutData }) => {
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        aboutData?.data?.length
-          ? `/v1/about/${aboutData.data[0].about_aid}` // update
-          : `/v1/about`, // create
-        aboutData?.data?.length ? "put" : "post",
+        servicesData?.data?.length
+          ? `/v1/services/${servicesData.data[0].services_aid}` // update
+          : `/v1/services`, // create
+        servicesData?.data?.length ? "put" : "post",
         values
       ),
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ["about"] });
+      queryClient.invalidateQueries({ queryKey: ["services"] });
       if (!data.success) {
         dispatch(setError(true));
         dispatch(setMessage(data.error));
         dispatch(setSuccess(false));
       } else {
         console.log("Success");
-        setIsAbout(false);
+        setIsSalonGallery(false);
         document.body.classList.remove("overflow-hidden");
         dispatch(setSuccess(true));
         dispatch(setMessage(`Successfully Updated.`));
@@ -74,11 +74,9 @@ const ModalAddAbout = ({ itemEdit, setIsAbout, aboutData }) => {
   }, []);
 
   const initVal = {
-    isUpdateAbout: itemEdit,
-    about_img: aboutData?.data?.[0]?.about_img ?? "",
-    about_description_a: aboutData?.data?.[0]?.about_description_a ?? "",
-    about_description_b: aboutData?.data?.[0]?.about_description_b ?? "",
-    about_description_c: aboutData?.data?.[0]?.about_description_c ?? "",
+    isUpdateServices: itemEdit,
+    services_salon_gallery:
+      servicesData?.data?.[0]?.services_salon_gallery ?? "",
   };
 
   const yupSchema = Yup.object({});
@@ -89,7 +87,7 @@ const ModalAddAbout = ({ itemEdit, setIsAbout, aboutData }) => {
       handleClose={handleClose}
     >
       <div className="modal-title">
-        <h2 className="text-sm">Edit About Content</h2>
+        <h2 className="text-sm">Edit Salon Gallery</h2>
         <button onClick={handleClose}>
           <GrFormClose className="text-[25px]" />
         </button>
@@ -99,17 +97,18 @@ const ModalAddAbout = ({ itemEdit, setIsAbout, aboutData }) => {
           initialValues={initVal}
           validationSchema={yupSchema}
           onSubmit={async (values) => {
-            await uploadMultiplePhoto(); // Ensure upload completes
+            console.log("Uploading Images:", photoArrayList);
 
             const data = {
               ...values,
-              about_img:
+              services_salon_gallery:
                 photoArrayList.length > 0
                   ? photoArrayList.map((file) => file.name).join(", ")
-                  : aboutData?.data?.about_img || "",
+                  : servicesData?.data?.services_salon_gallery || "",
             };
 
             mutation.mutate(data);
+            uploadMultiplePhoto(); // Ensure upload completes
           }}
         >
           {(props) => {
@@ -117,9 +116,11 @@ const ModalAddAbout = ({ itemEdit, setIsAbout, aboutData }) => {
               <Form className="modal-form">
                 <div className="form-input">
                   <div className="mt-5">
-                    <span className="top-20 px-2 text-[12px]">About Image</span>
+                    <span className="top-20 px-2 text-[12px]">
+                      Salon Images
+                    </span>
                     <div className="relative w-fit m-auto group mt-3">
-                      {!aboutData?.data?.[0]?.about_img &&
+                      {!servicesData?.data?.[0]?.services_salon_gallery &&
                       !photoArrayList.length ? (
                         <div className="group-hover:opacity-20 mb-4 items-center gap-2 w-[350px] h-[180px] p-2 place-content-center">
                           <IoImageOutline className="text-[30px] text-[gray] mx-auto" />
@@ -128,7 +129,7 @@ const ModalAddAbout = ({ itemEdit, setIsAbout, aboutData }) => {
                           </h1>
                         </div>
                       ) : photoArrayList.length > 0 ? (
-                        <div className="flex gap-2">
+                        <div className="grid grid-cols-2 gap-2">
                           {photoArrayList.map((file, index) => (
                             <img
                               key={index}
@@ -138,9 +139,9 @@ const ModalAddAbout = ({ itemEdit, setIsAbout, aboutData }) => {
                             />
                           ))}
                         </div>
-                      ) : aboutData?.data?.[0]?.about_img ? (
-                        <div className="flex gap-2">
-                          {aboutData.data[0].about_img
+                      ) : servicesData?.data?.[0]?.services_salon_gallery ? (
+                        <div className="grid grid-cols-2 gap-2">
+                          {servicesData.data[0].services_salon_gallery
                             .split(",")
                             .map((img, index) => (
                               <img
@@ -179,31 +180,6 @@ const ModalAddAbout = ({ itemEdit, setIsAbout, aboutData }) => {
                       </div>
                     </div>
                   </div>
-
-                  <div className="input-wrapper">
-                    <InputTextArea
-                      label="Description 1"
-                      type="text"
-                      name="about_description_a"
-                      disabled={mutation.isPending}
-                    />
-                  </div>
-                  <div className="input-wrapper">
-                    <InputTextArea
-                      label="Description 2"
-                      type="text"
-                      name="about_description_b"
-                      disabled={mutation.isPending}
-                    />
-                  </div>
-                  <div className="input-wrapper">
-                    <InputTextArea
-                      label="Description 3"
-                      type="text"
-                      name="about_description_c"
-                      disabled={mutation.isPending}
-                    />
-                  </div>
                 </div>
                 <div className="form-action">
                   <div className="form-btn">
@@ -214,7 +190,7 @@ const ModalAddAbout = ({ itemEdit, setIsAbout, aboutData }) => {
                         ((mutation.isPending || !props.dirty) &&
                           photoArrayList === null) ||
                         photoArrayList === "" ||
-                        initVal.about_img === photoArrayList?.name
+                        initVal.services_salon_gallery === photoArrayList?.name
                       }
                     >
                       {mutation.isPending ? <ButtonSpinner /> : "Save"}
@@ -237,4 +213,4 @@ const ModalAddAbout = ({ itemEdit, setIsAbout, aboutData }) => {
   );
 };
 
-export default ModalAddAbout;
+export default ModalAddSalonGallery;

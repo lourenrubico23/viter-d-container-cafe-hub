@@ -27,8 +27,8 @@ const About = () => {
   return (
     <>
       <section id="about">
-        <div className="h-[708px] bg-light  ">
-          <div className="flex flex-col gap-6 items-center py-[157px] ">
+        <div className="h-[498px] bg-light  ">
+          <div className="flex flex-col gap-16 items-center py-[75px]">
             <a
               className="absolute cursor-pointer tooltip-header z-[1] right-[300px] "
               data-tooltip="Upload Contents"
@@ -38,16 +38,30 @@ const About = () => {
             </a>
 
             {aboutData?.data?.length > 0 && aboutData.data[0]?.about_img ? (
-              <div className="w-[150px] md:w-[202px] md:h-[186px]">
-                <img
-                  src={`${devBaseImgUrl}/${aboutData.data[0].about_img}`}
-                  alt=""
-                  className="w-[150px] md:w-[202px] md:h-[186px]"
-                />
-              </div>
+              (() => {
+                const imageList = aboutData.data[0].about_img
+                  .split(",")
+                  .map((img) => img.trim()) // Trim spaces
+                  .filter((img) => img !== ""); // Remove empty entries
+
+                return (
+                  <div className="flex gap-16">
+                    {imageList.map((img, index) => (
+                      <div key={index} className="w-[150px] md:w-[170px] ">
+                        <img
+                          src={`${devBaseImgUrl}/${img}`}
+                          alt={`About Image ${index + 1}`}
+                          className="w-[150px] md:w-[170px] object-cover"
+                          onError={(e) => (e.target.style.display = "none")} // Hide broken images
+                        />
+                      </div>
+                    ))}
+                  </div>
+                );
+              })()
             ) : (
-              <div className="w-[150px] md:w-[202px] md:h-[186px] place-content-center">
-                <IoImageOutline className="w-[150px] md:w-[202px] md:h-[186px] mx-auto text-gray-500" />
+              <div className="w-[150px] md:w-[170px]  place-content-center">
+                <IoImageOutline className="w-[150px] md:w-[170px]  mx-auto text-gray-500" />
               </div>
             )}
 
