@@ -11,12 +11,60 @@ import ContactUs from "./contact-us/ContactUs";
 import ReachUs from "./reach-us/ReachUs";
 import Footer from "./footer/Footer";
 import Testimonial from "./testimonial/Testimonial";
+import useQueryData from "@/components/custom-hooks/useQueryData";
+import {
+  devApiVersion,
+  hexToRgb,
+} from "@/components/helpers/functions-general";
 
 const Dashboard = () => {
   const { store, dispatch } = React.useContext(StoreContext);
+
+  const {
+    isFetching,
+    error,
+    data: colorsData,
+  } = useQueryData(
+    `${devApiVersion}/colors`, // endpoint
+    "get", // method
+    "colors" // key
+  );
+
+  // to change the color when submitted
+  document
+    .querySelector(":root")
+    .style.setProperty(
+      "--primary-color",
+      hexToRgb(colorsData?.data[0].colors_primary)
+    );
+  document
+    .querySelector(":root")
+    .style.setProperty(
+      "--secondary-color",
+      hexToRgb(colorsData?.data[0].colors_secondary)
+    );
+  document
+    .querySelector(":root")
+    .style.setProperty(
+      "--accent-color",
+      hexToRgb(colorsData?.data[0].colors_accent)
+    );
+  document
+    .querySelector(":root")
+    .style.setProperty(
+      "--light-color",
+      hexToRgb(colorsData?.data[0].colors_light)
+    );
+  document
+    .querySelector(":root")
+    .style.setProperty(
+      "--dark-color",
+      hexToRgb(colorsData?.data[0].colors_dark)
+    );
+
   return (
     <>
-      <div className="wrapper bg-[#f5f5f3] ">
+      <div className=" bg-[#f5f5f3] ">
         <DashboardNavigation />
         <div className="main ml-[220px] w-[calc(100%_-_230px)] z-10">
           <DashboardUpperNav menu="dashboard" />

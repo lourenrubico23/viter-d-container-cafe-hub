@@ -20,6 +20,14 @@ class Services
     public $services_salon_description_a;
     public $services_salon_description_b;
     public $services_contact;
+    public $services_coffee_button_a;
+    public $services_coffee_button_b;
+    public $services_coffee_facebook_link;
+    public $services_coffee_menu_images;
+    public $services_salon_button_a;
+    public $services_salon_button_b;
+    public $services_salon_facebook_link;
+    public $services_salon_services_images;
     public $services_datetime;
 
     public $connection;
@@ -127,6 +135,52 @@ class Services
         return $query;
     }
 
+    public function createCoffeeButton()
+    {
+        try {
+            $sql = "insert into {$this->tblServices}";
+            $sql .= "(services_coffee_button_a, ";
+            $sql .= "services_coffee_button_b, ";
+            $sql .= "services_coffee_facebook_link, ";
+            $sql .= "services_datetime ) values ( ";
+            $sql .= ":services_coffee_button_a, ";
+            $sql .= ":services_coffee_button_b, ";
+            $sql .= ":services_coffee_facebook_link, ";
+            $sql .= ":services_datetime )";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "services_coffee_button_a" => $this->services_coffee_button_a,
+                "services_coffee_button_b" => $this->services_coffee_button_b,
+                "services_coffee_facebook_link" => $this->services_coffee_facebook_link,
+                "services_datetime" => $this->services_datetime,
+            ]);
+            $this->lastInsertedId = $this->connection->lastInsertId();
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    public function createCoffeeMenu()
+    {
+        try {
+            $sql = "insert into {$this->tblServices}";
+            $sql .= "(services_coffee_menu_images, ";
+            $sql .= "services_datetime ) values ( ";
+            $sql .= ":services_coffee_menu_images, ";
+            $sql .= ":services_datetime )";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "services_coffee_menu_images" => $this->services_coffee_menu_images,
+                "services_datetime" => $this->services_datetime,
+            ]);
+            $this->lastInsertedId = $this->connection->lastInsertId();
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
     public function createSalonImg()
     {
         try {
@@ -188,6 +242,52 @@ class Services
                 "services_salon_description_a" => $this->services_salon_description_a,
                 "services_salon_description_b" => $this->services_salon_description_b,
                 "services_contact" => $this->services_contact,
+                "services_datetime" => $this->services_datetime,
+            ]);
+            $this->lastInsertedId = $this->connection->lastInsertId();
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    public function createSalonButton()
+    {
+        try {
+            $sql = "insert into {$this->tblServices}";
+            $sql .= "(services_salon_button_a, ";
+            $sql .= "services_salon_button_b, ";
+            $sql .= "services_salon_facebook_link, ";
+            $sql .= "services_datetime ) values ( ";
+            $sql .= ":services_salon_button_a, ";
+            $sql .= ":services_salon_button_b, ";
+            $sql .= ":services_salon_facebook_link, ";
+            $sql .= ":services_datetime )";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "services_salon_button_a" => $this->services_salon_button_a,
+                "services_salon_button_b" => $this->services_salon_button_b,
+                "services_salon_facebook_link" => $this->services_salon_facebook_link,
+                "services_datetime" => $this->services_datetime,
+            ]);
+            $this->lastInsertedId = $this->connection->lastInsertId();
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    public function createSalonServices()
+    {
+        try {
+            $sql = "insert into {$this->tblServices}";
+            $sql .= "(services_salon_services_images, ";
+            $sql .= "services_datetime ) values ( ";
+            $sql .= ":services_salon_services_images, ";
+            $sql .= ":services_datetime )";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "services_salon_services_images" => $this->services_salon_services_images,
                 "services_datetime" => $this->services_datetime,
             ]);
             $this->lastInsertedId = $this->connection->lastInsertId();
@@ -269,6 +369,47 @@ class Services
         return $query;
     }
 
+    public function updateCoffeeButton()
+    {
+        try {
+            $sql = "update {$this->tblServices} set ";
+            $sql .= "services_coffee_button_a = :services_coffee_button_a, ";
+            $sql .= "services_coffee_button_b = :services_coffee_button_b, ";
+            $sql .= "services_coffee_facebook_link = :services_coffee_facebook_link, ";
+            $sql .= "services_datetime = :services_datetime ";
+            $sql .= "where services_aid = :services_aid ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "services_coffee_button_a" => $this->services_coffee_button_a,
+                "services_coffee_button_b" => $this->services_coffee_button_b,
+                "services_coffee_facebook_link" => $this->services_coffee_facebook_link,
+                "services_datetime" => $this->services_datetime,
+                "services_aid" => $this->services_aid,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    public function updateCoffeeMenu()
+    {
+        try {
+            $sql = "update {$this->tblServices} set ";
+            $sql .= "services_coffee_menu_images = :services_coffee_menu_images, ";
+            $sql .= "services_datetime = :services_datetime ";
+            $sql .= "where services_aid = :services_aid ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "services_coffee_menu_images" => $this->services_coffee_menu_images,
+                "services_datetime" => $this->services_datetime,
+                "services_aid" => $this->services_aid,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
 
     public function updateSalonImg()
     {
@@ -324,6 +465,48 @@ class Services
                 "services_salon_description_a" => $this->services_salon_description_a,
                 "services_salon_description_b" => $this->services_salon_description_b,
                 "services_contact" => $this->services_contact,
+                "services_datetime" => $this->services_datetime,
+                "services_aid" => $this->services_aid,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    public function updateSalonButton()
+    {
+        try {
+            $sql = "update {$this->tblServices} set ";
+            $sql .= "services_salon_button_a = :services_salon_button_a, ";
+            $sql .= "services_salon_button_b = :services_salon_button_b, ";
+            $sql .= "services_salon_facebook_link = :services_salon_facebook_link, ";
+            $sql .= "services_datetime = :services_datetime ";
+            $sql .= "where services_aid = :services_aid ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "services_salon_button_a" => $this->services_salon_button_a,
+                "services_salon_button_b" => $this->services_salon_button_b,
+                "services_salon_facebook_link" => $this->services_salon_facebook_link,
+                "services_datetime" => $this->services_datetime,
+                "services_aid" => $this->services_aid,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    public function updateSalonServices()
+    {
+        try {
+            $sql = "update {$this->tblServices} set ";
+            $sql .= "services_salon_services_images = :services_salon_services_images, ";
+            $sql .= "services_datetime = :services_datetime ";
+            $sql .= "where services_aid = :services_aid ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "services_salon_services_images" => $this->services_salon_services_images,
                 "services_datetime" => $this->services_datetime,
                 "services_aid" => $this->services_aid,
             ]);

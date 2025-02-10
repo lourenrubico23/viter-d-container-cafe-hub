@@ -17,7 +17,7 @@ $contact_us->contact_us_datetime = date("Y-m-d H:i:s");
 
 if ($isUpdateContactUs == "contactUsUpdate") {
     $contact_us->contact_us_description = $data["contact_us_description"];
-    $contact_us->contact_us_button = $data["contact_us_description"];
+    $contact_us->contact_us_button = $data["contact_us_button"];
     $query = checkCreate($contact_us);
 }
 if ($isUpdateContactUs == "formTitleUpdate") {

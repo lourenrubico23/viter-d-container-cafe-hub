@@ -154,6 +154,9 @@
   .btn {
     @apply bg-accent hover:bg-secondary py-4 px-8 transition-all duration-300 rounded-md text-[16px];
   }
+  .btn-transparent {
+    @apply bg-white hover:bg-secondary py-4 px-8 transition-all duration-300 rounded-md text-[16px] hover:text-light text-accent hover:border-secondary border-accent border-[2px];
+  }
   .nav {
     @apply text-light font-montserrat text-[15px];
   }
@@ -280,11 +283,27 @@
   .tooltip-header-nav:hover::after {
     @apply scale-100 opacity-100;
   }
+  /* colors tool-tip */
+  .tooltip-colors {
+    @apply bg-transparent leading-none;
+  }
+  .tooltip-colors::after {
+    @apply content-[attr(data-tooltip)] capitalize absolute -translate-x-2/4 bottom-[35px] bg-black/80 text-white p-1 -ml-3 rounded-sm h-fit leading-none z-20 whitespace-nowrap text-center opacity-0 text-[10px] pointer-events-none transition ease-linear scale-0 duration-75 right-[17px] -top-0.5;
+  }
+  .tooltip-colors:hover::after {
+    @apply scale-100 opacity-100;
+  }
   .toggle span {
     @apply w-6 h-[.2rem] block bg-white rounded-full;
   }
   .addShadowDash {
     /* box-shadow: 0px 0px 9px 3px rgb(106, 17, 65, 0.85); */
     box-shadow: 0px 0px 9px 3px rgb(207, 208, 212, 0.85);
+  }
+  .slick-arrow .slick-prev {
+    @apply bg-primary;
+  }
+  .slickNav ul li.slick-active div {
+    @apply !bg-accent !opacity-100;
   }
 }

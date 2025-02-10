@@ -11,6 +11,10 @@ import ModalAddCoffeeImage from "./ModalAddCoffeeImage";
 import ModalAddSalon from "./ModalAddSalon";
 import ModalAddSalonGallery from "./ModalAddSalonGallery";
 import ModalAddSalonImage from "./ModalAddSalonImage";
+import ModalAddCoffeeMenu from "./ModalAddCoffeeMenu";
+import ModalAddSalonServices from "./ModalAddSalonServices";
+import ModalAddCoffeeButton from "./ModalAddCoffeeButton";
+import ModalAddSalonButton from "./ModalAddSalonButton";
 
 const Services = () => {
   const [itemEdit, setItemEdit] = React.useState("");
@@ -20,6 +24,10 @@ const Services = () => {
   const [isSalonImg, setIsSalonImg] = React.useState(false);
   const [isCoffeeGallery, setIsCoffeeGallery] = React.useState(false);
   const [isSalonGallery, setIsSalonGallery] = React.useState(false);
+  const [isCoffeeButton, setIsCoffeeButton] = React.useState(false);
+  const [isSalonButton, setIsSalonButton] = React.useState(false);
+  const [isCoffeeMenu, setIsCoffeeMenu] = React.useState(false);
+  const [isSalonServices, setIsSalonServices] = React.useState(false);
 
   const settings = {
     dots: false,
@@ -88,6 +96,30 @@ const Services = () => {
     document.body.classList.toggle("overflow-hidden");
   };
 
+  const handleAddCoffeeButton = () => {
+    setIsCoffeeButton(true);
+    setItemEdit("coffeeButtonUpdate");
+    document.body.classList.toggle("overflow-hidden");
+  };
+
+  const handleAddCoffeeMenu = () => {
+    setIsCoffeeMenu(true);
+    setItemEdit("coffeeMenuUpdate");
+    document.body.classList.toggle("overflow-hidden");
+  };
+
+  const handleAddSalonButton = () => {
+    setIsSalonButton(true);
+    setItemEdit("salonButtonUpdate");
+    document.body.classList.toggle("overflow-hidden");
+  };
+
+  const handleAddSalonServices = () => {
+    setIsSalonServices(true);
+    setItemEdit("salonServicesUpdate");
+    document.body.classList.toggle("overflow-hidden");
+  };
+
   // Get images from API data or use placeholders
   const coffeeGallery = servicesData?.data[0]?.services_coffee_gallery
     ? servicesData.data[0].services_coffee_gallery
@@ -113,7 +145,7 @@ const Services = () => {
           <section id="coffee">
             <div className=" lg:flex lg:flex-row-reverse lg:relative md:w-[100%] ">
               <div className="container">
-                <div className="lg:grid lg:grid-cols-2 ">
+                <div className="lg:grid lg:grid-cols-2  h-[740px]">
                   <div></div>
                   <a
                     className="absolute cursor-pointer tooltip-header z-[1] left-0 m-2"
@@ -122,7 +154,7 @@ const Services = () => {
                   >
                     <FaRegImages className=" bg-[#C7AC27] text-black rounded-full w-[25px] h-[25px] p-1 border-[1px]" />
                   </a>
-                  <div className="dicover flex flex-col gap-4 my-8 lg:my-20 max-w-[686px] lg:ml-[74px] md:py-10 md:mb-8">
+                  <div className="dicover flex flex-col gap-2 my-8 lg:my-16 max-w-[686px] lg:ml-[74px] md:py-10 md:mb-8">
                     <h2 className="text-[clamp(36px,6vw,24px)] font-rubikBold text-center lg:text-left">
                       {servicesData?.data?.length > 0 &&
                       servicesData.data[0]?.services_coffee_title
@@ -154,7 +186,7 @@ const Services = () => {
                             :
                           </h3>
                         </div>
-                        <p className="ml-6 my-4 lg:-my-[37px] lg:ml-16 lg:mb-10  text-black text-[clamp(.5rem,4vw,14px)] md:leading-[25px]">
+                        <p className="ml-6 my-4 lg:-my-[37px] lg:ml-16 lg:mb-6  text-black text-[clamp(.5rem,4vw,14px)] md:leading-[25px]">
                           <span className="text-accent hidden lg:inline-block font-bold ">
                             {servicesData?.data?.length > 0 &&
                             servicesData.data[0]?.services_product_a
@@ -181,7 +213,7 @@ const Services = () => {
                             :
                           </h3>
                         </div>
-                        <p className="ml-6 my-4 lg:-my-[37px] lg:ml-16 lg:mb-10  text-black text-[clamp(.5rem,4vw,14px)] md:leading-[25px]">
+                        <p className="ml-6 my-4 lg:-my-[37px] lg:ml-16 lg:mb-6  text-black text-[clamp(.5rem,4vw,14px)] md:leading-[25px]">
                           <span className="text-accent hidden lg:inline-block font-bold">
                             {servicesData?.data?.length > 0 &&
                             servicesData.data[0]?.services_product_b
@@ -223,6 +255,48 @@ const Services = () => {
                                 .services_product_description_c
                             : " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi, ipsa. Aspernatur consequuntur magni veritatis dolore praesentium delectus maxime. Veniam, labore!"}
                         </p>
+                        <a
+                          className="absolute cursor-pointer tooltip-header z-[1] "
+                          data-tooltip="Upload Text"
+                          onClick={handleAddCoffeeButton}
+                        >
+                          <HiPencil className=" bg-[#C7AC27] text-black rounded-full  w-[25px] h-[25px] p-[5px] border-[1px]" />
+                        </a>
+                        <div className="flex gap-8 mt-12">
+                          <a
+                            className="btn text-light text-[16px] font-rubikRegular flex items-center text-center max-w-[224px] h-[54px] "
+                            href={
+                              servicesData?.data?.length > 0 &&
+                              servicesData.data[0]
+                                ?.services_coffee_facebook_link
+                                ? servicesData?.data[0]
+                                    .services_coffee_facebook_link
+                                : ""
+                            }
+                            target="_blank"
+                          >
+                            {servicesData?.data?.length > 0 &&
+                            servicesData.data[0]?.services_coffee_button_a
+                              ? servicesData?.data[0].services_coffee_button_a
+                              : "Text Here"}
+                          </a>
+                          <button
+                            // onClick={handleClick}
+                            className="btn-transparent font-rubikRegular flex items-center place-content-center md:min-w-[224px] max-w-[224px] h-[54px] "
+                          >
+                            {servicesData?.data?.length > 0 &&
+                            servicesData.data[0]?.services_coffee_button_b
+                              ? servicesData?.data[0].services_coffee_button_b
+                              : "Text Here"}
+                          </button>
+                          <a
+                            className="absolute cursor-pointer tooltip-header z-[1] right-24"
+                            data-tooltip="Upload Menu"
+                            onClick={handleAddCoffeeMenu}
+                          >
+                            <FaRegImages className=" bg-[#C7AC27] text-black rounded-full w-[25px] h-[25px] p-1 border-[1px]" />
+                          </a>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -306,8 +380,8 @@ const Services = () => {
               )}
             </div>
             <div className="container">
-              <div className="lg:grid lg:grid-cols-2 lg:mr-20 lg:pr-10 md:py-10 md:mb-8 ">
-                <div className="dicover flex flex-col gap-8 py-10 ">
+              <div className="lg:grid lg:grid-cols-2 lg:mr-20 lg:pr-10 md:py-10 md:mb-8  h-[740px]">
+                <div className="dicover flex flex-col gap-8 py-2 ">
                   <h2 className="text-[clamp(36px,6vw,1.5rem)] font-rubikBold text-center lg:text-left lg:flex lg:items-center lg:gap-3 lg:py-10">
                     {servicesData?.data?.length > 0 &&
                     servicesData.data[0]?.services_salon_title
@@ -347,6 +421,46 @@ const Services = () => {
                       ? servicesData?.data[0].services_contact
                       : "+0000000"}
                   </h2>
+                  <a
+                    className="absolute cursor-pointer tooltip-header z-[1] mt-2 "
+                    data-tooltip="Upload Text"
+                    onClick={handleAddSalonButton}
+                  >
+                    <HiPencil className=" bg-[#C7AC27] text-black rounded-full  w-[25px] h-[25px] p-[5px] border-[1px]" />
+                  </a>
+                  <div className="flex gap-8 mt-12">
+                    <a
+                      className="btn text-light text-[16px] font-rubikRegular flex items-center text-center max-w-[224px] h-[54px] "
+                      href={
+                        servicesData?.data?.length > 0 &&
+                        servicesData.data[0]?.services_salon_facebook_link
+                          ? servicesData?.data[0].services_salon_facebook_link
+                          : ""
+                      }
+                      target="_blank"
+                    >
+                      {servicesData?.data?.length > 0 &&
+                      servicesData.data[0]?.services_salon_button_a
+                        ? servicesData?.data[0].services_salon_button_a
+                        : "Text Here"}
+                    </a>
+                    <button
+                      // onClick={handleClick}
+                      className="btn-transparent font-rubikRegular flex items-center place-content-center md:min-w-[224px] max-w-[224px] h-[54px] "
+                    >
+                      {servicesData?.data?.length > 0 &&
+                      servicesData.data[0]?.services_salon_button_b
+                        ? servicesData?.data[0].services_salon_button_b
+                        : "Text Here"}
+                    </button>
+                    <a
+                      className="absolute cursor-pointer tooltip-header z-[1] left-[510px]"
+                      data-tooltip="Upload Services"
+                      onClick={handleAddSalonServices}
+                    >
+                      <FaRegImages className=" bg-[#C7AC27] text-black rounded-full w-[25px] h-[25px] p-1 border-[1px]" />
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -429,6 +543,38 @@ const Services = () => {
         <ModalAddSalonGallery
           itemEdit={itemEdit}
           setIsSalonGallery={setIsSalonGallery}
+          servicesData={servicesData}
+        />
+      )}
+
+      {isCoffeeMenu && (
+        <ModalAddCoffeeMenu
+          itemEdit={itemEdit}
+          setIsCoffeeMenu={setIsCoffeeMenu}
+          servicesData={servicesData}
+        />
+      )}
+
+      {isSalonServices && (
+        <ModalAddSalonServices
+          itemEdit={itemEdit}
+          setIsSalonServices={setIsSalonServices}
+          servicesData={servicesData}
+        />
+      )}
+
+      {isCoffeeButton && (
+        <ModalAddCoffeeButton
+          itemEdit={itemEdit}
+          setIsCoffeeButton={setIsCoffeeButton}
+          servicesData={servicesData}
+        />
+      )}
+
+      {isSalonButton && (
+        <ModalAddSalonButton
+          itemEdit={itemEdit}
+          setIsSalonButton={setIsSalonButton}
           servicesData={servicesData}
         />
       )}

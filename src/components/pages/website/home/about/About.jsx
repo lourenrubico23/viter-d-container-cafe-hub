@@ -27,14 +27,15 @@ const About = () => {
                   .filter((img) => img !== ""); // Remove empty values
 
                 return imageList.length > 0 ? (
-                  <div className="flex gap-16">
+                  <div className="flex gap-2 md:gap-16">
                     {imageList.map((img, index) => (
-                      <img
-                        key={index}
-                        src={`${devBaseImgUrl}/${img}`}
-                        alt={`About Image ${index + 1}`}
-                        className="w-[150px] md:w-[170px] object-cover"
-                      />
+                      <div className="w-[150px] md:w-[170px] " key={index}>
+                        <img
+                          src={`${devBaseImgUrl}/${img}`}
+                          alt={`About Image ${index + 1}`}
+                          className="w-[150px] md:w-[170px] object-cover"
+                        />
+                      </div>
                     ))}
                   </div>
                 ) : null;

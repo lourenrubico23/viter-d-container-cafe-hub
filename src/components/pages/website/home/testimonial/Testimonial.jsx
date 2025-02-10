@@ -46,7 +46,7 @@ const Testimonial = () => {
               </div>
 
               <div className="content flex flex-col items-center gap-2 lg:items-start lg:w-[90%] place-self-start">
-                <h3 className="text-[clamp(.6rem,4vw,16px)] font-montserrat font-bold md:pb-4">
+                <h3 className="text-[clamp(.6rem,4vw,16px)] font-montserrat font-bold md:pb-4 ">
                   {testimonialData?.data?.length > 0 &&
                   testimonialData.data[0]?.testimonial_client_name_a
                     ? testimonialData?.data[0].testimonial_client_name_a

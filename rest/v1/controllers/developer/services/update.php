@@ -51,6 +51,28 @@ if (array_key_exists("servicesid", $_GET)) {
     $query = checkUpdateCoffeeServices($services);
     returnSuccess($services, "services", $query);
   }
+  if ($isUpdateServices == "coffeeButtonUpdate") {
+    $services->services_aid = $_GET['servicesid'];
+    $services->services_coffee_button_a = $data["services_coffee_button_a"];
+    $services->services_coffee_button_b = $data["services_coffee_button_b"];
+    $services->services_coffee_facebook_link = $data["services_coffee_facebook_link"];
+
+    $services->services_datetime = date("Y-m-d H:i:s");
+    checkId($services->services_aid);
+    // update
+    $query = checkUpdateCoffeeButton($services);
+    returnSuccess($services, "services", $query);
+  }
+  if ($isUpdateServices == "coffeeMenuUpdate") {
+    $services->services_aid = $_GET['servicesid'];
+    $services->services_coffee_menu_images = $data["services_coffee_menu_images"];
+
+    $services->services_datetime = date("Y-m-d H:i:s");
+    checkId($services->services_aid);
+    // update
+    $query = checkUpdateCoffeeMenu($services);
+    returnSuccess($services, "services", $query);
+  }
   if ($isUpdateServices == "salonImgUpdate") {
     $services->services_aid = $_GET['servicesid'];
     $services->services_salon_img = $data["services_salon_img"];
@@ -82,6 +104,28 @@ if (array_key_exists("servicesid", $_GET)) {
     checkId($services->services_aid);
     // update
     $query = checkUpdateSalonContents($services);
+    returnSuccess($services, "services", $query);
+  }
+  if ($isUpdateServices == "salonButtonUpdate") {
+    $services->services_aid = $_GET['servicesid'];
+    $services->services_salon_button_a = $data["services_salon_button_a"];
+    $services->services_salon_button_b = $data["services_salon_button_b"];
+    $services->services_salon_facebook_link = $data["services_salon_facebook_link"];
+
+    $services->services_datetime = date("Y-m-d H:i:s");
+    checkId($services->services_aid);
+    // update
+    $query = checkUpdateSalonButton($services);
+    returnSuccess($services, "services", $query);
+  }
+  if ($isUpdateServices == "salonServicesUpdate") {
+    $services->services_aid = $_GET['servicesid'];
+    $services->services_salon_services_images = $data["services_salon_services_images"];
+
+    $services->services_datetime = date("Y-m-d H:i:s");
+    checkId($services->services_aid);
+    // update
+    $query = checkUpdateSalonServices($services);
     returnSuccess($services, "services", $query);
   }
 }

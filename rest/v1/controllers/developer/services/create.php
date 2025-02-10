@@ -41,6 +41,20 @@ if ($isUpdateServices == "coffeeUpdate") {
     $services->services_datetime = date("Y-m-d H:i:s");
     $query = checkCreateCoffeeServices($services);
 }
+if ($isUpdateServices == "coffeeButtonUpdate") {
+    $services->services_coffee_button_a = $data["services_coffee_button_a"];
+    $services->services_coffee_button_b = $data["services_coffee_button_b"];
+    $services->services_coffee_facebook_link = $data["services_coffee_facebook_link"];
+    $services->services_datetime = date("Y-m-d H:i:s");
+
+    $query = checkCreateCoffeeButton($services);
+}
+if ($isUpdateServices == "coffeeMenuUpdate") {
+    $services->services_coffee_menu_images = $data["services_coffee_menu_images"];
+    $services->services_datetime = date("Y-m-d H:i:s");
+
+    $query = checkCreateCoffeeMenu($services);
+}
 if ($isUpdateServices == "salonImgUpdate") {
     $services->services_salon_img = $data["services_salon_img"];
     $services->services_datetime = date("Y-m-d H:i:s");
@@ -61,6 +75,20 @@ if ($isUpdateServices == "salonUpdate") {
     $services->services_datetime = date("Y-m-d H:i:s");
 
     $query = checkCreateSalonContents($services);
+}
+if ($isUpdateServices == "salonButtonUpdate") {
+    $services->services_salon_button_a = $data["services_salon_button_a"];
+    $services->services_salon_button_b = $data["services_salon_button_b"];
+    $services->services_salon_facebook_link = $data["services_salon_facebook_link"];
+    $services->services_datetime = date("Y-m-d H:i:s");
+
+    $query = checkCreateSalonButton($services);
+}
+if ($isUpdateServices == "salonServicesUpdate") {
+    $services->services_salon_services_images = $data["services_salon_services_images"];
+    $services->services_datetime = date("Y-m-d H:i:s");
+
+    $query = checkCreateSalonServices($services);
 }
 
 // Return response

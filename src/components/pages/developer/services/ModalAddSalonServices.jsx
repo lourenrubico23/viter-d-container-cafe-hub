@@ -1,9 +1,5 @@
-import useUploadPhoto from "@/components/custom-hooks/useUploadPhoto";
-import {
-  InputPhotoUpload,
-  InputText,
-  InputTextArea,
-} from "@/components/helpers/FormInputs";
+import useUploadMultiplePhoto from "@/components/custom-hooks/useUploadMultiplePhoto";
+import { InputPhotoUpload } from "@/components/helpers/FormInputs";
 import {
   devApiVersion,
   devBaseImgUrl,
@@ -21,11 +17,20 @@ import { IoImageOutline } from "react-icons/io5";
 import { MdOutlineFileUpload } from "react-icons/md";
 import * as Yup from "yup";
 
-const ModalAddBanner = ({ itemEdit, headerData, setIsBanner }) => {
+const ModalAddSalonServices = ({
+  itemEdit,
+  setIsSalonServices,
+  servicesData,
+}) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [animate, setAnimate] = React.useState("translate-x-full");
-  const { uploadPhoto, handleChangePhoto, photo } = useUploadPhoto(
-    `${devApiVersion}/upload-photo`,
+  const {
+    uploadMultiplePhoto,
+    handleChangeMultiplePhoto,
+    setPhotoArrayList,
+    photoArrayList,
+  } = useUploadMultiplePhoto(
+    `${devApiVersion}/upload-multiple-photo`,
     dispatch
   );
 
@@ -33,7 +38,7 @@ const ModalAddBanner = ({ itemEdit, headerData, setIsBanner }) => {
     setAnimate("translate-x-full");
     document.body.classList.remove("overflow-hidden");
     setTimeout(() => {
-      setIsBanner(false);
+      setIsSalonServices(false);
     }, 200);
   };
 
@@ -42,21 +47,21 @@ const ModalAddBanner = ({ itemEdit, headerData, setIsBanner }) => {
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        headerData?.data?.length
-          ? `/v1/header/${headerData.data[0].header_aid}` // update
-          : `/v1/header`, // create
-        headerData?.data?.length ? "put" : "post",
+        servicesData?.data?.length
+          ? `/v1/services/${servicesData.data[0].services_aid}` // update
+          : `/v1/services`, // create
+        servicesData?.data?.length ? "put" : "post",
         values
       ),
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ["header"] });
+      queryClient.invalidateQueries({ queryKey: ["services"] });
       if (!data.success) {
         dispatch(setError(true));
         dispatch(setMessage(data.error));
         dispatch(setSuccess(false));
       } else {
         console.log("Success");
-        setIsBanner(false);
+        setIsSalonServices(false);
         document.body.classList.remove("overflow-hidden");
         dispatch(setSuccess(true));
         dispatch(setMessage(`Successfully Updated.`));
@@ -69,10 +74,9 @@ const ModalAddBanner = ({ itemEdit, headerData, setIsBanner }) => {
   }, []);
 
   const initVal = {
-    isUpdateHeader: itemEdit,
-    header_banner_img: headerData?.data?.[0]?.header_banner_img ?? "",
-    header_banner_title: headerData?.data?.[0]?.header_banner_title ?? "",
-    header_button_text: headerData?.data?.[0]?.header_button_text ?? "",
+    isUpdateServices: itemEdit,
+    services_salon_services_images:
+      servicesData?.data?.[0]?.services_salon_services_images ?? "",
   };
 
   const yupSchema = Yup.object({});
@@ -83,7 +87,7 @@ const ModalAddBanner = ({ itemEdit, headerData, setIsBanner }) => {
       handleClose={handleClose}
     >
       <div className="modal-title">
-        <h2 className="text-sm">Edit Banner Content</h2>
+        <h2 className="text-sm">Edit Salon Services</h2>
         <button onClick={handleClose}>
           <GrFormClose className="text-[25px]" />
         </button>
@@ -93,15 +97,18 @@ const ModalAddBanner = ({ itemEdit, headerData, setIsBanner }) => {
           initialValues={initVal}
           validationSchema={yupSchema}
           onSubmit={async (values) => {
-            // to get all of the data of image
+            console.log("Uploading Images:", photoArrayList);
+
             const data = {
               ...values,
-              header_banner_img: photo
-                ? photo.name
-                : headerData?.data?.[0]?.header_banner_img,
+              services_salon_services_images:
+                photoArrayList.length > 0
+                  ? photoArrayList.map((file) => file.name).join(", ")
+                  : servicesData?.data?.services_salon_services_images || "",
             };
-            uploadPhoto(); // to save the photo when submit
+
             mutation.mutate(data);
+            uploadMultiplePhoto(); // Ensure upload completes
           }}
         >
           {(props) => {
@@ -110,63 +117,70 @@ const ModalAddBanner = ({ itemEdit, headerData, setIsBanner }) => {
                 <div className="form-input">
                   <div className="mt-5">
                     <span className="top-20 px-2 text-[12px]">
-                      Banner Image
+                      Salon Services
                     </span>
-                    <div className="relative w-fit m-auto group">
-                      {!headerData?.data?.[0]?.header_banner_img && !photo ? (
-                        <div className="group-hover:opacity-20 bg-dashAccent mb-4 items-center gap-2 w-[322px] h-[90px] border rounded-md p-2 grid place-items-center ">
-                          <IoImageOutline className="text-[40px] text-[gray] mx-auto" />
+                    <div className="relative w-fit m-auto group mt-3">
+                      {!servicesData?.data?.[0]
+                        ?.services_salon_services_images &&
+                      !photoArrayList.length ? (
+                        <div className="group-hover:opacity-20 mb-4 items-center gap-2 w-[350px] h-[180px] p-2 place-content-center">
+                          <IoImageOutline className="text-[30px] text-[gray] mx-auto" />
                           <h1 className="mb-0 leading-tight text-[gray] text-[15px] text-center">
                             Upload Image
                           </h1>
                         </div>
+                      ) : photoArrayList.length > 0 ? (
+                        <div className="grid grid-cols-2 gap-2">
+                          {photoArrayList.map((file, index) => (
+                            <img
+                              key={index}
+                              src={URL.createObjectURL(file)}
+                              alt="Uploaded Preview"
+                              className="w-[160px] h-[180px] object-cover"
+                            />
+                          ))}
+                        </div>
+                      ) : servicesData?.data?.[0]
+                          ?.services_salon_services_images ? (
+                        <div className="grid grid-cols-2 gap-2">
+                          {servicesData.data[0].services_salon_services_images
+                            .split(",")
+                            .map((img, index) => (
+                              <img
+                                key={index}
+                                src={`${devBaseImgUrl}/${img.trim()}`}
+                                alt={`Existing Image ${index + 1}`}
+                                className="w-[160px] h-[180px] object-cover"
+                              />
+                            ))}
+                        </div>
                       ) : (
-                        <img
-                          src={
-                            photo
-                              ? URL.createObjectURL(photo)
-                              : headerData?.data?.[0]?.header_banner_img // Get image from headerData if no new photo
-                              ? `${devBaseImgUrl}/${headerData.data[0].header_banner_img}`
-                              : ""
-                          }
-                          alt="Logo"
-                          className="group-hover:opacity-30 duration-200 relative h-[90px] object-contain object-[50%,50%] m-auto "
-                        />
+                        <div className="group-hover:opacity-20 mb-4 items-center gap-2 w-[115px] h-[37px] p-2 grid place-items-center">
+                          <IoImageOutline className="text-[30px] text-[gray] mx-auto" />
+                          <h1 className="mb-0 leading-tight text-[gray] text-[15px] text-center">
+                            No Images Available
+                          </h1>
+                        </div>
                       )}
 
                       <div className="btnImgUpload">
                         <button>
-                          <MdOutlineFileUpload />
+                          <MdOutlineFileUpload className="text-gray-900 text-[30px]" />
                           <InputPhotoUpload
                             name="photo"
                             type="file"
                             id="myFile"
                             accept="image/*"
-                            title="Upload Logo"
+                            title="Upload Images"
+                            multiple
                             onChange={(e) =>
-                              handleChangePhoto(e, initVal.header_banner_img)
+                              handleChangeMultiplePhoto(e, 50, true)
                             }
-                            className="opacity-0 absolute right-0 top-0 h-full left-0 m-auto cursor-pointer z-[999] "
+                            className="opacity-0 absolute right-0 top-0 h-full left-0 m-auto cursor-pointer z-[999]"
                           />
                         </button>
                       </div>
                     </div>
-                  </div>
-                  <div className="input-wrapper">
-                    <InputTextArea
-                      label="Banner Title"
-                      type="text"
-                      name="header_banner_title"
-                      disabled={mutation.isPending}
-                    />
-                  </div>
-                  <div className="input-wrapper">
-                    <InputText
-                      label="Button Text"
-                      type="text"
-                      name="header_button_text"
-                      disabled={mutation.isPending}
-                    />
                   </div>
                 </div>
                 <div className="form-action">
@@ -176,9 +190,10 @@ const ModalAddBanner = ({ itemEdit, headerData, setIsBanner }) => {
                       type="submit"
                       disabled={
                         ((mutation.isPending || !props.dirty) &&
-                          photo === null) ||
-                        photo === "" ||
-                        initVal.header_banner_img === photo?.name
+                          photoArrayList === null) ||
+                        photoArrayList === "" ||
+                        initVal.services_salon_services_images ===
+                          photoArrayList?.name
                       }
                     >
                       {mutation.isPending ? <ButtonSpinner /> : "Save"}
@@ -201,4 +216,4 @@ const ModalAddBanner = ({ itemEdit, headerData, setIsBanner }) => {
   );
 };
 
-export default ModalAddBanner;
+export default ModalAddSalonServices;

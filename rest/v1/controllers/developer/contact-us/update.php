@@ -19,7 +19,7 @@ if (array_key_exists("contactUsid", $_GET)) {
   if ($isUpdateContactUs == "contactUsUpdate") {
     $contact_us->contact_us_aid = $_GET['contactUsid'];
     $contact_us->contact_us_description = $data["contact_us_description"];
-    $contact_us->contact_us_button = $data["contact_us_description"];
+    $contact_us->contact_us_button = $data["contact_us_button"];
 
     checkId($contact_us->contact_us_aid);
     // update

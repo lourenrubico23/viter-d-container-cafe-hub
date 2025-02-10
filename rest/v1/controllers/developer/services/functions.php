@@ -8,6 +8,22 @@ function checkCreateCoffeeServices($object)
     return $query;
 }
 
+// create Coffee Button
+function checkCreateCoffeeButton($object)
+{
+    $query = $object->createCoffeeButton();
+    checkQuery($query, "There's a problem processing your request. (create coffee button)");
+    return $query;
+}
+
+// create Coffee Menu
+function checkCreateCoffeeMenu($object)
+{
+    $query = $object->createCoffeeMenu();
+    checkQuery($query, "There's a problem processing your request. (create coffee menu)");
+    return $query;
+}
+
 // create Salon Image
 function checkCreateCoffeeGallery($object)
 {
@@ -40,11 +56,43 @@ function checkCreateSalonContents($object)
     return $query;
 }
 
+// create Salon Button
+function checkCreateSalonButton($object)
+{
+    $query = $object->createSalonButton();
+    checkQuery($query, "There's a problem processing your request. (create salon button)");
+    return $query;
+}
+
+// create Salon Services
+function checkCreateSalonServices($object)
+{
+    $query = $object->createSalonServices();
+    checkQuery($query, "There's a problem processing your request. (create salon services)");
+    return $query;
+}
+
 // Update Coffee services
 function checkUpdateCoffeeServices($object)
 {
     $query = $object->updateCoffeeServices();
     checkQuery($query, "There's a problem processing your request. (update coffee services)");
+    return $query;
+}
+
+// Update Coffee button
+function checkUpdateCoffeeButton($object)
+{
+    $query = $object->updateCoffeeButton();
+    checkQuery($query, "There's a problem processing your request. (update coffee button)");
+    return $query;
+}
+
+// Update Coffee Menu
+function checkUpdateCoffeeMenu($object)
+{
+    $query = $object->updateCoffeeMenu();
+    checkQuery($query, "There's a problem processing your request. (update coffee menu)");
     return $query;
 }
 
@@ -77,5 +125,21 @@ function checkUpdateSalonContents($object)
 {
     $query = $object->updateSalonContents();
     checkQuery($query, "There's a problem processing your request. (update salon contents)");
+    return $query;
+}
+
+// Update Salon button
+function checkUpdateSalonButton($object)
+{
+    $query = $object->updateSalonButton();
+    checkQuery($query, "There's a problem processing your request. (update salon button)");
+    return $query;
+}
+
+// Update Salon services
+function checkUpdateSalonServices($object)
+{
+    $query = $object->updateSalonServices();
+    checkQuery($query, "There's a problem processing your request. (update salon services)");
     return $query;
 }

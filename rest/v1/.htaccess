@@ -39,3 +39,7 @@ RewriteRule ^copyright/([0-9]+)$ controllers/developer/copyright/copyright.php?c
 # TESTIMONIAL
 RewriteRule ^testimonial$ controllers/developer/testimonial/testimonial.php [L]
 RewriteRule ^testimonial/([0-9]+)$ controllers/developer/testimonial/testimonial.php?testimonialid=$1 [L]
+
+# COLORS
+RewriteRule ^colors$ controllers/developer/colors/colors.php [L]
+RewriteRule ^colors/([0-9]+)$ controllers/developer/colors/colors.php?colorsid=$1 [L]

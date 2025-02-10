@@ -30,7 +30,7 @@ const Header = () => {
     <>
       <section
         id="header"
-        className="banner relative flex items-center place-content-center 2xl:min-h-[80dvh] lg:min-h-[100dvh]"
+        className="banner relative flex items-center place-content-center min-h-screen lg:min-h-[1020px] "
       >
         <div className="absolute inset-0 w-full h-full">
           <img

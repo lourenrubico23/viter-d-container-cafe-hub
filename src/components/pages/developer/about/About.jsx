@@ -52,7 +52,6 @@ const About = () => {
                           src={`${devBaseImgUrl}/${img}`}
                           alt={`About Image ${index + 1}`}
                           className="w-[150px] md:w-[170px] object-cover"
-                          onError={(e) => (e.target.style.display = "none")} // Hide broken images
                         />
                       </div>
                     ))}
