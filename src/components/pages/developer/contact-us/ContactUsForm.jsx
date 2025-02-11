@@ -54,6 +54,7 @@ const ContactUsForm = ({ setIsForm, setItemEdit, itemEdit, contactUsData }) => {
       <ModalWrapperCenter
         className={`relative transition-all ease-in-out transform duration-200 lg:h-[700px] lg:w-[500px] h-screen  w-[320px] bg-light z-[1] ${animate}`}
         handleClose={handleClose}
+        opacity="opacity-60"
       >
         <div
           className="absolute top-[6px] right-0 p-2 text-lg cursor-pointer z-10 "

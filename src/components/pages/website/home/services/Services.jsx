@@ -1,5 +1,9 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
-import { devBaseImgUrl, getConvertStringToJSONparseData, googleHDViewLink } from "@/components/helpers/functions-general";
+import {
+  devBaseImgUrl,
+  getConvertStringToJSONparseData,
+  googleHDViewLink,
+} from "@/components/helpers/functions-general";
 import { FaAngleDoubleRight } from "react-icons/fa";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
@@ -7,6 +11,7 @@ import "slick-carousel/slick/slick.css";
 import CoffeeMenu from "./CoffeeMenu";
 import React from "react";
 import SalonServices from "./SalonServices";
+import LoadImages from "@/components/partials/LoadImages";
 
 const Services = () => {
   const [isCoffeeMenu, setIsCoffeeMenu] = React.useState(false);
@@ -43,27 +48,23 @@ const Services = () => {
     "services" // key
   );
 
-  // Get images from API data or use placeholders
-  const coffeeGallery = servicesData?.data[0]?.services_coffee_gallery
-    ? servicesData.data[0].services_coffee_gallery
-        .split(",")
-        .map((img) => img.trim())
-        .filter((img) => img !== "") // Remove empty strings
-        .map((img) => `${devBaseImgUrl}/${img}`)
-    : []; // Default to empty array if no images
-
-  // Get images from API data or use placeholders
-  const salonGallery = servicesData?.data[0]?.services_salon_gallery
-    ? servicesData.data[0].services_salon_gallery
-        .split(",")
-        .map((img) => img.trim())
-        .filter((img) => img !== "") // Remove empty strings
-        .map((img) => `${devBaseImgUrl}/${img}`)
-    : []; // Default to empty array if no images
-
   const coffeeImage = getConvertStringToJSONparseData(
     servicesData?.data?.[0]?.services_coffee_img
   );
+
+  const salonImage = getConvertStringToJSONparseData(
+    servicesData?.data?.[0]?.services_salon_img
+  );
+
+  const coffeeGallery =
+    getConvertStringToJSONparseData(
+      servicesData?.data?.[0]?.services_coffee_gallery
+    ) || [];
+
+  const salonGallery =
+    getConvertStringToJSONparseData(
+      servicesData?.data?.[0]?.services_salon_gallery
+    ) || [];
 
   const handleCoffeeMenu = () => {
     setIsCoffeeMenu(true);
@@ -79,7 +80,7 @@ const Services = () => {
           <section id="coffee">
             <div className=" lg:flex lg:flex-row-reverse lg:relative md:w-[100%] ">
               <div className="container">
-                <div className="lg:grid lg:grid-cols-2 h-[740px]">
+                <div className="lg:grid lg:grid-cols-2 md:h-[740px]">
                   <div></div>
                   <div className="dicover flex flex-col gap-2 my-8 lg:my-16 max-w-[686px] lg:ml-[74px] md:py-10 md:mb-8">
                     <h2 className="text-[clamp(36px,6vw,24px)] font-rubikBold text-center lg:text-left">
@@ -226,7 +227,7 @@ const Services = () => {
                   image ? ( // Ensure image is valid before rendering
                     <div key={index} className="w-48 h-48 md:w-80 md:h-64 px-2">
                       <img
-                        src={image}
+                        src={`${googleHDViewLink}${image?.id}`}
                         alt={`Gallery Image ${index + 1}`}
                         className="w-full h-full object-cover"
                       />
@@ -242,16 +243,16 @@ const Services = () => {
           <div className="discover_wrapper lg:flex lg:flex-row-reverse lg:relative md:w-[100%]">
             <div className="lg:absolute lg:right-0 lg:top-0 h-full lg:w-[50%] block ">
               <img
-                src={`${devBaseImgUrl}/${servicesData?.data[0].services_salon_img}`}
+                src={`${googleHDViewLink}${salonImage[0]?.id}`}
                 alt=""
                 className="lg:w-full lg:h-[740px] object-cover md:w-full"
               />
             </div>
 
             <div className="container">
-              <div className="lg:grid lg:grid-cols-2 lg:mr-20 lg:pr-10 md:py-10 md:mb-8 h-[740px]">
+              <div className="lg:grid lg:grid-cols-2 lg:mr-20 lg:pr-10 md:py-10 md:mb-8 md:h-[740px]">
                 <div className="dicover flex flex-col gap-8 py-2 ">
-                  <h2 className="text-[clamp(36px,6vw,1.5rem)] font-rubikBold text-center lg:text-left lg:flex lg:items-center lg:gap-3 lg:py-10">
+                  <h2 className="text-[clamp(36px,6vw,1.5rem)] font-rubikBold text-center pt-7 lg:text-left lg:flex lg:items-center lg:gap-3 lg:py-10">
                     {servicesData?.data?.length > 0 &&
                     servicesData.data[0]?.services_salon_title
                       ? servicesData?.data[0].services_salon_title
@@ -320,7 +321,7 @@ const Services = () => {
                   image ? ( // Ensure image is valid before rendering
                     <div key={index} className="w-48 h-48 md:w-80 md:h-64 px-2">
                       <img
-                        src={image}
+                        src={`${googleHDViewLink}${image?.id}`}
                         alt={`Gallery Image ${index + 1}`}
                         className="w-full h-full object-cover"
                       />

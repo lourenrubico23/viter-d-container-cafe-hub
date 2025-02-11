@@ -8,6 +8,7 @@ import React from "react";
 import { FaRegImages } from "react-icons/fa";
 import ModalAddAbout from "./ModalAddAbout";
 import { IoImageOutline } from "react-icons/io5";
+import LoadImages from "@/components/partials/LoadImages";
 
 const About = () => {
   const [itemEdit, setItemEdit] = React.useState("");
@@ -49,7 +50,6 @@ const About = () => {
                   <div key={index} className="w-[150px] md:w-[170px]">
                     <img
                       src={`${googleHDViewLink}${img?.id}`}
-                      alt={`About Image ${index + 1}`}
                       className="w-[150px] md:w-[170px] object-cover"
                     />
                   </div>

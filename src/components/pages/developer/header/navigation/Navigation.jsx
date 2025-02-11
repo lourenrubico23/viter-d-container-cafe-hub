@@ -11,6 +11,7 @@ import { IoImageOutline } from "react-icons/io5";
 import { RxHamburgerMenu } from "react-icons/rx";
 import ModalAddLogo from "./ModalAddLogo";
 import ModalAddNavigation from "./ModalAddNavigation";
+import LoadImages from "@/components/partials/LoadImages";
 
 const Navigation = ({ headerData, setItemEdit, itemEdit }) => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -57,8 +58,7 @@ const Navigation = ({ headerData, setItemEdit, itemEdit }) => {
             <div className="logo-img w-[55px] lg:w-[98px] lg:h-[90px]">
               <img
                 src={`${googleHDViewLink}${logo[0]?.id}`}
-                alt="Logo Image"
-                className="w-[55px] lg:w-[98px] lg:h-[90px]"
+                className="w-[55px] lg:w-[98px] lg:h-[90px] object-cover object-center"
               />
             </div>
           ) : (

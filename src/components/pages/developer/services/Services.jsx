@@ -19,6 +19,7 @@ import ModalAddCoffeeMenu from "./ModalAddCoffeeMenu";
 import ModalAddSalonServices from "./ModalAddSalonServices";
 import ModalAddCoffeeButton from "./ModalAddCoffeeButton";
 import ModalAddSalonButton from "./ModalAddSalonButton";
+import LoadImages from "@/components/partials/LoadImages";
 
 const Services = () => {
   const [itemEdit, setItemEdit] = React.useState("");
@@ -124,27 +125,23 @@ const Services = () => {
     document.body.classList.toggle("overflow-hidden");
   };
 
-  // Get images from API data or use placeholders
-  const coffeeGallery = servicesData?.data[0]?.services_coffee_gallery
-    ? servicesData.data[0].services_coffee_gallery
-        .split(",")
-        .map((img) => img.trim())
-        .filter((img) => img !== "") // Remove empty strings
-        .map((img) => `${devBaseImgUrl}/${img}`)
-    : []; // Default to empty array if no images
-
-  // Get images from API data or use placeholders
-  const salonGallery = servicesData?.data[0]?.services_salon_gallery
-    ? servicesData.data[0].services_salon_gallery
-        .split(",")
-        .map((img) => img.trim())
-        .filter((img) => img !== "") // Remove empty strings
-        .map((img) => `${devBaseImgUrl}/${img}`)
-    : []; // Default to empty array if no images
-
   const coffeeImage = getConvertStringToJSONparseData(
     servicesData?.data?.[0]?.services_coffee_img
   );
+
+  const salonImage = getConvertStringToJSONparseData(
+    servicesData?.data?.[0]?.services_salon_img
+  );
+
+  const coffeeGallery =
+    getConvertStringToJSONparseData(
+      servicesData?.data?.[0]?.services_coffee_gallery
+    ) || []; // Ensure default is an empty array
+
+  const salonGallery =
+    getConvertStringToJSONparseData(
+      servicesData?.data?.[0]?.services_salon_gallery
+    ) || [];
 
   return (
     <>
@@ -342,7 +339,7 @@ const Services = () => {
                 ? coffeeGallery.map((image, index) => (
                     <div key={index} className="w-48 h-48 md:w-80 md:h-64 px-2">
                       <img
-                        src={image}
+                        src={`${googleHDViewLink}${image?.id}`}
                         alt={`Service ${index + 1}`}
                         className="w-full h-full object-cover"
                       />
@@ -376,8 +373,8 @@ const Services = () => {
               servicesData.data[0]?.services_salon_img ? (
                 <div className="lg:w-full lg:h-full object-cover md:w-full">
                   <img
-                    src={`${devBaseImgUrl}/${servicesData.data[0].services_salon_img}`}
-                    alt=""
+                    src={`${googleHDViewLink}${salonImage[0]?.id}`}
+                    alt="Coffee"
                     className="lg:w-full lg:h-full object-cover md:w-full"
                   />
                 </div>
@@ -486,7 +483,7 @@ const Services = () => {
                 ? salonGallery.map((image, index) => (
                     <div key={index} className="w-48 h-48 md:w-80 md:h-64 px-2">
                       <img
-                        src={image}
+                        src={`${googleHDViewLink}${image?.id}`}
                         alt={`Service ${index + 1}`}
                         className="w-full h-full object-cover"
                       />

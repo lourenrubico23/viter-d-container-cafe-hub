@@ -57,8 +57,9 @@ const ContactUsForm = () => {
   return (
     <>
       <ModalWrapperCenter
-        className={`relative transition-all ease-in-out transform duration-200 lg:h-[700px] lg:w-[500px] h-screen  w-[320px] bg-light ${animate}`}
+        className={`relative transition-all ease-in-out transform duration-200 md:h-[700px] md:w-[500px] h-[680px] w-[320px] bg-light ${animate} overflow-auto `}
         handleClose={handleClose}
+        opacity="opacity-60"
       >
         <div
           className="absolute top-[6px] right-0 p-2 text-lg cursor-pointer z-10 "

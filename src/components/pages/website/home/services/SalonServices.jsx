@@ -3,7 +3,12 @@ import React from "react";
 import { IoImageOutline } from "react-icons/io5";
 import Slider from "react-slick";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { devBaseImgUrl } from "@/components/helpers/functions-general";
+import {
+  devBaseImgUrl,
+  getConvertStringToJSONparseData,
+  googleHDViewLink,
+} from "@/components/helpers/functions-general";
+import LoadImages from "@/components/partials/LoadImages";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -85,9 +90,9 @@ const SalonServices = ({ setIsSalonServices, servicesData }) => {
     responsive: [
       {
         breakpoint: 1024,
-        settings: { slidesToShow: 3, centerPadding: "15px" },
+        settings: { slidesToShow: 1, centerPadding: "15px" },
       },
-      { breakpoint: 768, settings: { slidesToShow: 2, centerPadding: "10px" } },
+      { breakpoint: 768, settings: { slidesToShow: 1, centerPadding: "10px" } },
       { breakpoint: 480, settings: { slidesToShow: 1, centerPadding: "5px" } },
     ],
   };
@@ -96,42 +101,50 @@ const SalonServices = ({ setIsSalonServices, servicesData }) => {
     setIsSalonServices(false);
   };
 
-  // Get images from API data or use placeholders
-  const salonServicesImg = servicesData?.data[0]?.services_salon_services_images
-    ? servicesData.data[0].services_salon_services_images
-        .split(",")
-        .map((img) => img.trim())
-        .filter((img) => img !== "") // Remove empty strings
-        .map((img) => `${devBaseImgUrl}/${img}`)
-    : []; // Default to empty array if no images
+  const salonServicesImg = getConvertStringToJSONparseData(
+    servicesData?.data?.[0]?.services_salon_services_images
+  );
 
   return (
     <>
       <ModalWrapperCenter
-        className="max-w-[600px] h-[760px]"
+        className="min-w-[300px] max-w-[350px] h-[600px] md:max-w-[600px] md:h-[760px]"
         handleClose={handleClose}
+        opacity="opacity-90"
       >
-        {salonServicesImg?.length > 0 ? (
-          <Slider {...settings}>
-            {salonServicesImg.map((image, index) =>
-              image ? ( // Ensure image is valid before rendering
-                <div
-                  key={index}
-                  className="w-48 h-48 md:w-[600px] md:h-[760px] "
-                >
-                  <img
-                    src={image}
-                    alt={`Menu ${index + 1}`}
-                    className="w-[600px] h-[760px] object-fill p-5"
-                  />
-                </div>
-              ) : (
-                ""
-              )
-            )}
-          </Slider>
+        {servicesData?.data?.length > 0 && salonServicesImg?.length > 0 ? (
+          salonServicesImg.length === 1 ? (
+            // Display a single image without a slider if there's only one image
+            <div className="min-w-[300px] max-w-[350px] h-[600px] md:max-w-[600px] md:h-[760px]">
+              <img
+                src={`${googleHDViewLink}${salonServicesImg[0]?.id}`}
+                alt="Menu 1"
+                className="w-fit h-[600px] md:w-[600px] md:h-[760px] object-fill p-5"
+              />
+            </div>
+          ) : (
+            // Display images inside a slider if there are multiple images
+            <Slider {...settings}>
+              {salonServicesImg.map(
+                (image, index) =>
+                  image?.id && ( // Ensure image is valid before rendering
+                    <div
+                      key={index}
+                      className="min-w-[300px] max-w-[350px] h-[600px] md:max-w-[600px] md:h-[760px]"
+                    >
+                      <img
+                        src={`${googleHDViewLink}${image.id}`}
+                        alt={`Menu ${index + 1}`}
+                        className="w-fit h-[600px] md:w-[600px] md:h-[760px] object-fill p-5"
+                      />
+                    </div>
+                  )
+              )}
+            </Slider>
+          )
         ) : (
-          <div className="flex place-content-center my-[50%]">
+          // Display message when there are no images
+          <div className="flex place-content-center my-[50%] md:w-[600px]">
             <span>No Image Available</span>
           </div>
         )}

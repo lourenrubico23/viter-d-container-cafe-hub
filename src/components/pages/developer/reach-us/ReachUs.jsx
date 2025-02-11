@@ -66,7 +66,7 @@ const ReachUs = () => {
                   ? reachUsData?.data[0].reach_us_title
                   : " Lorem ipsum dolor sit, amet consectetur adipisicing elit."}
               </h2>
-              <ul className="font-montserrat text-[clamp(16px,4vw,24px)] [&>li]:flex [&>li]:items-center [&>li]:gap-[33px] flex flex-col gap-8 ">
+              <ul className="font-montserrat text-[clamp(16px,4vw,20px)] [&>li]:flex [&>li]:items-center [&>li]:gap-[33px] flex flex-col gap-8 ">
                 <li>
                   <div>
                     <BsPhone />

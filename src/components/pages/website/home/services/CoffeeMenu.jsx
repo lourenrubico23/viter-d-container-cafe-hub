@@ -8,6 +8,7 @@ import {
   getConvertStringToJSONparseData,
   googleHDViewLink,
 } from "@/components/helpers/functions-general";
+import LoadImages from "@/components/partials/LoadImages";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -89,9 +90,9 @@ const CoffeeMenu = ({ setIsCoffeeMenu, servicesData }) => {
     responsive: [
       {
         breakpoint: 1024,
-        settings: { slidesToShow: 3, centerPadding: "15px" },
+        settings: { slidesToShow: 1, centerPadding: "15px" },
       },
-      { breakpoint: 768, settings: { slidesToShow: 2, centerPadding: "10px" } },
+      { breakpoint: 768, settings: { slidesToShow: 1, centerPadding: "10px" } },
       { breakpoint: 480, settings: { slidesToShow: 1, centerPadding: "5px" } },
     ],
   };
@@ -100,15 +101,6 @@ const CoffeeMenu = ({ setIsCoffeeMenu, servicesData }) => {
     setIsCoffeeMenu(false);
   };
 
-  // // Get images from API data or use placeholders
-  // const coffeeMenuImg = servicesData?.data[0]?.services_coffee_menu_images
-  //   ? servicesData.data[0].services_coffee_menu_images
-  //       .split(",")
-  //       .map((img) => img.trim())
-  //       .filter((img) => img !== "") // Remove empty strings
-  //       .map((img) => `${devBaseImgUrl}/${img}`)
-  //   : []; // Default to empty array if no images
-
   const coffeeMenu = getConvertStringToJSONparseData(
     servicesData?.data?.[0]?.services_coffee_menu_images
   );
@@ -116,8 +108,9 @@ const CoffeeMenu = ({ setIsCoffeeMenu, servicesData }) => {
   return (
     <>
       <ModalWrapperCenter
-        className="max-w-[600px] h-[760px]"
+        className="min-w-[300px] max-w-[350px] h-[600px] md:max-w-[600px] md:h-[760px]"
         handleClose={handleClose}
+         opacity ="opacity-90"
       >
         {servicesData?.data?.length > 0 && coffeeMenu?.length > 0 ? (
           <Slider {...settings}>
@@ -125,12 +118,12 @@ const CoffeeMenu = ({ setIsCoffeeMenu, servicesData }) => {
               image ? ( // Ensure image is valid before rendering
                 <div
                   key={index}
-                  className="w-48 h-48 md:w-[600px] md:h-[760px] "
+                  className="min-w-[300px] max-w-[350px] h-[600px] md:max-w-[600px] md:h-[760px] "
                 >
                   <img
                     src={`${googleHDViewLink}${image?.id}`}
                     alt={`Menu ${index + 1}`}
-                    className="w-[600px] h-[760px] object-fill p-5"
+                    className="w-fit h-[600px]  md:w-[600px] md:h-[760px] object-fill p-5"
                   />
                 </div>
               ) : (

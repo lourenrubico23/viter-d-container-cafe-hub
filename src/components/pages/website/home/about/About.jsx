@@ -22,10 +22,10 @@ const About = () => {
   return (
     <section id="about">
       <div className="h-[498px] bg-light  ">
-        <div className="flex flex-col gap-16 items-center py-[75px]">
-          <div className="flex gap-16">
+        <div className="flex flex-col gap-16 items-center py-10 md:py-[75px]">
+          <div className="">
             {aboutData?.data?.length > 0 && logo?.length > 0 ? (
-              <div className="flex gap-16">
+              <div className="flex gap-2 md:gap-16">
                 {logo.map((img, index) => (
                   <div key={index} className="w-[150px] md:w-[170px]">
                     <img

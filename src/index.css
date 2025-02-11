@@ -167,7 +167,7 @@
     @apply py-0 px-3 max-w-[90rem] md:max-w-[90rem] md:px-6 md:py-0 p-6 mx-auto;
   }
   .gmap_iframe {
-    @apply lg:h-[49rem] lg:w-[70rem] min-w-[20rem] min-h-[25rem];
+    @apply lg:h-[49rem] lg:w-[70rem] w-fit h-[25rem] md:w-[35rem] md:h-[30rem];
   }
 }
 

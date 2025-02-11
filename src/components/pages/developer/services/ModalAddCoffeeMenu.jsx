@@ -13,6 +13,7 @@ import {
 import { queryData } from "@/components/helpers/queryData";
 import LoadImages from "@/components/partials/LoadImages";
 import ModalWrapper from "@/components/partials/modal/ModalWrapper";
+import ModalRemovedPhoto from "@/components/partials/ModalRemovedPhoto";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import { setError, setMessage, setSuccess } from "@/store/StoreAction";
 import { StoreContext } from "@/store/StoreContext";
@@ -134,49 +135,50 @@ const ModalAddCoffeeMenu = ({ itemEdit, setIsCoffeeMenu, servicesData }) => {
   const yupSchema = Yup.object({});
 
   return (
-    <ModalWrapper
-      className={`transition-all ease-linear transform duration-200 ${animate}`}
-      handleClose={handleClose}
-    >
-      <div className="modal-title">
-        <h2 className="text-sm">Edit Coffee Menu</h2>
-        <button onClick={handleClose}>
-          <GrFormClose className="text-[25px]" />
-        </button>
-      </div>
-      <div className="modal-content">
-        <Formik
-          initialValues={initVal}
-          validationSchema={yupSchema}
-          onSubmit={async (values) => {
-            console.log("Uploading Images:", photoArrayList);
+    <>
+      <ModalWrapper
+        className={`transition-all ease-linear transform duration-200 ${animate}`}
+        handleClose={handleClose}
+      >
+        <div className="modal-title">
+          <h2 className="text-sm">Edit Coffee Menu</h2>
+          <button onClick={handleClose}>
+            <GrFormClose className="text-[25px]" />
+          </button>
+        </div>
+        <div className="modal-content">
+          <Formik
+            initialValues={initVal}
+            validationSchema={yupSchema}
+            onSubmit={async (values) => {
+              console.log("Uploading Images:", photoArrayList);
 
-            const data = {
-              ...values,
-              services_coffee_menu_images: Array.from(photoArrayList).map(
-                (item) =>
-                  JSON.stringify({
-                    name: item.name,
-                    id: item?.id || "",
-                  })
-              ),
-            };
+              const data = {
+                ...values,
+                services_coffee_menu_images: Array.from(photoArrayList).map(
+                  (item) =>
+                    JSON.stringify({
+                      name: item.name,
+                      id: item?.id || "",
+                    })
+                ),
+              };
 
-            const photoUpload = await uploadMultiplePhoto();
-            if (photoUpload?.success || !photoUpload?.success) {
-              setLoading(false);
-            }
-            if (!loading) console.log(data);
-            mutation.mutate(data);
-          }}
-        >
-          {(props) => {
-            return (
-              <Form className="modal-form">
-                <div className="form-input">
-                  <div className="mt-5">
-                    <span className="top-20 px-2 text-[12px]"></span>
-                    {/* <div className="relative w-fit m-auto group mt-3">
+              const photoUpload = await uploadMultiplePhoto();
+              if (photoUpload?.success || !photoUpload?.success) {
+                setLoading(false);
+              }
+              if (!loading) console.log(data);
+              mutation.mutate(data);
+            }}
+          >
+            {(props) => {
+              return (
+                <Form className="modal-form">
+                  <div className="form-input">
+                    <div className="mt-5">
+                      <span className="top-20 px-2 text-[12px]"></span>
+                      {/* <div className="relative w-fit m-auto group mt-3">
                       {!servicesData?.data?.[0]?.services_coffee_menu_images &&
                       !photoArrayList.length ? (
                         <div className="group-hover:opacity-20 mb-4 items-center gap-2 w-[350px] h-[180px] p-2 place-content-center">
@@ -238,146 +240,158 @@ const ModalAddCoffeeMenu = ({ itemEdit, setIsCoffeeMenu, servicesData }) => {
                       </div>
                     </div> */}
 
-                    <div
-                      className={`relative mt-7 mb-6 border border-gray-300 rounded-md hover:border-primary hover:border-dashed ${
-                        withFile && "border-primary border-dashed"
-                      }`}
-                      onDragOver={() => setWithFile(true)}
-                      onDragLeave={() => setWithFile(false)}
-                    >
-                      <span className="min-h-20 flex items-center justify-center">
-                        <span className="text-dark mr-1">Drag & Drop</span>{" "}
-                        Photo here or{" "}
-                        <span className="text-dark ml-1">Browse</span>
-                      </span>
+                      <div
+                        className={`relative mt-7 mb-6 border border-gray-300 rounded-md hover:border-primary hover:border-dashed ${
+                          withFile && "border-primary border-dashed"
+                        }`}
+                        onDragOver={() => setWithFile(true)}
+                        onDragLeave={() => setWithFile(false)}
+                      >
+                        <span className="min-h-20 flex items-center justify-center">
+                          <span className="text-dark mr-1">Drag & Drop</span>{" "}
+                          Photo here or{" "}
+                          <span className="text-dark ml-1">Browse</span>
+                        </span>
 
-                      <InputFileUpload
-                        label="Coffee Menu"
-                        name="File"
-                        type="file"
-                        id="myFile"
-                        accept="*"
-                        title="Upload File"
-                        multiple
-                        onChange={(e) =>
-                          handleChangeFileUpload(
-                            e,
-                            props,
-                            setPhotoArrayList,
-                            "services_coffee_menu_images"
-                          )
-                        }
-                        onDrop={(e) =>
-                          handleChangeFileUpload(
-                            e,
-                            props,
-                            setPhotoArrayList,
-                            "services_coffee_menu_images"
-                          )
-                        }
-                        disabled={mutation.isPending || loading}
-                        className="opacity-0 absolute right-0 bottom-0 left-0 m-auto cursor-pointer h-full z-20"
-                      />
-                    </div>
+                        <InputFileUpload
+                          label="Coffee Menu"
+                          name="File"
+                          type="file"
+                          id="myFile"
+                          accept="*"
+                          title="Upload File"
+                          multiple
+                          onChange={(e) =>
+                            handleChangeFileUpload(
+                              e,
+                              props,
+                              setPhotoArrayList,
+                              "services_coffee_menu_images"
+                            )
+                          }
+                          onDrop={(e) =>
+                            handleChangeFileUpload(
+                              e,
+                              props,
+                              setPhotoArrayList,
+                              "services_coffee_menu_images"
+                            )
+                          }
+                          disabled={mutation.isPending || loading}
+                          className="opacity-0 absolute right-0 bottom-0 left-0 m-auto cursor-pointer h-full z-20"
+                        />
+                      </div>
 
-                    <div className="relative mb-6">
-                      <ol className="flex flex-wrap gap-5 justify-center bg-gray-300">
-                        {photoArrayList?.length > 0 &&
-                          Array.from(photoArrayList).map((item, key) => {
-                            const fileLink =
-                              item instanceof File || item instanceof Blob
-                                ? URL.createObjectURL(item)
-                                : `${googleHDViewLink}${item?.id}`;
+                      <div className="relative mb-6">
+                        <ol className="flex flex-wrap gap-5 justify-center bg-gray-300">
+                          {photoArrayList?.length > 0 &&
+                            Array.from(photoArrayList).map((item, key) => {
+                              const fileLink =
+                                item instanceof File || item instanceof Blob
+                                  ? URL.createObjectURL(item)
+                                  : `${googleHDViewLink}${item?.id}`;
 
-                            return (
-                              <React.Fragment key={key}>
-                                <li
-                                  className={`relative z-10 h-48 w-48 group cursor-pointer overflow-hidden ${
-                                    (mutation.isPending || loading) &&
-                                    `!cursor-not-allowed`
-                                  }`}
-                                  onClick={() => {
-                                    handleClickViewSlideshow(
-                                      photoArrayList,
-                                      key
-                                    );
-                                  }}
-                                >
-                                  <LoadImages
-                                    url={fileLink}
-                                    className={`relative z-20 w-full h-full object-cover object-center`}
-                                  />
-                                  {(!mutation.isPending || !loading) && (
-                                    <div className="hidden group-hover:inline-flex absolute top-0 z-30 w-full h-full bg-black/40 items-center justify-center text-white text-center ">
-                                      <span>
-                                        Click to View <br />
-                                        {key + 1}. {item.name}
-                                      </span>
+                              return (
+                                <React.Fragment key={key}>
+                                  <li
+                                    className={`relative z-10 h-48 w-48 group cursor-pointer overflow-hidden ${
+                                      (mutation.isPending || loading) &&
+                                      `!cursor-not-allowed`
+                                    }`}
+                                    onClick={() => {
+                                      handleClickViewSlideshow(
+                                        photoArrayList,
+                                        key
+                                      );
+                                    }}
+                                  >
+                                    <LoadImages
+                                      url={fileLink}
+                                      className={`relative z-20 w-full h-full object-cover object-center`}
+                                    />
+                                    {(!mutation.isPending || !loading) && (
+                                      <div className="hidden group-hover:inline-flex absolute top-0 z-30 w-full h-full bg-black/40 items-center justify-center text-white text-center ">
+                                        <span>
+                                          Click to View <br />
+                                          {key + 1}. {item.name}
+                                        </span>
 
-                                      <div
-                                        className="absolute bottom-0 right-0 flex items-center gap-2"
-                                        onClick={(e) => {
-                                          e.stopPropagation();
-                                        }}
-                                      >
-                                        <button
-                                          type="button"
-                                          className="text-red-600 p-20 mr-2 tooltip-action-table text-lg disabled:bg-transparent disabled:cursor-not-allowed disabled:text-red-400"
-                                          data-tooltip={`Delete`}
-                                          disabled={
-                                            mutation.isPending || loading
-                                          }
-                                          onClick={() =>
-                                            handleRemovePhoto(
-                                              photoArrayList,
-                                              key,
-                                              props
-                                            )
-                                          }
+                                        <div
+                                          className="absolute bottom-0 right-0 flex items-center gap-2"
+                                          onClick={(e) => {
+                                            e.stopPropagation();
+                                          }}
                                         >
-                                          <FaTrash />
-                                        </button>
+                                          <button
+                                            type="button"
+                                            className="text-red-600 p-20 mr-2 tooltip-action-table text-lg disabled:bg-transparent disabled:cursor-not-allowed disabled:text-red-400"
+                                            data-tooltip={`Delete`}
+                                            disabled={
+                                              mutation.isPending || loading
+                                            }
+                                            onClick={() =>
+                                              handleRemovePhoto(
+                                                photoArrayList,
+                                                key,
+                                                props
+                                              )
+                                            }
+                                          >
+                                            <FaTrash />
+                                          </button>
+                                        </div>
                                       </div>
-                                    </div>
-                                  )}
-                                </li>
-                              </React.Fragment>
-                            );
-                          })}
-                      </ol>
+                                    )}
+                                  </li>
+                                </React.Fragment>
+                              );
+                            })}
+                        </ol>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="form-action">
-                  <div className="form-btn">
-                    <button
-                      className="btn-modal-submit"
-                      type="submit"
-                      disabled={
-                        ((mutation.isPending || !props.dirty) &&
-                          photoArrayList === null) ||
-                        photoArrayList === "" ||
-                        initVal.services_coffee_menu_images ===
-                          photoArrayList?.name
-                      }
-                    >
-                      {mutation.isPending ? <ButtonSpinner /> : "Save"}
-                    </button>
-                    <button
-                      className="btn-modal-cancel"
-                      type="button"
-                      onClick={handleClose}
-                    >
-                      Cancel
-                    </button>
+                  <div className="form-action">
+                    <div className="form-btn">
+                      <button
+                        className="btn-modal-submit"
+                        type="submit"
+                        disabled={
+                          ((mutation.isPending || !props.dirty) &&
+                            photoArrayList === null) ||
+                          photoArrayList === "" ||
+                          initVal.services_coffee_menu_images ===
+                            photoArrayList?.name
+                        }
+                      >
+                        {mutation.isPending ? <ButtonSpinner /> : "Save"}
+                      </button>
+                      <button
+                        className="btn-modal-cancel"
+                        type="button"
+                        onClick={handleClose}
+                      >
+                        Cancel
+                      </button>
+                    </div>
                   </div>
-                </div>
-              </Form>
-            );
-          }}
-        </Formik>
-      </div>
-    </ModalWrapper>
+                </Form>
+              );
+            }}
+          </Formik>
+        </div>
+      </ModalWrapper>
+
+      {isRemovedPhoto && (
+        <ModalRemovedPhoto
+          fileData={fileData.images}
+          itemKey={fileData.itemKey}
+          itemProps={fileData.props}
+          msg="Are you sure you want to remove this file?"
+          setIsModalShow={setIsRemovedPhoto}
+          setNewFile={setPhotoArrayList}
+        />
+      )}
+    </>
   );
 };
 
