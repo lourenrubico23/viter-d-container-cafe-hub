@@ -2,7 +2,6 @@ import React from "react";
 import { FaFile, FaUserCircle } from "react-icons/fa";
 import FetchingSpinner from "./spinners/FetchingSpinner";
 
-
 const LoadImages = ({
   url,
   className,
@@ -41,7 +40,7 @@ const LoadImages = ({
         className={className}
         referrerPolicy="no-referrer"
       />
-      <div className="absolute top-0 bottom-0 left-0 right-0">
+      <div className="absolute top-0 bottom-0 left-0 right-0 -z-20">
         <div className="flex flex-col gap-4 justify-center items-center h-full">
           {isImageError && isErrorUserImage && !child && (
             <FaUserCircle className="w-full h-full fill-gray-400" />

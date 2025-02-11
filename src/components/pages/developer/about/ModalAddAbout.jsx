@@ -320,12 +320,7 @@ const ModalAddAbout = ({ itemEdit, setIsAbout, aboutData }) => {
                       <button
                         className="btn-modal-submit"
                         type="submit"
-                        // disabled={
-                        //   ((mutation.isPending || !props.dirty) &&
-                        //     photoArrayList === null) ||
-                        //   photoArrayList === "" ||
-                        //   initVal.about_img === photoArrayList?.name
-                        // }
+                      
                         disabled={mutation.isPending || !props.dirty || loading}
                       >
                         {mutation.isPending || loading ? (

@@ -1,105 +1,86 @@
+import { setError, setMessage } from "@/store/StoreAction";
 import React from "react";
 import { devApiUrl, fetchFormData } from "../helpers/functions-general";
-import { setError, setMessage } from "@/store/StoreAction";
 
 const useUploadMultiplePhoto = (url, dispatch) => {
-  // const { store, dispatch } = React.useContext(StoreContext);
   const [photoArrayList, setPhotoArrayList] = React.useState([]);
   let isPhotoJsonString = false;
 
   const uploadMultiplePhoto = async () => {
     if (photoArrayList.length > 0) {
       const fd = new FormData();
-
-      // Loop through files
-      let isPhotoJsonString = false;
+      let count = 0;
+      // loop file
       for (let i = 0; i < photoArrayList.length; i++) {
         if (
-          !(
-            photoArrayList[i] instanceof File ||
-            photoArrayList[i] instanceof Blob
-          )
+          photoArrayList[i] instanceof File !== true ||
+          photoArrayList[i] instanceof Blob !== true
         ) {
-          isPhotoJsonString = true;
+          // isPhotoJsonString = true;
           continue;
         }
         fd.append(
-          `file${i}`,
+          `file${count}`,
           photoArrayList[i],
           photoArrayList[i].name.toLowerCase()
         );
+        count++;
       }
-
-      // If any file is not a File or Blob, skip upload
-      if (isPhotoJsonString) return { success: true };
-
-      try {
-        // Upload photo
-        const response = await fetchFormData(devApiUrl + url, fd, dispatch);
-
-        if (response && response.headers) {
-          // Check if response is not null and has headers
-          // Check if the response is in JSON format
-          const contentType = response.headers.get("content-type");
-          if (contentType && contentType.includes("application/json")) {
-            const data = await response.json();
-
-            if (!data.success) {
-              dispatch(setError(true));
-              dispatch(setMessage(data.error));
-            }
-
-            return data;
-          } else {
-            const errorText = await response.text();
-            console.error("Unexpected response format:", errorText);
-            throw new Error("Response is not JSON.");
-          }
-        } else {
-          console.error("No response or missing headers");
-          throw new Error("No response from server.");
-        }
-      } catch (error) {
-        console.error("API endpoint error:", error);
-        return { success: false, error: "API endpoint error" };
+      // if photo is json string return succes and not upload
+      // if (isPhotoJsonString) return { success: true };
+      if (count === 0) return { success: true };
+      // upload photo
+      const data = await fetchFormData(devApiUrl + url, fd, dispatch);
+      // if not success return error
+      if (!data.success) {
+        dispatch(setError(true));
+        dispatch(setMessage(data.error));
       }
+      // return data
+      return data;
     }
   };
 
   const handleChangeMultiplePhoto = (
-    e,
-    fileLimit = 50,
-    isAcceptImagesOnly = true
+    e, // onchange file input
+    fileLimit = 1, // limit of file
+    isAcceptImagesOnly = true // isAccept images only
   ) => {
-    const files = Array.from(e.target.files);
-
-    // Check if no files were selected
-    if (files.length === 0) {
-      setPhotoArrayList([]); // You might not want to clear existing files here
+    // let allImageSizes = 0;
+    // check if input length of file limit
+    let checkIsImageLimited = e.target.files.length > fileLimit;
+    // check if file is empty
+    if (e.target.files.length === 0) {
+      setPhotoArrayList([]);
       dispatch(setError(false));
       return;
     }
-
-    // Limit the number of files
-    if (files.length > fileLimit) {
+    // limit and less length of files
+    if (checkIsImageLimited) {
       dispatch(setError(true));
-      dispatch(setMessage(`Only ${fileLimit} images can upload.`));
+      dispatch(
+        setMessage(`Invalid count of file. Only accept ${fileLimit} or less.`)
+      );
+      const checkCountIfFileIsImage = Array.from(e.target.files).filter(
+        (item) => {
+          // allImageSizes += item.size;
+          return item.type.split("/")[0] !== "image";
+        }
+      );
+      // CHECK IF IMAGE ONLY
+      if (isAcceptImagesOnly && checkCountIfFileIsImage.length > 0) {
+        dispatch(setError(true));
+        dispatch(setMessage(`Invalid file. Input only accept images.`));
+      }
       return;
     }
-
-    // Filter to only accept images
-    if (
-      isAcceptImagesOnly &&
-      files.some((file) => !file.type.startsWith("image/"))
-    ) {
-      dispatch(setError(true));
-      dispatch(setMessage("Invalid file. Input only accept images."));
-      return;
-    }
-
-    // Update the photo array list state
-    // Here you can choose to concatenate with the existing state
-    setPhotoArrayList((prevPhotos) => [...prevPhotos, ...files]);
+    // get files and sort by name
+    const files = Array.from(e.target.files).sort((a, b) => {
+      if (a.name < b.name) return -1;
+      if (a.name > b.name) return 1;
+      return 0;
+    });
+    setPhotoArrayList(files);
   };
 
   return {

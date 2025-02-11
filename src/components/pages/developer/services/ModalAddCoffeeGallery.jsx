@@ -297,7 +297,13 @@ const ModalAddCoffeeGallery = ({
                         type="submit"
                         disabled={mutation.isPending || !props.dirty || loading}
                       >
-                        {mutation.isPending ? <ButtonSpinner /> : "Save"}
+                        {mutation.isPending || loading ? (
+                          <ButtonSpinner />
+                        ) : itemEdit ? (
+                          "Save"
+                        ) : (
+                          "Add"
+                        )}
                       </button>
                       <button
                         className="btn-modal-cancel"
