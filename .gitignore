@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Folder not include 
+rest/v1/google-api
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

@@ -4,7 +4,10 @@ import { Link } from "react-router-dom";
 import { CgMenuGridO, CgUser } from "react-icons/cg";
 import { FaUser } from "react-icons/fa";
 import { VscGear } from "react-icons/vsc";
-import { devBaseImgUrl } from "@/components/helpers/functions-general";
+import {
+  devBaseImgUrl,
+  devNavUrl,
+} from "@/components/helpers/functions-general";
 
 const DashboardNavigation = () => {
   const ref = React.useRef();
@@ -25,6 +28,7 @@ const DashboardNavigation = () => {
       "testimonial",
       "reachUs",
       "footer",
+      "user",
     ];
 
     // IntersectionObserver to track the active section
@@ -93,9 +97,9 @@ const DashboardNavigation = () => {
             className="w-[55px]"
           />
         </div>
-        <div className="flex flex-col justify-between h-[calc(100%_-_160px)]">
+        <div className="flex flex-col justify-between h-[calc(100%_-_200px)]">
           <nav>
-            <ul className="flex-col [&>li]:text-left [&>li]:text-[16px] font-semibold [&>li]:mb-[17px]">
+            <ul className="flex-col [&>li]:text-left [&>li]:text-[16px] font-semibold [&>li]:mb-[16px]">
               <li
                 className={
                   activeSection === "header"
@@ -175,6 +179,18 @@ const DashboardNavigation = () => {
                 onClick={() => scrollToSection("footer")}
               >
                 <a className="cursor-pointer">Footer</a>
+              </li>
+              <li
+                className={` flex justify-between items-center p-1
+                ${
+                  activeSection === "user"
+                    ? "text-black underline underline-offset-4"
+                    : "text-dashAccent"
+                }
+              `}
+                onClick={() => scrollToSection("user")}
+              >
+                <a className="cursor-pointer">User</a>
               </li>
             </ul>
           </nav>

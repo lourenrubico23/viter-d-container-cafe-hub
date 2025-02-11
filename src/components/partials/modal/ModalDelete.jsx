@@ -5,7 +5,7 @@ import { setError, setMessage, setSuccess } from "@/store/StoreAction";
 import { MdDelete } from "react-icons/md";
 import { GrFormClose } from "react-icons/gr";
 import { queryData } from "@/components/helpers/queryData";
-import ButtonSpinner from "../spinner/ButtonSpinner";
+import ButtonSpinner from "../spinners/ButtonSpinner";
 
 const ModalDelete = ({ setIsDelete, mysqlEndpoint, queryKey, item }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -60,7 +60,9 @@ const ModalDelete = ({ setIsDelete, mysqlEndpoint, queryKey, item }) => {
           </button>
         </div>
         <div className="p-5 text-center">
-          <h3 className="text-sm pb-2 text-black">Are you sure you want to delete {item}?</h3>
+          <h3 className="text-sm pb-2 text-black">
+            Are you sure you want to delete {item}?
+          </h3>
           <div className="flex justify-center mt-5 gap-2">
             <button
               className="inline-block rounded-md w-full px-5 py-2 bg-primary text-white bg-red-500"

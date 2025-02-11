@@ -90,3 +90,99 @@ export const getGoogleMapEmbededUrl = (url) => {
 
   return null; // Return null if no coordinates are found
 };
+
+// storage after login
+export function setStorageRoute(jwt, isDev) {
+  localStorage.setItem("localfbstoken", JSON.stringify({ token: jwt, isDev }));
+}
+
+// get the url id parameter
+export const getUrlParam = (id) => {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  // const param = urlParams.get(id);
+  // return param;
+  return urlParams;
+};
+
+export const options = (format) => {
+  const options =
+    format === "with-weeks"
+      ? {
+          timeZone: setTimeZone,
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        }
+      : format === "timezone-name"
+      ? {
+          timeZoneName: "short",
+        }
+      : format === "weeks"
+      ? {
+          timeZone: setTimeZone,
+          weekday: "long",
+        }
+      : format === "no-year-with-weeks"
+      ? {
+          timeZone: setTimeZone,
+          weekday: "long",
+          month: "long",
+          day: "numeric",
+        }
+      : format === "no-year"
+      ? {
+          timeZone: setTimeZone,
+          month: "long",
+          day: "numeric",
+        }
+      : format === "date-time-with-weeks"
+      ? {
+          timeZone: setTimeZone,
+          weekday: "long",
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+          hour: "numeric",
+          minute: "numeric",
+          second: "numeric",
+        }
+      : format === "plain-date"
+      ? {
+          timeZone: setTimeZone,
+        }
+      : format === "numeric-week"
+      ? {
+          timeZone: setTimeZone,
+          weekday: "numeric",
+        }
+      : format === "year"
+      ? {
+          timeZone: setTimeZone,
+          year: "numeric",
+        }
+      : format === "month-short-year"
+      ? {
+          timeZone: setTimeZone,
+          month: "short",
+          year: "numeric",
+        }
+      : {
+          timeZone: setTimeZone,
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+        };
+
+  return options;
+};
+
+export const getDateNow = () => {
+  return new Date().toISOString("en", options("plain-date")).split("T")[0];
+};
+
+// Copyright year
+export const copyrightYear = () => {
+  return getDateNow().split("-")[0];
+};

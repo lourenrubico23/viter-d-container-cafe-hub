@@ -9,6 +9,7 @@ import ButtonSpinner from "../spinners/ButtonSpinner";
 import * as Yup from "yup";
 import React from "react";
 import { StoreContext } from "@/store/StoreContext";
+import { queryData } from "@/components/helpers/queryData";
 
 const ModalChangeColor = ({ itemEdit, setIsColorChange, colorsData }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -111,6 +112,7 @@ const ModalChangeColor = ({ itemEdit, setIsColorChange, colorsData }) => {
           }}
         >
           {(props) => {
+            console.log(props);
             return (
               <Form className="modal-form">
                 <div className="form-input">

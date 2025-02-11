@@ -6,6 +6,16 @@ const initVal = {
   success: false,
   isShow: false,
   isAdd: false,
+  isArchive: false,
+  isRestore: false,
+  isDelete: false,
+  isSearch: false,
+  isAccountUpdated: false,
+  isCreatePassSuccess: false,
+  isForgotPassSuccess: false,
+  isLogin: false,
+  isLogout: false,
+  credentials: {},
 };
 
 const StoreContext = React.createContext();

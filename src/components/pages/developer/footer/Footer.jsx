@@ -46,7 +46,7 @@ const Footer = () => {
   };
   return (
     <>
-      <section id="footer">
+      <section id="footer" className="mb-16">
         <div className="bg-secondary">
           <div className="container flex flex-col md:flex md:flex-row items-center justify-between py-[76px] gap-5">
             {headerData?.data?.length > 0 &&

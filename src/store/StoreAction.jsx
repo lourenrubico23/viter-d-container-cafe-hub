@@ -28,3 +28,71 @@ export const setIsAdd = (val) => {
     payload: val,
   };
 };
+export const setIsRestore = (val) => {
+  return {
+    type: "RESTORE",
+    payload: val,
+  };
+};
+export const setIsArchive = (val) => {
+  return {
+    type: "IS_ARCHIVE",
+    payload: val,
+  };
+};
+export const setIsDelete = (val) => {
+  return {
+    type: "IS_DELETE",
+    payload: val,
+  };
+};
+export const setIsSearch = (val) => {
+  return {
+    type: "IS_SEARCH",
+    payload: val,
+  };
+};
+
+export const setCreatePassSuccess = (val) => {
+  return {
+    type: "IS_CREATE_PASS_SUCCCESS",
+    payload: val,
+  };
+};
+
+export const setForgotPassSuccess = (val) => {
+  return {
+    type: "IS_FORGOT_PASS_SUCCCESS",
+    payload: val,
+  };
+};
+
+export const setIsLogin = (val) => {
+  return {
+    type: "IS_LOGIN",
+    payload: val,
+  };
+};
+
+export const setIsLogout = (val) => {
+  return {
+    type: "IS_LOGOUT",
+    payload: val,
+  };
+};
+
+export const setIsAccountUpdated = (val) => {
+  return {
+    type: "IS_ACCOUNT_UPDATED",
+    payload: val,
+  };
+};
+
+export const setCredentials = (data) => {
+  return {
+    type: "CREDENTIALS",
+    payload: {
+      data,
+    },
+  };
+};
