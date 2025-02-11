@@ -14,12 +14,27 @@ if (array_key_exists("servicesid", $_GET)) {
   // get data
 
   $isUpdateServices = $data['isUpdateServices'];
+  $pendingDeleteFile = $data['pendingDeleteFile'];
+  
   if ($isUpdateServices == "coffeeImgUpdate") {
     $services->services_aid = $_GET['servicesid'];
     $services->services_coffee_img = $data["services_coffee_img"];
+    $services_coffee_img_old = $data['services_coffee_img_old'];
 
     $services->services_datetime = date("Y-m-d H:i:s");
     checkId($services->services_aid);
+
+    // UPLOAD FILE TO GOOGLDE DRIVE  
+    $services->services_coffee_img = checkToUploadGoogleDrive(
+      $services->services_coffee_img, // FILES
+      $services_coffee_img_old, // OLD FILES
+    );
+    // IF DELETE ARRAY > 0 DELETE SOME FILE
+    $services->services_coffee_img = checkDeleteGoogleDriveApiFiles(
+      $services->services_coffee_img, // FILES
+      $pendingDeleteFile // TO DELETE FILES
+    );
+
     // update
     $query = checkUpdate($services);
     returnSuccess($services, "services", $query);
@@ -27,9 +42,23 @@ if (array_key_exists("servicesid", $_GET)) {
   if ($isUpdateServices == "coffeeGalleryUpdate") {
     $services->services_aid = $_GET['servicesid'];
     $services->services_coffee_gallery = $data["services_coffee_gallery"];
+    $services_coffee_gallery_old = $data['services_coffee_gallery_old'];
+
 
     $services->services_datetime = date("Y-m-d H:i:s");
     checkId($services->services_aid);
+
+    // UPLOAD FILE TO GOOGLDE DRIVE  
+    $services->services_coffee_gallery = checkToUploadGoogleDrive(
+      $services->services_coffee_gallery, // FILES
+      $services_coffee_gallery_old, // OLD FILES
+    );
+    // IF DELETE ARRAY > 0 DELETE SOME FILE
+    $services->services_coffee_gallery = checkDeleteGoogleDriveApiFiles(
+      $services->services_coffee_gallery, // FILES
+      $pendingDeleteFile // TO DELETE FILES
+    );
+
     // update
     $query = checkUpdateCoffeeGallery($services);
     returnSuccess($services, "services", $query);
@@ -66,9 +95,23 @@ if (array_key_exists("servicesid", $_GET)) {
   if ($isUpdateServices == "coffeeMenuUpdate") {
     $services->services_aid = $_GET['servicesid'];
     $services->services_coffee_menu_images = $data["services_coffee_menu_images"];
+    $services_coffee_menu_images_old = $data['services_coffee_menu_images_old'];
+
 
     $services->services_datetime = date("Y-m-d H:i:s");
     checkId($services->services_aid);
+
+    // UPLOAD FILE TO GOOGLDE DRIVE  
+    $services->services_coffee_menu_images = checkToUploadGoogleDrive(
+      $services->services_coffee_menu_images, // FILES
+      $services_coffee_menu_images_old, // OLD FILES
+    );
+    // IF DELETE ARRAY > 0 DELETE SOME FILE
+    $services->services_coffee_menu_images = checkDeleteGoogleDriveApiFiles(
+      $services->services_coffee_menu_images, // FILES
+      $pendingDeleteFile // TO DELETE FILES
+    );
+
     // update
     $query = checkUpdateCoffeeMenu($services);
     returnSuccess($services, "services", $query);
@@ -76,9 +119,23 @@ if (array_key_exists("servicesid", $_GET)) {
   if ($isUpdateServices == "salonImgUpdate") {
     $services->services_aid = $_GET['servicesid'];
     $services->services_salon_img = $data["services_salon_img"];
+    $services_salon_img_old = $data['services_salon_img_old'];
+
 
     $services->services_datetime = date("Y-m-d H:i:s");
     checkId($services->services_aid);
+
+    // UPLOAD FILE TO GOOGLDE DRIVE  
+    $services->services_salon_img = checkToUploadGoogleDrive(
+      $services->services_salon_img, // FILES
+      $services_salon_img_old, // OLD FILES
+    );
+    // IF DELETE ARRAY > 0 DELETE SOME FILE
+    $services->services_salon_img = checkDeleteGoogleDriveApiFiles(
+      $services->services_salon_img, // FILES
+      $pendingDeleteFile // TO DELETE FILES
+    );
+
     // update
     $query = checkUpdateSalonImg($services);
     returnSuccess($services, "services", $query);
@@ -86,9 +143,22 @@ if (array_key_exists("servicesid", $_GET)) {
   if ($isUpdateServices == "salonGalleryUpdate") {
     $services->services_aid = $_GET['servicesid'];
     $services->services_salon_gallery = $data["services_salon_gallery"];
+    $services_salon_gallery_old = $data['services_salon_gallery_old'];
 
     $services->services_datetime = date("Y-m-d H:i:s");
     checkId($services->services_aid);
+
+    // UPLOAD FILE TO GOOGLDE DRIVE  
+    $services->services_salon_gallery = checkToUploadGoogleDrive(
+      $services->services_salon_gallery, // FILES
+      $services_salon_gallery_old, // OLD FILES
+    );
+    // IF DELETE ARRAY > 0 DELETE SOME FILE
+    $services->services_salon_gallery = checkDeleteGoogleDriveApiFiles(
+      $services->services_salon_gallery, // FILES
+      $pendingDeleteFile // TO DELETE FILES
+    );
+
     // update
     $query = checkUpdateSalonGallery($services);
     returnSuccess($services, "services", $query);
@@ -121,9 +191,22 @@ if (array_key_exists("servicesid", $_GET)) {
   if ($isUpdateServices == "salonServicesUpdate") {
     $services->services_aid = $_GET['servicesid'];
     $services->services_salon_services_images = $data["services_salon_services_images"];
+    $services_salon_services_images_old = $data['services_salon_services_images_old'];
 
     $services->services_datetime = date("Y-m-d H:i:s");
     checkId($services->services_aid);
+
+    // UPLOAD FILE TO GOOGLDE DRIVE  
+    $services->services_salon_services_images = checkToUploadGoogleDrive(
+      $services->services_salon_services_images, // FILES
+      $services_salon_services_images_old, // OLD FILES
+    );
+    // IF DELETE ARRAY > 0 DELETE SOME FILE
+    $services->services_salon_services_images = checkDeleteGoogleDriveApiFiles(
+      $services->services_salon_services_images, // FILES
+      $pendingDeleteFile // TO DELETE FILES
+    );
+
     // update
     $query = checkUpdateSalonServices($services);
     returnSuccess($services, "services", $query);

@@ -3,7 +3,11 @@ import React from "react";
 import { IoImageOutline } from "react-icons/io5";
 import Slider from "react-slick";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { devBaseImgUrl } from "@/components/helpers/functions-general";
+import {
+  devBaseImgUrl,
+  getConvertStringToJSONparseData,
+  googleHDViewLink,
+} from "@/components/helpers/functions-general";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -96,14 +100,18 @@ const CoffeeMenu = ({ setIsCoffeeMenu, servicesData }) => {
     setIsCoffeeMenu(false);
   };
 
-  // Get images from API data or use placeholders
-  const coffeeMenuImg = servicesData?.data[0]?.services_coffee_menu_images
-    ? servicesData.data[0].services_coffee_menu_images
-        .split(",")
-        .map((img) => img.trim())
-        .filter((img) => img !== "") // Remove empty strings
-        .map((img) => `${devBaseImgUrl}/${img}`)
-    : []; // Default to empty array if no images
+  // // Get images from API data or use placeholders
+  // const coffeeMenuImg = servicesData?.data[0]?.services_coffee_menu_images
+  //   ? servicesData.data[0].services_coffee_menu_images
+  //       .split(",")
+  //       .map((img) => img.trim())
+  //       .filter((img) => img !== "") // Remove empty strings
+  //       .map((img) => `${devBaseImgUrl}/${img}`)
+  //   : []; // Default to empty array if no images
+
+  const coffeeMenu = getConvertStringToJSONparseData(
+    servicesData?.data?.[0]?.services_coffee_menu_images
+  );
 
   return (
     <>
@@ -111,16 +119,16 @@ const CoffeeMenu = ({ setIsCoffeeMenu, servicesData }) => {
         className="max-w-[600px] h-[760px]"
         handleClose={handleClose}
       >
-        {coffeeMenuImg?.length > 0 ? (
+        {servicesData?.data?.length > 0 && coffeeMenu?.length > 0 ? (
           <Slider {...settings}>
-            {coffeeMenuImg.map((image, index) =>
+            {coffeeMenu.map((image, index) =>
               image ? ( // Ensure image is valid before rendering
                 <div
                   key={index}
                   className="w-48 h-48 md:w-[600px] md:h-[760px] "
                 >
                   <img
-                    src={image}
+                    src={`${googleHDViewLink}${image?.id}`}
                     alt={`Menu ${index + 1}`}
                     className="w-[600px] h-[760px] object-fill p-5"
                   />
@@ -131,7 +139,7 @@ const CoffeeMenu = ({ setIsCoffeeMenu, servicesData }) => {
             )}
           </Slider>
         ) : (
-          <div className="flex place-content-center my-[50%]">
+          <div className="flex place-content-center my-[50%] md:w-[600px]">
             <span>No Image Available</span>
           </div>
         )}

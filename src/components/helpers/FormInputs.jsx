@@ -140,3 +140,24 @@ export const InputTextOnChange = ({ label, onChange, ...props }) => {
     </>
   );
 };
+
+export const InputFileUpload = ({ label, ...props }) => {
+  const [field, meta] = useField(props);
+  return (
+    <>
+      {label !== "" && typeof label !== "undefined" && (
+        <label
+          className="text-xs text-textNav -top-5 absolute"
+          htmlFor={props.id || props.name}
+        >
+          {/* {required && <span className='text-alert'>*</span>} */}
+          {label}
+        </label>
+      )}
+      <input {...field} {...props} />
+      {meta.touched && meta.error ? (
+        <span className="error--msg">{meta.error}</span>
+      ) : null}
+    </>
+  );
+};

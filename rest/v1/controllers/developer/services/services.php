@@ -4,6 +4,8 @@ require '../../../core/header.php';
 // use needed functions
 require '../../../core/functions.php';
 require 'functions.php';
+require '../../../core/google-api.php';
+
 // use needed classes
 require '../../../models/developer/services/Services.php';
 // get payload

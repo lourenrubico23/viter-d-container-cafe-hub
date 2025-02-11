@@ -17,6 +17,14 @@ if ($isUpdateAbout == "aboutUpdate") {
     $about->about_description_b = $data["about_description_b"];
     $about->about_description_c = $data["about_description_c"];
     $about->about_datetime = date("Y-m-d H:i:s");
+
+    $about_img_old = $data['about_img_old'];
+    // UPLOAD FILE TO GOOGLE DRIVE  
+    $header->about_img = checkToUploadGoogleDrive(
+        $header->about_img, // FILES
+        $about_img_old, // OLD FILES
+    );
+
     $query = checkCreate($about);
     returnSuccess($about, "about", $query);
 }

@@ -31,7 +31,7 @@ const DashboardUpperNav = ({ menu }) => {
 
   return (
     <>
-      <div className="profileHeader p-4 addShadow border-none bg-dashSecondary h-[58px] rounded-tl-lg rounded-tr-lg fixed top-[20px] w-[calc(100%_-_240px)] grid items-center z-[10]">
+      <div className="profileHeader px-4 addShadow border-none bg-dashSecondary h-[45px] rounded-tl-lg rounded-tr-lg fixed top-[20px] w-[calc(100%_-_240px)] grid items-center z-[10]">
         <div className="flex justify-between  items-center ">
           <p className="font-semibold text-[14px] text-black">Dashboard</p>
           <div className="flex items-center gap-4">
@@ -45,7 +45,7 @@ const DashboardUpperNav = ({ menu }) => {
                   className={`hover:text-black size-4 ${
                     menu === "color"
                       ? "text-black"
-                      : "text-dashAccent hover:text-black"
+                      : "text-black/60 hover:text-black"
                   }`}
                 />
               </Link>
@@ -60,7 +60,7 @@ const DashboardUpperNav = ({ menu }) => {
                   className={`hover:text-black size-4 ${
                     menu === "dashboard"
                       ? "text-black"
-                      : "text-dashAccent hover:text-black"
+                      : "text-black/60 hover:text-black"
                   }`}
                 />
               </Link>

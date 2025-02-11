@@ -1,5 +1,9 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
-import { devBaseImgUrl } from "@/components/helpers/functions-general";
+import {
+  devBaseImgUrl,
+  getConvertStringToJSONparseData,
+  googleHDViewLink,
+} from "@/components/helpers/functions-general";
 import React from "react";
 import { FaRegImages } from "react-icons/fa";
 import ModalAddAbout from "./ModalAddAbout";
@@ -24,6 +28,8 @@ const About = () => {
     setItemEdit("aboutUpdate");
   };
 
+  const logo = getConvertStringToJSONparseData(aboutData?.data?.[0]?.about_img);
+
   return (
     <>
       <section id="about">
@@ -37,30 +43,21 @@ const About = () => {
               <FaRegImages className=" bg-[#C7AC27] rounded-full w-[25px] h-[25px] p-1 border-[1px]" />
             </a>
 
-            {aboutData?.data?.length > 0 && aboutData.data[0]?.about_img ? (
-              (() => {
-                const imageList = aboutData.data[0].about_img
-                  .split(",")
-                  .map((img) => img.trim()) // Trim spaces
-                  .filter((img) => img !== ""); // Remove empty entries
-
-                return (
-                  <div className="flex gap-16">
-                    {imageList.map((img, index) => (
-                      <div key={index} className="w-[150px] md:w-[170px] ">
-                        <img
-                          src={`${devBaseImgUrl}/${img}`}
-                          alt={`About Image ${index + 1}`}
-                          className="w-[150px] md:w-[170px] object-cover"
-                        />
-                      </div>
-                    ))}
+            {aboutData?.data?.length > 0 && logo?.length > 0 ? (
+              <div className="flex gap-16">
+                {logo.map((img, index) => (
+                  <div key={index} className="w-[150px] md:w-[170px]">
+                    <img
+                      src={`${googleHDViewLink}${img?.id}`}
+                      alt={`About Image ${index + 1}`}
+                      className="w-[150px] md:w-[170px] object-cover"
+                    />
                   </div>
-                );
-              })()
+                ))}
+              </div>
             ) : (
-              <div className="w-[150px] md:w-[170px]  place-content-center">
-                <IoImageOutline className="w-[150px] md:w-[170px]  mx-auto text-gray-500" />
+              <div className="w-[150px] md:w-[170px] place-content-center">
+                <IoImageOutline className="w-[150px] md:w-[170px] mx-auto text-gray-500" />
               </div>
             )}
 

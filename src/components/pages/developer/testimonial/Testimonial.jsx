@@ -23,7 +23,7 @@ const Testimonial = () => {
   } = useQueryData(
     "/v1/testimonial", // endpoint
     "get", // method
-    "testimonial" // key
+    "testimonials" // key
   );
 
   const handleAddTitle = () => {

@@ -104,7 +104,7 @@ const DashboardNavigation = () => {
                 className={
                   activeSection === "header"
                     ? "text-black underline underline-offset-4"
-                    : "text-dashAccent"
+                    : "text-black/60 hover:text-secondary"
                 }
                 onClick={() => scrollToSection("header")}
               >
@@ -114,7 +114,7 @@ const DashboardNavigation = () => {
                 className={
                   activeSection === "about"
                     ? "text-black underline underline-offset-4"
-                    : "text-dashAccent"
+                    : "text-black/60 hover:text-secondary"
                 }
                 onClick={() => scrollToSection("about")}
               >
@@ -124,7 +124,7 @@ const DashboardNavigation = () => {
                 className={
                   activeSection === "coffee"
                     ? "text-black underline underline-offset-4"
-                    : "text-dashAccent"
+                    : "text-black/60 hover:text-secondary"
                 }
                 onClick={() => scrollToSection("coffee")}
               >
@@ -134,7 +134,7 @@ const DashboardNavigation = () => {
                 className={
                   activeSection === "spaSalon"
                     ? "text-black underline underline-offset-4"
-                    : "text-dashAccent"
+                    : "text-black/60 hover:text-secondary"
                 }
                 onClick={() => scrollToSection("spaSalon")}
               >
@@ -144,7 +144,7 @@ const DashboardNavigation = () => {
                 className={
                   activeSection === "contactUs"
                     ? "text-black underline underline-offset-4"
-                    : "text-dashAccent"
+                    : "text-black/60 hover:text-secondary"
                 }
                 onClick={() => scrollToSection("contactUs")}
               >
@@ -154,7 +154,7 @@ const DashboardNavigation = () => {
                 className={
                   activeSection === "testimonial"
                     ? "text-black underline underline-offset-4"
-                    : "text-dashAccent"
+                    : "text-black/60 hover:text-secondary"
                 }
                 onClick={() => scrollToSection("testimonial")}
               >
@@ -164,7 +164,7 @@ const DashboardNavigation = () => {
                 className={
                   activeSection === "reachUs"
                     ? "text-black underline underline-offset-4"
-                    : "text-dashAccent"
+                    : "text-black/60 hover:text-secondary"
                 }
                 onClick={() => scrollToSection("reachUs")}
               >
@@ -174,7 +174,7 @@ const DashboardNavigation = () => {
                 className={
                   activeSection === "footer"
                     ? "text-black underline underline-offset-4"
-                    : "text-dashAccent"
+                    : "text-black/60 hover:text-secondary"
                 }
                 onClick={() => scrollToSection("footer")}
               >
@@ -185,7 +185,7 @@ const DashboardNavigation = () => {
                 ${
                   activeSection === "user"
                     ? "text-black underline underline-offset-4"
-                    : "text-dashAccent"
+                    : "text-black/60 hover:text-secondary"
                 }
               `}
                 onClick={() => scrollToSection("user")}

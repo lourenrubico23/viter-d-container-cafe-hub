@@ -20,12 +20,26 @@ if ($isUpdateServices == "coffeeImgUpdate") {
     $services->services_coffee_img = $data["services_coffee_img"];
     $services->services_datetime = date("Y-m-d H:i:s");
 
+    $services_coffee_img_old = $data['services_coffee_img_old'];
+
+    // UPLOAD FILE TO GOOGLE DRIVE  
+    $services->services_coffee_img = checkToUploadGoogleDrive(
+        $services->services_coffee_img, // FILES
+        $services_coffee_img_old, // OLD FILES
+    );
     $query = checkCreate($services);
 }
 if ($isUpdateServices == "coffeeGalleryUpdate") {
     $services->services_coffee_gallery = $data["services_coffee_gallery"];
     $services->services_datetime = date("Y-m-d H:i:s");
 
+    $services_coffee_gallery_old = $data['services_coffee_gallery_old'];
+
+    // UPLOAD FILE TO GOOGLE DRIVE  
+    $services->services_coffee_gallery = checkToUploadGoogleDrive(
+        $services->services_coffee_gallery, // FILES
+        $services_coffee_gallery_old, // OLD FILES
+    );
     $query = checkCreateCoffeeGallery($services);
 }
 if ($isUpdateServices == "coffeeUpdate") {
@@ -53,11 +67,27 @@ if ($isUpdateServices == "coffeeMenuUpdate") {
     $services->services_coffee_menu_images = $data["services_coffee_menu_images"];
     $services->services_datetime = date("Y-m-d H:i:s");
 
+    $services_coffee_menu_images_old = $data['services_coffee_menu_images_old'];
+
+    // UPLOAD FILE TO GOOGLE DRIVE  
+    $services->services_coffee_menu_images = checkToUploadGoogleDrive(
+        $services->services_coffee_menu_images, // FILES
+        $services_coffee_menu_images_old, // OLD FILES
+    );
+
     $query = checkCreateCoffeeMenu($services);
 }
 if ($isUpdateServices == "salonImgUpdate") {
     $services->services_salon_img = $data["services_salon_img"];
     $services->services_datetime = date("Y-m-d H:i:s");
+
+    $services_salon_img_old = $data['services_salon_img_old'];
+
+    // UPLOAD FILE TO GOOGLE DRIVE  
+    $services->services_salon_img = checkToUploadGoogleDrive(
+        $services->services_salon_img, // FILES
+        $services_salon_img_old, // OLD FILES
+    );
 
     $query = checkCreateSalonImg($services);
 }
@@ -65,6 +95,13 @@ if ($isUpdateServices == "salonGalleryUpdate") {
     $services->services_salon_gallery = $data["services_salon_gallery"];
     $services->services_datetime = date("Y-m-d H:i:s");
 
+    $services_salon_gallery_old = $data['services_salon_gallery_old'];
+
+    // UPLOAD FILE TO GOOGLE DRIVE  
+    $services->services_salon_gallery = checkToUploadGoogleDrive(
+        $services->services_salon_gallery, // FILES
+        $services_salon_gallery_old, // OLD FILES
+    );
     $query = checkCreateSalonGallery($services);
 }
 if ($isUpdateServices == "salonUpdate") {
@@ -88,6 +125,13 @@ if ($isUpdateServices == "salonServicesUpdate") {
     $services->services_salon_services_images = $data["services_salon_services_images"];
     $services->services_datetime = date("Y-m-d H:i:s");
 
+    $services_salon_services_images_old = $data['services_salon_services_images_old'];
+
+    // UPLOAD FILE TO GOOGLE DRIVE  
+    $services->services_salon_services_images = checkToUploadGoogleDrive(
+        $services->services_salon_services_images, // FILES
+        $services_salon_services_images_old, // OLD FILES
+    );
     $query = checkCreateSalonServices($services);
 }
 

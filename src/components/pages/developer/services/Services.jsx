@@ -1,5 +1,9 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
-import { devBaseImgUrl } from "@/components/helpers/functions-general";
+import {
+  devBaseImgUrl,
+  getConvertStringToJSONparseData,
+  googleHDViewLink,
+} from "@/components/helpers/functions-general";
 import React from "react";
 import { FaAngleDoubleRight, FaRegImages } from "react-icons/fa";
 import { HiPencil } from "react-icons/hi";
@@ -137,6 +141,10 @@ const Services = () => {
         .filter((img) => img !== "") // Remove empty strings
         .map((img) => `${devBaseImgUrl}/${img}`)
     : []; // Default to empty array if no images
+
+  const coffeeImage = getConvertStringToJSONparseData(
+    servicesData?.data?.[0]?.services_coffee_img
+  );
 
   return (
     <>
@@ -307,7 +315,7 @@ const Services = () => {
                 servicesData.data[0]?.services_coffee_img ? (
                   <div className="lg:w-full lg:h-full object-cover md:w-full">
                     <img
-                      src={`${devBaseImgUrl}/${servicesData.data[0].services_coffee_img}`}
+                      src={`${googleHDViewLink}${coffeeImage[0]?.id}`}
                       alt="Coffee"
                       className="lg:w-full lg:h-full object-cover md:w-full"
                     />

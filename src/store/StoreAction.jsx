@@ -52,6 +52,12 @@ export const setIsSearch = (val) => {
     payload: val,
   };
 };
+export const setIsViewTab = (val) => {
+  return {
+    type: "VIEW_TAB",
+    payload: val,
+  };
+};
 
 export const setCreatePassSuccess = (val) => {
   return {

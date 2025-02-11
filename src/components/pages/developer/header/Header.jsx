@@ -1,4 +1,8 @@
-import { devBaseImgUrl } from "@/components/helpers/functions-general";
+import {
+  devBaseImgUrl,
+  getConvertStringToJSONparseData,
+  googleHDViewLink,
+} from "@/components/helpers/functions-general";
 import { GrLocation } from "react-icons/gr";
 
 import useQueryData from "@/components/custom-hooks/useQueryData";
@@ -8,6 +12,7 @@ import { HiPencil } from "react-icons/hi";
 import { FaRegImages } from "react-icons/fa";
 import ModalAddBanner from "./ModalAddBanner";
 import { IoImageOutline } from "react-icons/io5";
+import LoadImages from "@/components/partials/LoadImages";
 
 const Header = () => {
   const [itemEdit, setItemEdit] = React.useState("");
@@ -39,6 +44,12 @@ const Header = () => {
     document.body.classList.toggle("overflow-hidden");
   };
 
+  const bannerImage = getConvertStringToJSONparseData(
+    headerData?.data?.[0]?.header_banner_img
+  );
+
+  
+  
   return (
     <>
       <section
@@ -57,7 +68,7 @@ const Header = () => {
           headerData.data[0]?.header_banner_img ? (
             <div className="logo-img w-[55px] lg:w-[98px] lg:h-[90px]">
               <img
-                src={`${devBaseImgUrl}/${headerData.data[0].header_banner_img}`}
+                src={`${googleHDViewLink}${bannerImage[0]?.id}`}
                 alt="Banner Image"
                 className="absolute inset-0 w-full h-full object-cover "
               />
@@ -100,6 +111,7 @@ const Header = () => {
           itemEdit={itemEdit}
           headerData={headerData}
           setIsBanner={setIsBanner}
+          setItemEdit={setItemEdit}
         />
       )}
     </>

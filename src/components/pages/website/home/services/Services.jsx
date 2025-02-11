@@ -1,5 +1,5 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
-import { devBaseImgUrl } from "@/components/helpers/functions-general";
+import { devBaseImgUrl, getConvertStringToJSONparseData, googleHDViewLink } from "@/components/helpers/functions-general";
 import { FaAngleDoubleRight } from "react-icons/fa";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
@@ -60,6 +60,10 @@ const Services = () => {
         .filter((img) => img !== "") // Remove empty strings
         .map((img) => `${devBaseImgUrl}/${img}`)
     : []; // Default to empty array if no images
+
+  const coffeeImage = getConvertStringToJSONparseData(
+    servicesData?.data?.[0]?.services_coffee_img
+  );
 
   const handleCoffeeMenu = () => {
     setIsCoffeeMenu(true);
@@ -207,7 +211,7 @@ const Services = () => {
               </div>
               <div className="lg:absolute lg:left-0 lg:top-0 h-full lg:w-[50%] block overflow-hidden">
                 <img
-                  src={`${devBaseImgUrl}/${servicesData?.data[0].services_coffee_img}`}
+                  src={`${googleHDViewLink}${coffeeImage[0]?.id}`}
                   alt="Coffee"
                   className="lg:w-full lg:h-[740px] object-cover md:w-full"
                 />
@@ -329,9 +333,17 @@ const Services = () => {
         </section>
       </div>
 
-      {isCoffeeMenu && <CoffeeMenu setIsCoffeeMenu={setIsCoffeeMenu} servicesData={servicesData}/>}
+      {isCoffeeMenu && (
+        <CoffeeMenu
+          setIsCoffeeMenu={setIsCoffeeMenu}
+          servicesData={servicesData}
+        />
+      )}
       {isSalonServices && (
-        <SalonServices setIsSalonServices={setIsSalonServices} servicesData={servicesData}/>
+        <SalonServices
+          setIsSalonServices={setIsSalonServices}
+          servicesData={servicesData}
+        />
       )}
     </>
   );

@@ -16,8 +16,17 @@ $isUpdateHeader = $data['isUpdateHeader'] ?? '';
 // Set common fields
 $header->header_datetime = date("Y-m-d H:i:s");
 
+
 if ($isUpdateHeader == "logoUpdate") {
     $header->header_logo_img = $data["header_logo_img"];
+    $header_logo_img_old = $data['header_logo_img_old'];
+
+    // UPLOAD FILE TO GOOGLE DRIVE  
+    $header->header_logo_img = checkToUploadGoogleDrive(
+        $header->header_logo_img, // FILES
+        $header_logo_img_old, // OLD FILES
+    );
+
     $query = checkCreate($header);
 }
 if ($isUpdateHeader == "navigationUpdate") {
@@ -31,6 +40,13 @@ if ($isUpdateHeader == "bannerUpdate") {
     $header->header_banner_img = $data["header_banner_img"];
     $header->header_banner_title = $data["header_banner_title"];
     $header->header_button_text = $data["header_button_text"];
+    $header_banner_img_old = $data['header_banner_img_old'];
+    // UPLOAD FILE TO GOOGLE DRIVE  
+    $header->header_banner_img = checkToUploadGoogleDrive(
+        $header->header_banner_img, // FILES
+        $header_banner_img_old, // OLD FILES
+    );
+
     $query = checkCreateBanner($header);
 }
 

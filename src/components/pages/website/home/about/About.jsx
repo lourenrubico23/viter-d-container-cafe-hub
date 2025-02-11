@@ -1,5 +1,9 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
-import { devBaseImgUrl } from "@/components/helpers/functions-general";
+import {
+  devBaseImgUrl,
+  getConvertStringToJSONparseData,
+  googleHDViewLink,
+} from "@/components/helpers/functions-general";
 import React from "react";
 
 const About = () => {
@@ -13,33 +17,26 @@ const About = () => {
     "about" // key
   );
 
+  const logo = getConvertStringToJSONparseData(aboutData?.data?.[0]?.about_img);
+
   return (
     <section id="about">
       <div className="h-[498px] bg-light  ">
         <div className="flex flex-col gap-16 items-center py-[75px]">
           <div className="flex gap-16">
-            {aboutData?.data?.length > 0 &&
-              aboutData.data[0]?.about_img &&
-              (() => {
-                const imageList = aboutData.data[0].about_img
-                  .split(",")
-                  .map((img) => img.trim()) // Trim spaces
-                  .filter((img) => img !== ""); // Remove empty values
-
-                return imageList.length > 0 ? (
-                  <div className="flex gap-2 md:gap-16">
-                    {imageList.map((img, index) => (
-                      <div className="w-[150px] md:w-[170px] " key={index}>
-                        <img
-                          src={`${devBaseImgUrl}/${img}`}
-                          alt={`About Image ${index + 1}`}
-                          className="w-[150px] md:w-[170px] object-cover"
-                        />
-                      </div>
-                    ))}
+            {aboutData?.data?.length > 0 && logo?.length > 0 ? (
+              <div className="flex gap-16">
+                {logo.map((img, index) => (
+                  <div key={index} className="w-[150px] md:w-[170px]">
+                    <img
+                      src={`${googleHDViewLink}${img?.id}`}
+                      alt={`About Image ${index + 1}`}
+                      className="w-[150px] md:w-[170px] object-cover"
+                    />
                   </div>
-                ) : null;
-              })()}
+                ))}
+              </div>
+            ) : null}
           </div>
           <div className="text-center flex flex-col gap-6 max-w-[851px]">
             <p>

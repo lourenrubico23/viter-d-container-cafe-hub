@@ -53,7 +53,7 @@ const ModalAddTestimonialB = ({
         values
       ),
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ["testimonial"] });
+      queryClient.invalidateQueries({ queryKey: ["testimonials"] });
       if (!data.success) {
         dispatch(setError(true));
         dispatch(setMessage(data.error));

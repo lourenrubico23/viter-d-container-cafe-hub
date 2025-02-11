@@ -1,9 +1,10 @@
-import { devBaseImgUrl } from "@/components/helpers/functions-general";
-import React from "react";
+import useQueryData from "@/components/custom-hooks/useQueryData";
+import {
+  getConvertStringToJSONparseData,
+  googleHDViewLink
+} from "@/components/helpers/functions-general";
 import { GrLocation } from "react-icons/gr";
 import Navigation from "../../Navigation";
-import ToggleNavigation from "@/components/partials/ToggleNavigation";
-import useQueryData from "@/components/custom-hooks/useQueryData";
 
 const Header = () => {
   const scrollToSection = (id) => {
@@ -26,6 +27,10 @@ const Header = () => {
     "header" // key
   );
 
+  const bannerImage = getConvertStringToJSONparseData(
+    headerData?.data?.[0]?.header_banner_img
+  );
+
   return (
     <>
       <section
@@ -34,7 +39,7 @@ const Header = () => {
       >
         <div className="absolute inset-0 w-full h-full">
           <img
-            src={`${devBaseImgUrl}/${headerData?.data[0].header_banner_img}`}
+            src={`${googleHDViewLink}${bannerImage[0]?.id}`}
             alt="Banner Image"
             className="absolute inset-0 w-full h-full object-cover"
           />

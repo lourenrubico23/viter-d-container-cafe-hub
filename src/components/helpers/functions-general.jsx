@@ -20,6 +20,11 @@ export const urlDeveloper = "developer";
 export const devKey =
   "$2a$12$5obsBD1n0We9BIAM01RJy.4F0t4W2KmMPJppAur2eY1tmpG4y87vO";
 
+// google api
+export const googleThumbnailLink = "https://drive.google.com/thumbnail?id=";
+export const googleHDViewLink = "https://lh3.googleusercontent.com/d/";
+export const googleViewLink = "https://drive.google.com/file/d/";
+
 // get focus on a button
 export const GetFocus = (id) => {
   React.useEffect(() => {
@@ -66,6 +71,18 @@ export const fetchFormData = (url, fd = {}) => {
       console.error(error + " api endpoint error");
     });
   return data;
+};
+
+export const getConvertStringToJSONparseData = (jsonString) => {
+  let resultArray = [];
+
+  try {
+    resultArray = JSON.parse(jsonString);
+  } catch (e) {
+    // console.log(e);
+  }
+
+  return resultArray;
 };
 
 // extract google map link
