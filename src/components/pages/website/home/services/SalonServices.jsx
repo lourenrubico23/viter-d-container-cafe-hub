@@ -116,8 +116,8 @@ const SalonServices = ({ setIsSalonServices, servicesData }) => {
           salonServicesImg.length === 1 ? (
             // Display a single image without a slider if there's only one image
             <div className="min-w-[300px] max-w-[350px] h-[600px] md:max-w-[600px] md:h-[760px]">
-              <img
-                src={`${googleHDViewLink}${salonServicesImg[0]?.id}`}
+              <LoadImages
+                url={`${googleHDViewLink}${salonServicesImg[0]?.id}`}
                 alt="Menu 1"
                 className="w-fit h-[600px] md:w-[600px] md:h-[760px] object-fill p-5"
               />
@@ -132,8 +132,8 @@ const SalonServices = ({ setIsSalonServices, servicesData }) => {
                       key={index}
                       className="min-w-[300px] max-w-[350px] h-[600px] md:max-w-[600px] md:h-[760px]"
                     >
-                      <img
-                        src={`${googleHDViewLink}${image.id}`}
+                      <LoadImages
+                        url={`${googleHDViewLink}${image.id}`}
                         alt={`Menu ${index + 1}`}
                         className="w-fit h-[600px] md:w-[600px] md:h-[760px] object-fill p-5"
                       />

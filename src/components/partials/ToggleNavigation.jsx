@@ -1,12 +1,28 @@
-import { devBaseImgUrl } from "@/components/helpers/functions-general";
+import {
+  devBaseImgUrl,
+  getConvertStringToJSONparseData,
+  googleHDViewLink,
+} from "@/components/helpers/functions-general";
 
 import React from "react";
 import { RxCross1 } from "react-icons/rx";
 import ModalWrapperMenu from "./modal/ModalWrapperMenu";
+import LoadImages from "./LoadImages";
+import useQueryData from "../custom-hooks/useQueryData";
 
-const ToggleNavigation = ({ setIsOpen }) => {
+const ToggleNavigation = ({ setIsOpen, headerData }) => {
   const [animate, setAnimate] = React.useState("translate-x-full");
   const [activeSection, setActiveSection] = React.useState("#header");
+
+  const {
+    isFetchingCopyRight,
+    errorCopyRight,
+    data: copyrightData,
+  } = useQueryData(
+    "/v1/copyright", // endpoint
+    "get", // method
+    "copyright" // key
+  );
 
   const handleClose = () => {
     setAnimate("translate-x-full");
@@ -65,6 +81,10 @@ const ToggleNavigation = ({ setIsOpen }) => {
     setAnimate("");
   }, []);
 
+  const logo = getConvertStringToJSONparseData(
+    headerData?.data?.[0]?.header_logo_img
+  );
+
   return (
     <ModalWrapperMenu
       className={`transition-all ease-linear transform duration-200 bg-black ${animate}`}
@@ -73,19 +93,19 @@ const ToggleNavigation = ({ setIsOpen }) => {
       <div className="bg-black h-[100dvh] z-[999]">
         <div className="modal-title">
           <div className="logo-img w-[137] h-[38px] z-[1]">
-            <img
-              src={`${devBaseImgUrl}/logo.png`}
+            <LoadImages
+              url={`${googleHDViewLink}${logo[0]?.id}`}
               alt="logo"
               className="object-contain h-[55px]"
             />
           </div>
-          <button onClick={handleClose}>
+          <button onClick={handleClose} className="z-50">
             <RxCross1 className="text-[20px] md:text-[25px] text-white" />
           </button>
         </div>
         <div className="modal-content">
           <div className="flex flex-col gap-5 items-center my-auto">
-            <ul className="flex flex-col gap-5 items-center w-full text-white">
+            <ul className="flex flex-col gap-5 items-center w-full text-white z-50">
               <li>
                 <button
                   className={
@@ -95,7 +115,12 @@ const ToggleNavigation = ({ setIsOpen }) => {
                   }
                   onClick={() => scrollToSection("about")}
                 >
-                  About
+                  {headerData?.data?.length > 0 &&
+                  headerData.data[0]?.header_nav_a ? (
+                    headerData?.data[0].header_nav_a
+                  ) : (
+                    <p className="text-black">Navigation 1</p>
+                  )}
                 </button>
               </li>
 
@@ -108,7 +133,12 @@ const ToggleNavigation = ({ setIsOpen }) => {
                   }
                   onClick={() => scrollToSection("coffee")}
                 >
-                  Coffee
+                  {headerData?.data?.length > 0 &&
+                  headerData.data[0]?.header_nav_b ? (
+                    headerData?.data[0].header_nav_b
+                  ) : (
+                    <p className="text-black">Navigation 2</p>
+                  )}
                 </button>
               </li>
               <li>
@@ -120,7 +150,12 @@ const ToggleNavigation = ({ setIsOpen }) => {
                   }
                   onClick={() => scrollToSection("spaSalon")}
                 >
-                  Spa Salon
+                  {headerData?.data?.length > 0 &&
+                  headerData.data[0]?.header_nav_c ? (
+                    headerData?.data[0].header_nav_c
+                  ) : (
+                    <p className="text-black">Navigation 3</p>
+                  )}
                 </button>
               </li>
               <li>
@@ -132,11 +167,24 @@ const ToggleNavigation = ({ setIsOpen }) => {
                   }
                   onClick={() => scrollToSection("reachUs")}
                 >
-                  Reach Us
+                  {headerData?.data?.length > 0 &&
+                  headerData.data[0]?.header_nav_d ? (
+                    headerData?.data[0].header_nav_d
+                  ) : (
+                    <p className="text-black">Navigation 4</p>
+                  )}
                 </button>
               </li>
               <h3 className="text-center text-[clamp(.5rem,4vw,12px)] text-white font-rubikRegular font-light">
-                &copy; D'ConTainerHUB
+                &copy;{" "}
+                {copyrightData?.data?.length > 0 &&
+                copyrightData.data[0]?.copyright_title ? (
+                  copyrightData?.data[0].copyright_title
+                ) : (
+                  <h3 className="text-center text-[clamp(.5rem,4vw,12px)] text-white font-rubikRegular font-light flex">
+                    Copyright
+                  </h3>
+                )}
               </h3>
             </ul>
           </div>

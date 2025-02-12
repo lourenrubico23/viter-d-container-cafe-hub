@@ -52,7 +52,7 @@ const Header = () => {
     <>
       <section
         id="header"
-        className="banner h-[120vh] relative flex items-center place-content-center bg-dashAccent"
+        className="banner h-[110vh] relative flex items-center place-content-center bg-dashAccent"
       >
         <div className="">
           <a
@@ -65,8 +65,8 @@ const Header = () => {
           {headerData?.data?.length > 0 &&
           headerData.data[0]?.header_banner_img ? (
             <div className="logo-img w-[55px] lg:w-[98px] lg:h-[90px]">
-              <img
-                src={`${googleHDViewLink}${bannerImage[0]?.id}`}
+              <LoadImages
+                url={`${googleHDViewLink}${bannerImage[0]?.id}`}
                 className="absolute inset-0 w-full h-full object-cover "
               />
             </div>
@@ -85,7 +85,7 @@ const Header = () => {
                   : "Title"}
               </h2>
               <div onClick={() => scrollToSection("reachUs")}>
-                <a className="btn text-light  flex items-center gap-2 max-w-[218px] h-[54px]">
+                <a className="btn text-light  flex items-center gap-2 max-w-[218px] h-[54px] cursor-pointer">
                   {headerData?.data?.length > 0 &&
                   headerData.data[0]?.header_button_text
                     ? headerData?.data[0].header_button_text

@@ -36,7 +36,7 @@ const Header = () => {
     <>
       <section
         id="header"
-        className="banner relative flex items-center place-content-center min-h-screen lg:min-h-[1020px] "
+        className="banner relative flex items-center place-content-center min-h-screen lg:min-h-[900px] "
       >
         {/* <div className="absolute inset-0 w-full h-full"> */}
         <LoadImages
@@ -58,7 +58,7 @@ const Header = () => {
                 : "Title"}
             </h2>
             <div onClick={() => scrollToSection("reachUs")}>
-              <a className="btn text-light flex items-center gap-2 max-w-[218px] h-[54px]">
+              <a className="btn text-light flex items-center gap-2 max-w-[218px] h-[54px] cursor-pointer">
                 {headerData?.data?.length > 0 &&
                 headerData.data[0]?.header_button_text
                   ? headerData?.data[0].header_button_text

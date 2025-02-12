@@ -211,8 +211,8 @@ const Services = () => {
                 </div>
               </div>
               <div className="lg:absolute lg:left-0 lg:top-0 h-full lg:w-[50%] block overflow-hidden">
-                <img
-                  src={`${googleHDViewLink}${coffeeImage[0]?.id}`}
+                <LoadImages
+                  url={`${googleHDViewLink}${coffeeImage[0]?.id}`}
                   alt="Coffee"
                   className="lg:w-full lg:h-[740px] object-cover md:w-full"
                 />
@@ -226,8 +226,8 @@ const Services = () => {
                 {coffeeGallery.map((image, index) =>
                   image ? ( // Ensure image is valid before rendering
                     <div key={index} className="w-48 h-48 md:w-80 md:h-64 px-2">
-                      <img
-                        src={`${googleHDViewLink}${image?.id}`}
+                      <LoadImages
+                        url={`${googleHDViewLink}${image?.id}`}
                         alt={`Gallery Image ${index + 1}`}
                         className="w-full h-full object-cover"
                       />
@@ -242,8 +242,8 @@ const Services = () => {
         <section id="spaSalon">
           <div className="discover_wrapper lg:flex lg:flex-row-reverse lg:relative md:w-[100%]">
             <div className="lg:absolute lg:right-0 lg:top-0 h-full lg:w-[50%] block ">
-              <img
-                src={`${googleHDViewLink}${salonImage[0]?.id}`}
+              <LoadImages
+                url={`${googleHDViewLink}${salonImage[0]?.id}`}
                 alt=""
                 className="lg:w-full lg:h-[740px] object-cover md:w-full"
               />
@@ -320,8 +320,8 @@ const Services = () => {
                 {salonGallery.map((image, index) =>
                   image ? ( // Ensure image is valid before rendering
                     <div key={index} className="w-48 h-48 md:w-80 md:h-64 px-2">
-                      <img
-                        src={`${googleHDViewLink}${image?.id}`}
+                      <LoadImages
+                        url={`${googleHDViewLink}${image?.id}`}
                         alt={`Gallery Image ${index + 1}`}
                         className="w-full h-full object-cover"
                       />

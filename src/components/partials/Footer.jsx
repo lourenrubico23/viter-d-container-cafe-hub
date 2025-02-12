@@ -1,6 +1,11 @@
 import React from "react";
-import { devBaseImgUrl } from "../helpers/functions-general";
+import {
+  devBaseImgUrl,
+  getConvertStringToJSONparseData,
+  googleHDViewLink,
+} from "../helpers/functions-general";
 import useQueryData from "../custom-hooks/useQueryData";
+import LoadImages from "./LoadImages";
 
 const Footer = () => {
   const [activeSection, setActiveSection] = React.useState("#header");
@@ -34,13 +39,18 @@ const Footer = () => {
       });
     }
   };
+
+  const logo = getConvertStringToJSONparseData(
+    headerData?.data?.[0]?.header_logo_img
+  );
+
   return (
     <>
       <section id="footer">
         <div className="bg-secondary">
           <div className="container flex flex-col md:flex md:flex-row items-center justify-between py-[76px] gap-5">
-            <img
-              src={`${devBaseImgUrl}/${headerData?.data[0].header_logo_img}`}
+            <LoadImages
+              url={`${googleHDViewLink}${logo[0]?.id}`}
               alt="Logo Image"
               className="max-w-[98px] max-h-[90px]"
             />

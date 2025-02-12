@@ -311,8 +311,8 @@ const Services = () => {
                 {servicesData?.data?.length > 0 &&
                 servicesData.data[0]?.services_coffee_img ? (
                   <div className="lg:w-full lg:h-full object-cover md:w-full">
-                    <img
-                      src={`${googleHDViewLink}${coffeeImage[0]?.id}`}
+                    <LoadImages
+                      url={`${googleHDViewLink}${coffeeImage[0]?.id}`}
                       alt="Coffee"
                       className="lg:w-full lg:h-full object-cover md:w-full"
                     />
@@ -338,8 +338,8 @@ const Services = () => {
               {coffeeGallery.length > 0
                 ? coffeeGallery.map((image, index) => (
                     <div key={index} className="w-48 h-48 md:w-80 md:h-64 px-2">
-                      <img
-                        src={`${googleHDViewLink}${image?.id}`}
+                      <LoadImages
+                        url={`${googleHDViewLink}${image?.id}`}
                         alt={`Service ${index + 1}`}
                         className="w-full h-full object-cover"
                       />
@@ -372,8 +372,8 @@ const Services = () => {
               {servicesData?.data?.length > 0 &&
               servicesData.data[0]?.services_salon_img ? (
                 <div className="lg:w-full lg:h-full object-cover md:w-full">
-                  <img
-                    src={`${googleHDViewLink}${salonImage[0]?.id}`}
+                  <LoadImages
+                    url={`${googleHDViewLink}${salonImage[0]?.id}`}
                     alt="Coffee"
                     className="lg:w-full lg:h-full object-cover md:w-full"
                   />
@@ -482,8 +482,8 @@ const Services = () => {
               {salonGallery.length > 0
                 ? salonGallery.map((image, index) => (
                     <div key={index} className="w-48 h-48 md:w-80 md:h-64 px-2">
-                      <img
-                        src={`${googleHDViewLink}${image?.id}`}
+                      <LoadImages
+                        url={`${googleHDViewLink}${image?.id}`}
                         alt={`Service ${index + 1}`}
                         className="w-full h-full object-cover"
                       />

@@ -1,5 +1,10 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
-import { devBaseImgUrl } from "@/components/helpers/functions-general";
+import {
+  devBaseImgUrl,
+  getConvertStringToJSONparseData,
+  googleHDViewLink,
+} from "@/components/helpers/functions-general";
+import LoadImages from "@/components/partials/LoadImages";
 import React from "react";
 
 const Testimonial = () => {
@@ -11,6 +16,18 @@ const Testimonial = () => {
     "/v1/testimonial", // endpoint
     "get", // method
     "testimonial" // key
+  );
+
+  const testimonialA = getConvertStringToJSONparseData(
+    testimonialData?.data?.[0]?.testimonial_client_img_a
+  );
+
+  const testimonialB = getConvertStringToJSONparseData(
+    testimonialData?.data?.[0]?.testimonial_client_img_b
+  );
+
+  const testimonialC = getConvertStringToJSONparseData(
+    testimonialData?.data?.[0]?.testimonial_client_img_c
   );
 
   return (
@@ -38,8 +55,8 @@ const Testimonial = () => {
           <div className="cards_wrapper flex flex-col md:flex md:flex-row md:flex-wrap md:gap-4 lg:flex lg:flex-row lg:flex-nowrap lg:pt-4 lg:gap-[62px]">
             <div className="flex flex-col items-center gap-4 py-5 md:w-[40%] lg:flex lg:flex-row md:gap-5">
               <div className="w-[6rem] lg:w-[30%] lg:place-self-start ">
-                <img
-                  src={`${devBaseImgUrl}/${testimonialData?.data[0].testimonial_client_img_a}`}
+                <LoadImages
+                  url={`${googleHDViewLink}${testimonialA[0]?.id}`}
                   alt=""
                   className="object-contain object-top md:h-full md:w-full rounded-lg"
                 />
@@ -62,8 +79,8 @@ const Testimonial = () => {
             </div>
             <div className="flex flex-col items-center gap-4 py-5 md:w-[40%] lg:flex lg:flex-row md:gap-5">
               <div className="w-[6rem] lg:w-[30%] lg:place-self-start">
-                <img
-                  src={`${devBaseImgUrl}/${testimonialData?.data[0].testimonial_client_img_b}`}
+                <LoadImages
+                  url={`${googleHDViewLink}${testimonialB[0]?.id}`}
                   alt=""
                   className="object-contain object-top md:h-full md:w-full rounded-lg"
                 />
@@ -85,8 +102,8 @@ const Testimonial = () => {
             </div>
             <div className="flex flex-col items-center gap-4 py-5 md:w-[40%] lg:flex lg:flex-row md:gap-5">
               <div className="w-[6rem] lg:w-[30%] lg:place-self-start">
-                <img
-                  src={`${devBaseImgUrl}/${testimonialData?.data[0].testimonial_client_img_c}`}
+                <LoadImages
+                  url={`${googleHDViewLink}${testimonialC[0]?.id}`}
                   alt=""
                   className="object-contain object-top md:h-full md:w-full rounded-lg"
                 />

@@ -4,6 +4,7 @@ import {
   getConvertStringToJSONparseData,
   googleHDViewLink,
 } from "@/components/helpers/functions-general";
+import LoadImages from "@/components/partials/LoadImages";
 import React from "react";
 
 const About = () => {
@@ -21,17 +22,17 @@ const About = () => {
 
   return (
     <section id="about">
-      <div className="h-[498px] bg-light  ">
-        <div className="flex flex-col gap-16 items-center py-10 md:py-[75px]">
+      <div className="md:h-[498px] bg-light ">
+        <div className="flex flex-col gap-10 md:gap-16 items-center py-16 md:py-[75px]">
           <div className="">
             {aboutData?.data?.length > 0 && logo?.length > 0 ? (
               <div className="flex gap-2 md:gap-16">
                 {logo.map((img, index) => (
-                  <div key={index} className="w-[150px] md:w-[170px]">
-                    <img
-                      src={`${googleHDViewLink}${img?.id}`}
+                  <div key={index} className="w-[120px] md:w-[170px]">
+                    <LoadImages
+                      url={`${googleHDViewLink}${img?.id}`}
                       alt={`About Image ${index + 1}`}
-                      className="w-[150px] md:w-[170px] object-cover"
+                      className="w-[120px] md:w-[170px] object-cover"
                     />
                   </div>
                 ))}

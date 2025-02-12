@@ -110,7 +110,7 @@ const CoffeeMenu = ({ setIsCoffeeMenu, servicesData }) => {
       <ModalWrapperCenter
         className="min-w-[300px] max-w-[350px] h-[600px] md:max-w-[600px] md:h-[760px]"
         handleClose={handleClose}
-         opacity ="opacity-90"
+        opacity="opacity-90"
       >
         {servicesData?.data?.length > 0 && coffeeMenu?.length > 0 ? (
           <Slider {...settings}>
@@ -120,8 +120,8 @@ const CoffeeMenu = ({ setIsCoffeeMenu, servicesData }) => {
                   key={index}
                   className="min-w-[300px] max-w-[350px] h-[600px] md:max-w-[600px] md:h-[760px] "
                 >
-                  <img
-                    src={`${googleHDViewLink}${image?.id}`}
+                  <LoadImages
+                    url={`${googleHDViewLink}${image?.id}`}
                     alt={`Menu ${index + 1}`}
                     className="w-fit h-[600px]  md:w-[600px] md:h-[760px] object-fill p-5"
                   />

@@ -147,11 +147,13 @@ class Testimonial
         try {
             $sql = "update {$this->tblTestimonial} set ";
             $sql .= "testimonial_title = :testimonial_title, ";
+            $sql .= "testimonial_subtitle = :testimonial_subtitle, ";
             $sql .= "testimonial_datetime = :testimonial_datetime ";
             $sql .= "where testimonial_aid = :testimonial_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "testimonial_title" => $this->testimonial_title,
+                "testimonial_subtitle" => $this->testimonial_subtitle,
                 "testimonial_datetime" => $this->testimonial_datetime,
                 "testimonial_aid" => $this->testimonial_aid,
             ]);
