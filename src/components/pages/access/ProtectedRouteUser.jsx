@@ -16,8 +16,6 @@ const ProtectedRouteUser = ({ children }) => {
   );
   const [pageStatus, setPageStatus] = React.useState(false);
 
-  // console.log(currentPath);
-
   React.useEffect(() => {
     const fetchLogin = async () => {
       const login = await queryData(`/v1/user/token`, "post", {

@@ -63,6 +63,7 @@ const RoleTable = () => {
     dispatch(setIsArchive({ modal: true, modalCode: "role" }));
     setId(item.role_aid);
   };
+  console.log(id);
 
   const handleRestore = (item) => {
     dispatch(setIsRestore({ modal: true, modalCode: "role" }));
@@ -185,7 +186,7 @@ const RoleTable = () => {
                         className="group-hover:bg-gray-100 opacity-0 group-hover:opacity-100 sticky top-0 bg-white h-full w-0 right-0 pr-6 flex justify-end items-center z-50"
                       >
                         <ul className="gap-4 justify-center pl-4 flex group-hover:bg-gray-100">
-                          {item.role_is_active === 0 ? (
+                          {item.role_is_active == 0 ? (
                             <>
                               <li
                                 className="tooltip-action-table"
@@ -234,7 +235,7 @@ const RoleTable = () => {
 
       {store.isArchive && store.isArchive?.modalCode === "role" && (
         <ModalArchive
-          mysqlApiArchive={`${devApiVersion}/role/active/${id}`}
+          mysqlEndpoint={`${devApiVersion}/role/active/${id}`}
           msg={"Are you sure you want to archive this role?"}
           successMsg={"Archived successfully."}
           queryKey={"role"}
@@ -242,7 +243,7 @@ const RoleTable = () => {
       )}
       {store.isRestore && store.isRestore?.modalCode === "role" && (
         <ModalRestore
-          mysqlApiRestore={`${devApiVersion}/role/active/${id}`}
+          mysqlEndpoint={`${devApiVersion}/role/active/${id}`}
           msg={"Are you sure you want to restore this role?"}
           successMsg={"Restored successfully."}
           queryKey={"role"}
@@ -250,7 +251,7 @@ const RoleTable = () => {
       )}
       {store.isDelete && store.isDelete?.modalCode === "role" && (
         <ModalDelete
-          mysqlApiDelete={`${devApiVersion}/role/${id}`}
+          mysqlEndpoint={`${devApiVersion}/role/${id}`}
           msg={"Are you sure you want to delete this role?"}
           successMsg={"Deleted successfully."}
           item={dataItem.role_name}
