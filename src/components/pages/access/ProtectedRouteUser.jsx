@@ -57,8 +57,8 @@ const ProtectedRouteUser = ({ children }) => {
         delete login.data.role_datetime;
       }
       if (
-        !login.success ||
-        login.data.role.toLowerCase() !== login.data.role_name.toLowerCase()
+        !login.success
+        // || login.data.role.toLowerCase() !== login.data.role_name.toLowerCase()
       ) {
         setPageStatus(true);
       }

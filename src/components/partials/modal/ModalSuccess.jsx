@@ -1,3 +1,4 @@
+import { devNavUrl } from "@/components/helpers/functions-general";
 import { setSuccess } from "@/store/StoreAction";
 import { StoreContext } from "@/store/StoreContext";
 import React from "react";
@@ -8,8 +9,18 @@ const ModalSuccess = () => {
 
   const handleClose = () => {
     setAnimate("-translate-y-60");
+
     setTimeout(() => {
       dispatch(setSuccess(false));
+      // logout when there's a change in your own account
+      if (store.isAccountUpdated) {
+        localStorage.removeItem("dcontainercafetoken");
+        store.credentials.data.role_is_developer == 1
+          ? window.location.replace(`${devNavUrl}/developer/login`)
+          : window.location.replace(`${devNavUrl}/`);
+        dispatch(setIsAccountUpdated(false));
+        return;
+      }
     }, 200);
   };
 

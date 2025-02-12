@@ -33,6 +33,9 @@ RewriteRule ^user/token$ controllers/developer/settings/user/token.php [L]
 RewriteRule ^user/reset$ controllers/developer/settings/user/reset-password.php [L]
 RewriteRule ^user/role$ controllers/developer/settings/user/role.php [L] 
 
+### ACCOUNT CHANGE PASSWORD ###
+RewriteRule ^account/other/update-password$ controllers/developer/account/other/account-change-password.php [L] 
+
 # HEADER
 RewriteRule ^header$ controllers/developer/header/header.php [L]
 RewriteRule ^header/([0-9]+)$ controllers/developer/header/header.php?headerid=$1 [L]
