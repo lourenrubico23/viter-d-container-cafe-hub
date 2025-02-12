@@ -5,6 +5,8 @@ import {
 } from "@/components/helpers/functions-general";
 import DashboardNavigation from "@/components/partials/dashboard/DashboardNavigation";
 import DashboardUpperNav from "@/components/partials/dashboard/DashboardUpperNav";
+import ModalError from "@/components/partials/modal/ModalError";
+import ModalSuccess from "@/components/partials/modal/ModalSuccess";
 import { setIsAdd } from "@/store/StoreAction";
 import { StoreContext } from "@/store/StoreContext";
 import React from "react";

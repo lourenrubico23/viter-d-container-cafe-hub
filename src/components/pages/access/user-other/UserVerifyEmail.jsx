@@ -2,11 +2,13 @@ import useQueryData from "@/components/custom-hooks/UseQueryData.jsx";
 import { InputText } from "@/components/helpers/FormInputs.jsx";
 import {
   devApiVersion,
+  devBaseImgUrl,
   devNavUrl,
   getUrlParam,
 } from "@/components/helpers/functions-general.jsx";
 import { queryData } from "@/components/helpers/queryData.jsx";
 import ModalError from "@/components/partials/modal/ModalError.jsx";
+import PageNotFound from "@/components/partials/PageNotFound";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner.jsx";
 import TableSpinner from "@/components/partials/spinners/TableSpinner.jsx";
 import { StoreContext } from "@/store/StoreContext.jsx";
@@ -40,8 +42,17 @@ const UserVerifyEmail = () => {
           style={{ transform: "translateY(clamp(5rem,12vw,8rem))" }}
         >
           <div className="max-w-[340px] w-full p-4 py-5 rounded-md">
-            <div className="flex justify-center items-center mb-5">
-              {/* <Fbslogo /> */}
+            <div className="relative flex gap-2 justify-center mb-5">
+              <img
+                src={`${devBaseImgUrl}/d-container-logo.webp `}
+                alt=""
+                className="w-[100px] h-[100px]"
+              />
+              <img
+                src={`${devBaseImgUrl}/spa-logo.png `}
+                alt=""
+                className="w-[100px] h-[100px]"
+              />
             </div>
             <h2 className="text-base text-center">User - Success</h2>
 

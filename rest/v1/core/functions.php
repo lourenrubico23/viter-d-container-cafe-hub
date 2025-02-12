@@ -346,6 +346,13 @@ function checkUpdateUserKeyAndNewEmail($object)
     return $query;
 }
 
+function isUserOtherAssociated($object)
+{
+    $query = $object->checkUserOtherAssociation();
+    $count = $query->rowCount();
+    checkExistence($count, "You cannot delete this item because it is already associated with other module.");
+}
+
 // Set password
 function checkSetPassword($object)
 {

@@ -53,7 +53,7 @@ const ModalAddSalonImage = ({ itemEdit, setIsSalonImg, servicesData }) => {
     setPhotoArrayList,
     fieldValue = ""
   ) => {
-    handleChangeMultiplePhoto(e, 10);
+    handleChangeMultiplePhoto(e, 1);
     const files = e.target.files;
     if (files.length > 3) return e;
     let myFiles = Array.from(files);
@@ -173,7 +173,6 @@ const ModalAddSalonImage = ({ itemEdit, setIsSalonImg, servicesData }) => {
                   <div className="form-input">
                     <div className="mt-5">
                       <span className="top-20 px-2 text-[12px]"></span>
-                     
 
                       <div
                         className={`relative mt-7 mb-6 border border-gray-300 rounded-md hover:border-primary hover:border-dashed ${

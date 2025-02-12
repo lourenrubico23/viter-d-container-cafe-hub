@@ -191,7 +191,7 @@ const CreateOtherPassword = () => {
           <div className="w-96">
             <div className="relative flex gap-2 justify-center ">
               <img
-                src={`${devBaseImgUrl}/logo-brown.png `}
+                src={`${devBaseImgUrl}/d-container-logo.webp `}
                 alt=""
                 className="w-[100px] h-[100px]"
               />

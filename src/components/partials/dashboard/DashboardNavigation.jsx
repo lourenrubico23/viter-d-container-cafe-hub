@@ -1,22 +1,34 @@
-import React from "react";
-import { Link } from "react-router-dom";
-
-import { CgMenuGridO, CgUser } from "react-icons/cg";
-import { FaUser } from "react-icons/fa";
-import { VscGear } from "react-icons/vsc";
+import useQueryData from "@/components/custom-hooks/useQueryData";
 import {
   devApiVersion,
   devBaseImgUrl,
   devNavUrl,
   hexToRgb,
 } from "@/components/helpers/functions-general";
-import useQueryData from "@/components/custom-hooks/useQueryData";
-import Logo from "../svg/Logo";
+import { setIsAccountUpdated } from "@/store/StoreAction";
+import { StoreContext } from "@/store/StoreContext";
+import React from "react";
+import { Link } from "react-router-dom";
+import ScreenSpinner from "../spinners/ScreenSpinner";
+import ModalChangePassword from "@/components/pages/developer/account/modal/ModalChangePassword";
 
 const DashboardNavigation = () => {
+  const { store, dispatch } = React.useContext(StoreContext);
   const ref = React.useRef();
   const [isOpen, setIsOpen] = React.useState(false);
+  const [isLoading, setLoading] = React.useState(false);
   const [activeSection, setActiveSection] = React.useState("#header");
+  const [isChangePassword, setIsChangePassword] = React.useState(false);
+  const isRoleDeveloper = store.credentials.data.role_is_developer == 1;
+  const userId = isRoleDeveloper
+    ? store.credentials.data.developer_aid
+    : store.credentials.data.user_aid;
+  const email = isRoleDeveloper
+    ? store.credentials.data.developer_email
+    : store.credentials.data.user_email;
+  const fullname = isRoleDeveloper
+    ? `${store.credentials.data.developer_lname}, ${store.credentials.data.developer_fname}`
+    : `${store.credentials.data.user_last_name}, ${store.credentials.data.user_first_name}`;
 
   const {
     isFetching,
@@ -27,6 +39,17 @@ const DashboardNavigation = () => {
     "get", // method
     "colors" // key
   );
+
+  const handleLogout = () => {
+    setLoading(true);
+    localStorage.removeItem("dcontainercafetoken");
+    // roleIsDeveloper
+    //   ? window.location.replace(`${devNavUrl}/developer/login`)
+    //   :
+    setTimeout(() => {
+      window.location.replace(`${devNavUrl}/`);
+    }, 2000);
+  };
 
   document
     .querySelector(":root")
@@ -138,7 +161,7 @@ const DashboardNavigation = () => {
       <div className="theNav bg-[#f5f5f3] w-[211px] h-screen fixed top-0 p-4 z-50  border-customGray flex flex-col justify-between">
         <div className="theLogo mt-2 mb-14">
           <img
-            src={`${devBaseImgUrl}/dlogo-brown.webp`}
+            src={`${devBaseImgUrl}/d-container-logo.webp`}
             alt=""
             className="w-[55px]"
           />
@@ -263,21 +286,27 @@ const DashboardNavigation = () => {
               <img src={`${devBaseImgUrl}/user.webp`} alt="" />
             </span>
             {isOpen && (
-              <div className="absolute top-16 ml-[45px] bg-[#1E1E1E] shadow-md flex flex-col gap-2 p-3 min-w-[180px]">
-                <h6 className="text-white font-[inter-regular] text-[15px]">
-                  Louren Rubico
-                </h6>
+              <div className="absolute top-10 ml-[50px] bg-black/80 shadow-md flex flex-col gap-2 p-4 min-w-[180px] rounded-md">
+                <p className="text-white font-rubikRegular text-sm font-semibold tracking-wide">
+                  {fullname}
+                </p>
                 <a>
-                  <span className="text-white text-sm">louren@gmail.com</span>
+                  <span className="text-white text-xs">{email}</span>
                 </a>
-                <Link to="/changePass">
-                  <span className="text-white text-sm">Change Password</span>
-                </Link>
-                <div className="flex flex-row gap-4 items-center">
-                  <Link>
-                    <button className=" text-white text-sm">Users</button>
-                  </Link>
-                </div>
+                <button
+                  type="button"
+                  className="text-white text-xs text-left hover:text-accent"
+                  onClick={() => setIsChangePassword(true)}
+                >
+                  Change Password
+                </button>
+                <button
+                  type="button"
+                  className="text-white text-xs text-left hover:text-accent"
+                  onClick={() => handleLogout()}
+                >
+                  Logout
+                </button>
               </div>
             )}
           </div>
@@ -293,6 +322,11 @@ const DashboardNavigation = () => {
           </div>
         </div>
       </div>
+
+      {isChangePassword && (
+        <ModalChangePassword setIsChangeAccountData={setIsChangePassword} />
+      )}
+      {(isLoading || store.isAccountUpdated) && <ScreenSpinner />}
     </>
   );
 };

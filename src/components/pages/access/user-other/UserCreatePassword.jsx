@@ -2,6 +2,7 @@ import useQueryData from "@/components/custom-hooks/UseQueryData.jsx";
 import { InputText } from "@/components/helpers/FormInputs.jsx";
 import {
   devApiVersion,
+  devBaseImgUrl,
   devNavUrl,
   getUrlParam,
 } from "@/components/helpers/functions-general.jsx";
@@ -125,7 +126,18 @@ const UserCreatePassword = () => {
         >
           <div className="max-w-[340px] w-full p-4 py-5 rounded-md">
             <div className="flex justify-center items-center mb-5">
-              {/* <Fbslogo /> */}
+              <div className="relative flex gap-2 justify-center ">
+                <img
+                  src={`${devBaseImgUrl}/d-container-logo.webp `}
+                  alt=""
+                  className="w-[100px] h-[100px]"
+                />
+                <img
+                  src={`${devBaseImgUrl}/spa-logo.png `}
+                  alt=""
+                  className="w-[100px] h-[100px]"
+                />
+              </div>
             </div>
             <h2 className="text-base text-center">User - Create Password</h2>
 

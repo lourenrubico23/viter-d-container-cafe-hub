@@ -1,6 +1,7 @@
 import { InputText } from "@/components/helpers/FormInputs.jsx";
 import {
   devApiVersion,
+  devBaseImgUrl,
   devNavUrl,
 } from "@/components/helpers/functions-general.jsx";
 import { queryData } from "@/components/helpers/queryData.jsx";
@@ -50,7 +51,18 @@ const UserForgotPassword = () => {
       >
         <div className="max-w-[340px] w-full p-4 py-5 rounded-md">
           <div className="flex justify-center items-center mb-5">
-            {/* <Fbslogo /> */}
+            <div className="relative flex gap-2 justify-center ">
+              <img
+                src={`${devBaseImgUrl}/d-container-logo.webp `}
+                alt=""
+                className="w-[100px] h-[100px]"
+              />
+              <img
+                src={`${devBaseImgUrl}/spa-logo.png `}
+                alt=""
+                className="w-[100px] h-[100px]"
+              />
+            </div>
           </div>
           <h2 className="text-base text-center mb-5">User - Forgot Password</h2>
 

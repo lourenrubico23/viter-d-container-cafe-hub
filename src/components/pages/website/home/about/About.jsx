@@ -39,7 +39,7 @@ const About = () => {
               </div>
             ) : null}
           </div>
-          <div className="text-center flex flex-col gap-6 max-w-[851px]">
+          <div className="text-center flex flex-col gap-6 max-w-[851px] px-2 ">
             <p>
               {aboutData?.data?.length > 0 &&
               aboutData.data[0]?.about_description_a

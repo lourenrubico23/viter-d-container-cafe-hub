@@ -40,7 +40,7 @@ const ModalAddRole = ({ itemEdit }) => {
         dispatch(setMessage(data.error));
       }
       if (data.success) {
-        dispatch(setIsAdd(false));
+        dispatch(setIsAdd({ modal: false, modalCode: "" }));
         dispatch(setSuccess(true));
         dispatch(setMessage(`Successfully ${itemEdit ? "Updated" : "Added"}.`));
       }

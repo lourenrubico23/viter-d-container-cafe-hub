@@ -16,8 +16,6 @@ const ProtectedRouteUser = ({ children }) => {
   );
   const [pageStatus, setPageStatus] = React.useState(false);
 
-  // console.log(currentPath);
-
   React.useEffect(() => {
     const fetchLogin = async () => {
       const login = await queryData(`/v1/user/token`, "post", {
@@ -59,8 +57,8 @@ const ProtectedRouteUser = ({ children }) => {
         delete login.data.role_datetime;
       }
       if (
-        !login.success ||
-        login.data.role.toLowerCase() !== login.data.role_name.toLowerCase()
+        !login.success
+        // || login.data.role.toLowerCase() !== login.data.role_name.toLowerCase()
       ) {
         setPageStatus(true);
       }
