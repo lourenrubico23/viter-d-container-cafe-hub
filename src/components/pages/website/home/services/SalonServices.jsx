@@ -9,6 +9,7 @@ import {
   googleHDViewLink,
 } from "@/components/helpers/functions-general";
 import LoadImages from "@/components/partials/LoadImages";
+import { FaTimes } from "react-icons/fa";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -108,10 +109,16 @@ const SalonServices = ({ setIsSalonServices, servicesData }) => {
   return (
     <>
       <ModalWrapperCenter
-        className="min-w-[300px] max-w-[350px] h-[600px] md:max-w-[600px] md:h-[760px]"
+        className="min-w-[300px] max-w-[350px] h-[600px] md:max-w-[600px] md:h-[760px] relative"
         handleClose={handleClose}
-        opacity="opacity-90"
+        opacity="opacity-80"
       >
+        <div
+          className="absolute -top-3 -right-3 p-2 text-lg cursor-pointer z-10 bg-accent rounded-full text-white"
+          onClick={handleClose}
+        >
+          <FaTimes />
+        </div>
         {servicesData?.data?.length > 0 && salonServicesImg?.length > 0 ? (
           salonServicesImg.length === 1 ? (
             // Display a single image without a slider if there's only one image

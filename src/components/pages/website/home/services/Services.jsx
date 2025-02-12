@@ -80,9 +80,9 @@ const Services = () => {
           <section id="coffee">
             <div className=" lg:flex lg:flex-row-reverse lg:relative md:w-[100%] ">
               <div className="container">
-                <div className="lg:grid lg:grid-cols-2 md:h-[740px]">
+                <div className="lg:grid lg:grid-cols-2 ">
                   <div></div>
-                  <div className="dicover flex flex-col gap-2 my-8 lg:my-16 max-w-[686px] lg:ml-[74px] md:py-10 md:mb-8">
+                  <div className="dicover flex flex-col gap-2 my-8 lg:mt-16 max-w-[686px] lg:ml-[74px] md:py-10 ">
                     <h2 className="text-[clamp(36px,6vw,24px)] font-rubikBold text-center lg:text-left">
                       {servicesData?.data?.length > 0 &&
                       servicesData.data[0]?.services_coffee_title
@@ -220,12 +220,15 @@ const Services = () => {
             </div>
           </section>
 
-          <div className=" lg:right-0 lg:top-0 h-full my-8 lg:my-8 lg:w-full block overflow-hidden">
+          <div className=" lg:right-0 lg:top-0 h-full my-8 lg:my-0 lg:w-full block overflow-hidden">
             {coffeeGallery?.length > 0 && (
               <Slider {...settings}>
                 {coffeeGallery.map((image, index) =>
                   image ? ( // Ensure image is valid before rendering
-                    <div key={index} className="w-48 h-48 md:w-80 md:h-64 px-2">
+                    <div
+                      key={index}
+                      className="w-46 h-[260px] md:w-80 md:h-64 px-2"
+                    >
                       <LoadImages
                         url={`${googleHDViewLink}${image?.id}`}
                         alt={`Gallery Image ${index + 1}`}
@@ -241,16 +244,16 @@ const Services = () => {
 
         <section id="spaSalon">
           <div className="discover_wrapper lg:flex lg:flex-row-reverse lg:relative md:w-[100%]">
-            <div className="lg:absolute lg:right-0 lg:top-0 h-full lg:w-[50%] block ">
+            <div className="lg:absolute lg:right-0 lg:top-0 h-full lg:w-[50%] block place-content-center">
               <LoadImages
                 url={`${googleHDViewLink}${salonImage[0]?.id}`}
-                alt=""
-                className="lg:w-full lg:h-[740px] object-cover md:w-full"
+                alt="Spa Salon"
+                className="lg:w-full lg:h-[640px] object-contain md:w-full place-content-center"
               />
             </div>
 
             <div className="container">
-              <div className="lg:grid lg:grid-cols-2 lg:mr-20 lg:pr-10 md:py-10 md:mb-8 md:h-[740px]">
+              <div className="lg:grid lg:grid-cols-2 md:py-5 lg:mr-20 lg:pr-10 lg:py-6">
                 <div className="dicover flex flex-col gap-8 py-2 ">
                   <h2 className="text-[clamp(36px,6vw,1.5rem)] font-rubikBold text-center pt-7 lg:text-left lg:flex lg:items-center lg:gap-3 lg:py-10">
                     {servicesData?.data?.length > 0 &&
@@ -319,7 +322,10 @@ const Services = () => {
               <Slider {...settings}>
                 {salonGallery.map((image, index) =>
                   image ? ( // Ensure image is valid before rendering
-                    <div key={index} className="w-48 h-48 md:w-80 md:h-64 px-2">
+                    <div
+                      key={index}
+                      className="w-46 h-[260px] md:w-80 md:h-64 px-2"
+                    >
                       <LoadImages
                         url={`${googleHDViewLink}${image?.id}`}
                         alt={`Gallery Image ${index + 1}`}

@@ -17,6 +17,7 @@ const ReachUs = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [itemEdit, setItemEdit] = React.useState("");
   const [isReachUs, setIsReachUs] = React.useState(false);
+  const [itemData, setItemData] = React.useState(null);
 
   // const handleClick = () => {
   //   dispatch(setIsAdd(true));
@@ -45,6 +46,7 @@ const ReachUs = () => {
   const handleAddReachUs = () => {
     setIsReachUs(true);
     setItemEdit("reachUsUpdate");
+    setItemData({ modalCode: "reach-us" });
   };
 
   return (
@@ -162,7 +164,7 @@ const ReachUs = () => {
         </div>
       </section>
 
-      {store.isAdd && <ContactUsForm />}
+      {store.isAdd && itemData?.modalCode === "reach-us" && <ContactUsForm />}
       {isReachUs && (
         <ModalAddReachUs
           itemEdit={itemEdit}

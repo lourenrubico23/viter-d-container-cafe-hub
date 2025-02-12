@@ -69,7 +69,7 @@ const Testimonial = () => {
                     ? testimonialData?.data[0].testimonial_client_name_a
                     : "Lorem ipsum dolor sit"}
                 </h3>
-                <p className="md:font-bold md:min-h-[160px] font-montserrat ">
+                <p className=" md:min-h-[160px] font-montserrat ">
                   {testimonialData?.data?.length > 0 &&
                   testimonialData.data[0]?.testimonial_client_message_a
                     ? testimonialData?.data[0].testimonial_client_message_a
@@ -92,7 +92,7 @@ const Testimonial = () => {
                     ? testimonialData?.data[0].testimonial_client_name_b
                     : "Lorem ipsum dolor sit"}
                 </h3>
-                <p className="md:font-bold md:min-h-[160px] font-montserrat ">
+                <p className=" md:min-h-[160px] font-montserrat ">
                   {testimonialData?.data?.length > 0 &&
                   testimonialData.data[0]?.testimonial_client_message_b
                     ? testimonialData?.data[0].testimonial_client_message_b
@@ -115,7 +115,7 @@ const Testimonial = () => {
                     ? testimonialData?.data[0].testimonial_client_name_c
                     : "Lorem ipsum dolor sit"}
                 </h3>
-                <p className="md:font-bold md:min-h-[160px] font-montserrat ">
+                <p className=" md:min-h-[160px] font-montserrat ">
                   {testimonialData?.data?.length > 0 &&
                   testimonialData.data[0]?.testimonial_client_message_c
                     ? testimonialData?.data[0].testimonial_client_message_c

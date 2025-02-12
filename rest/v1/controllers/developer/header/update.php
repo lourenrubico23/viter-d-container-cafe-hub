@@ -14,7 +14,7 @@ if (array_key_exists("headerid", $_GET)) {
   // get data
 
   $isUpdateHeader = $data['isUpdateHeader'];
-  $pendingDeleteFile = $data['pendingDeleteFile'];
+
 
 
   if ($isUpdateHeader == "logoUpdate") {
@@ -24,6 +24,7 @@ if (array_key_exists("headerid", $_GET)) {
 
     $header->header_datetime = date("Y-m-d H:i:s");
     checkId($header->header_aid);
+    $pendingDeleteFile = $data['pendingDeleteFile'];
 
     // UPLOAD FILE TO GOOGLDE DRIVE  
     $header->header_logo_img = checkToUploadGoogleDrive(
@@ -60,6 +61,10 @@ if (array_key_exists("headerid", $_GET)) {
     $header->header_button_text = $data["header_button_text"];
     $header_banner_img_old = $data['header_banner_img_old'];
 
+    $header->header_datetime = date("Y-m-d H:i:s");
+    checkId($header->header_aid);
+    $pendingDeleteFile = $data['pendingDeleteFile'];
+
     // UPLOAD FILE TO GOOGLDE DRIVE  
     $header->header_banner_img = checkToUploadGoogleDrive(
       $header->header_banner_img, // FILES
@@ -71,8 +76,6 @@ if (array_key_exists("headerid", $_GET)) {
       $pendingDeleteFile // TO DELETE FILES
     );
 
-    $header->header_datetime = date("Y-m-d H:i:s");
-    checkId($header->header_aid);
     // update
     $query = checkUpdateBanner($header);
     returnSuccess($header, "header", $query);

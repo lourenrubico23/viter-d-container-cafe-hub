@@ -11,6 +11,7 @@ import {
   hexToRgb,
 } from "@/components/helpers/functions-general";
 import useQueryData from "@/components/custom-hooks/useQueryData";
+import Logo from "../svg/Logo";
 
 const DashboardNavigation = () => {
   const ref = React.useRef();
@@ -73,6 +74,7 @@ const DashboardNavigation = () => {
       "reachUs",
       "footer",
       "user",
+      "role",
     ];
 
     // IntersectionObserver to track the active section
@@ -133,15 +135,15 @@ const DashboardNavigation = () => {
 
   return (
     <>
-      <div className="theNav bg-[#f5f5f3] w-[211px] h-screen fixed top-0 p-4 z-50  border-customGray">
-        <div className="theLogo mb-[114px] mt-2 ">
+      <div className="theNav bg-[#f5f5f3] w-[211px] h-screen fixed top-0 p-4 z-50  border-customGray flex flex-col justify-between">
+        <div className="theLogo mt-2">
           <img
-            src={`${devBaseImgUrl}/logo-brown.png`}
+            src={`${devBaseImgUrl}/dlogo-brown.webp`}
             alt=""
             className="w-[55px]"
           />
         </div>
-        <div className="flex flex-col justify-between h-[calc(100%_-_200px)]">
+        <div className="flex flex-col justify-between">
           <nav>
             <ul className="flex-col [&>li]:text-left [&>li]:text-[16px] font-semibold [&>li]:mb-[16px]">
               <li
@@ -225,7 +227,7 @@ const DashboardNavigation = () => {
                 <a className="cursor-pointer">Footer</a>
               </li>
               <li
-                className={` flex justify-between items-center p-1
+                className={` flex justify-between items-center p-1 !mb-0.5
                 ${
                   activeSection === "user"
                     ? "text-black underline underline-offset-4"
@@ -236,11 +238,23 @@ const DashboardNavigation = () => {
               >
                 <a className="cursor-pointer">User</a>
               </li>
+              <li
+                className={` flex justify-between items-center p-1 !mb-0.5
+                ${
+                  activeSection === "role"
+                    ? "text-black underline underline-offset-4"
+                    : "text-black/60 hover:text-secondary"
+                }
+              `}
+                onClick={() => scrollToSection("role")}
+              >
+                <a className="cursor-pointer">Role</a>
+              </li>
             </ul>
           </nav>
           <div>
             <div
-              className={`py-[51px] relative ${isOpen && "border-black"}`}
+              className={`py-[40px] relative ${isOpen && "border-black"}`}
               onClick={handleOpen}
               ref={ref}
             >
