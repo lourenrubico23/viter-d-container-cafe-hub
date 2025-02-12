@@ -1,3 +1,4 @@
+import { queryDataInfinite } from "@/components/custom-hooks/queryDataInfinite";
 import { devApiVersion } from "@/components/helpers/functions-general";
 import LoadMore from "@/components/partials/LoadMore";
 import ModalDelete from "@/components/partials/modal/ModalDelete";
@@ -16,19 +17,22 @@ import {
 import { StoreContext } from "@/store/StoreContext";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
-import { FaEdit, FaKey, FaUserAltSlash } from "react-icons/fa";
+import { FaEdit, FaKey, FaPlus, FaUserAltSlash } from "react-icons/fa";
 import { MdDelete, MdRestore } from "react-icons/md";
 import { useInView } from "react-intersection-observer";
-import ModalSuspend from "./modal/ModalSuspend";
-import ModalRestore from "./modal/ModalRestore";
 import ModalReset from "./modal/ModalReset";
+import ModalRestore from "./modal/ModalRestore";
 import ModalSendingEmailStatus from "./modal/ModalSendingEmailStatus";
 import ModalSentEmailSummary from "./modal/ModalSentEmailSummary";
+import ModalSuspend from "./modal/ModalSuspend";
+import ModalAddUser from "./modal/ModalAddUser";
 
 const UserTable = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [id, setIsId] = React.useState("");
   const [isData, setIsData] = React.useState("");
+  const [itemEdit, setItemEdit] = React.useState(null);
+  const [itemData, setItemData] = React.useState(null);
   const [isArchiving, setIsArchiving] = React.useState(false);
   const [isReset, setIsReset] = React.useState(false);
 
@@ -79,15 +83,23 @@ const UserTable = () => {
 
   let counter = 1;
 
+  const handleAdd = () => {
+    dispatch(setIsAdd(true));
+    setItemEdit(null);
+    setItemData({ modalCode: "user" });
+  };
+
   const handleEdit = (item) => {
     dispatch(setIsAdd(true));
     setItemEdit(item);
+    setItemData({ modalCode: "user" });
   };
 
   const handleDelete = (item) => {
     dispatch(setIsDelete(true));
     setIsData(item.user_other_email);
     setIsId(item.user_other_aid);
+    setItemData({ modalCode: "user" });
   };
 
   const handleArchive = (item) => {
@@ -96,6 +108,7 @@ const UserTable = () => {
     setIsId(item.user_other_aid);
     setIsArchiving(true);
     setIsRestore(false);
+    setItemData({ modalCode: "user" });
   };
 
   const handleRestore = (item) => {
@@ -104,6 +117,7 @@ const UserTable = () => {
     setIsId(item.user_other_aid);
     setIsArchiving(false);
     setIsRestore(true);
+    setItemData({ modalCode: "user" });
   };
 
   const handleReset = (item) => {
@@ -131,8 +145,20 @@ const UserTable = () => {
 
   return (
     <>
-      <section id="user" className=" border-t-4">
-        <div className="py-8">
+      <section id="user" className="border-t-4 py-8">
+        <div className="flex items-center justify-between gap-2 w-full">
+          <div></div>
+          <div>
+            <button
+              type="button"
+              className="flex items-center gap-2 hover:text-primary"
+              onClick={() => handleAdd()}
+            >
+              <FaPlus /> Add
+            </button>
+          </div>
+        </div>
+        <div className="">
           <div className="place-self-end">
             <SearchBar
               search={search}
@@ -266,7 +292,6 @@ const UserTable = () => {
           item={isData}
         />
       )}
-
       {store.isArchive && (
         <ModalSuspend
           mysqlApiArchive={`${devApiVersion}/user-other/active/${id}`}
@@ -276,7 +301,6 @@ const UserTable = () => {
           email={isData}
         />
       )}
-
       {store.isRestore && (
         <ModalRestore
           mysqlApiRestore={`${devApiVersion}/user-other/active/${id}`}
@@ -286,7 +310,6 @@ const UserTable = () => {
           setIsRestore={setIsRestore}
         />
       )}
-
       {isReset && (
         <ModalReset
           mysqlApiReset={`${devApiVersion}/user-other/reset`}
@@ -305,14 +328,12 @@ const UserTable = () => {
           setQueryStatus={setQueryStatus}
         />
       )}
-
       {confirmSend && (
         <ModalSendingEmailStatus
           recipientList={recipientList}
           queryCount={queryCount}
         />
       )}
-
       {isSuccessSendingEmail && (
         <ModalSentEmailSummary
           queryCount={queryCount}
@@ -325,6 +346,7 @@ const UserTable = () => {
           }
         />
       )}
+      {store.isAdd && itemData?.modalCode === "user" && <ModalAddUser />}
     </>
   );
 };

@@ -12,8 +12,12 @@ dist
 dist-ssr
 *.local
 
+# File
+apikey.php
+
 # Folder not include 
 rest/v1/google-api
+rest/v1/jwt
 
 # Editor directories and files
 .vscode/*

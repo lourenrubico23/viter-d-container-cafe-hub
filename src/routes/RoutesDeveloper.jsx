@@ -27,4 +27,8 @@ export const RoutesDeveloper = [
     path: `${devNavUrl}/login`,
     element: <OtherUserLogin />,
   },
+  {
+    path: `${devNavUrl}/user`,
+    element: <User />,
+  },
 ];

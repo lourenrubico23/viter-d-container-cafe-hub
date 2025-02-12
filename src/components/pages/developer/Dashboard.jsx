@@ -18,6 +18,7 @@ import {
 } from "@/components/helpers/functions-general";
 import User from "./user/User";
 import UserTable from "./user/UserTable";
+import RoleTable from "./role/RoleTable";
 
 const Dashboard = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -87,6 +88,7 @@ const Dashboard = () => {
               <ReachUs />
               <Footer />
               <UserTable />
+              <RoleTable />
             </div>
           </div>
         </div>

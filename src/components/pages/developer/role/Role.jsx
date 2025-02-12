@@ -1,22 +1,14 @@
-import useQueryData from "@/components/custom-hooks/useQueryData";
-import {
-  devApiVersion,
-  hexToRgb,
-} from "@/components/helpers/functions-general";
+import { devApiVersion } from "@/components/helpers/functions-general.jsx";
 import DashboardNavigation from "@/components/partials/dashboard/DashboardNavigation";
 import DashboardUpperNav from "@/components/partials/dashboard/DashboardUpperNav";
-import { setIsAdd } from "@/store/StoreAction";
-import { StoreContext } from "@/store/StoreContext";
 import React from "react";
-import UserTable from "./UserTable";
+import { StoreContext } from "../../../../../store/StoreContext";
+import ModalError from "../../../../partials/modal/ModalError";
+import ModalSuccess from "../../../../partials/modal/ModalSuccess";
+import RoleTable from "./RoleTable";
 
-const User = () => {
+const Role = () => {
   const { store, dispatch } = React.useContext(StoreContext);
-
-  const handleAdd = () => {
-    dispatch(setIsAdd(true));
-    setItemEdit(null);
-  };
 
   const {
     isFetching,
@@ -72,9 +64,9 @@ const User = () => {
         <div className="main ml-[220px] w-[calc(100%_-_230px)] z-10">
           <DashboardUpperNav menu="dashboard" />
           <div className=" w-[calc(100%_-_10px)] pt-[70px] relative">
-            <div className="headerCover fixed top-0 left-[200px] w-full h-[76px] bg-dashPrimary z-[9]"></div>
+            <div className="headerCover fixed top-0 left-[200px] w-full h-[76px]  bg-dashPrimary z-[9]"></div>
             <div className="addShadow bg-[#f5f5f3] h-screen ">
-              <UserTable />
+              <RoleTable />
             </div>
           </div>
         </div>
@@ -86,4 +78,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default Role;

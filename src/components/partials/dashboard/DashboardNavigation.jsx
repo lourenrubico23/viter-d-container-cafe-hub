@@ -29,6 +29,7 @@ const DashboardNavigation = () => {
       "reachUs",
       "footer",
       "user",
+      "role",
     ];
 
     // IntersectionObserver to track the active section
@@ -181,7 +182,7 @@ const DashboardNavigation = () => {
                 <a className="cursor-pointer">Footer</a>
               </li>
               <li
-                className={` flex justify-between items-center p-1
+                className={` flex justify-between items-center p-1 !mb-0.5
                 ${
                   activeSection === "user"
                     ? "text-black underline underline-offset-4"
@@ -191,6 +192,18 @@ const DashboardNavigation = () => {
                 onClick={() => scrollToSection("user")}
               >
                 <a className="cursor-pointer">User</a>
+              </li>
+              <li
+                className={` flex justify-between items-center p-1 !mb-0.5
+                ${
+                  activeSection === "role"
+                    ? "text-black underline underline-offset-4"
+                    : "text-black/60 hover:text-secondary"
+                }
+              `}
+                onClick={() => scrollToSection("role")}
+              >
+                <a className="cursor-pointer">Role</a>
               </li>
             </ul>
           </nav>
