@@ -48,8 +48,8 @@ const About = () => {
               <div className="flex gap-16">
                 {logo.map((img, index) => (
                   <div key={index} className="w-[150px] md:w-[170px]">
-                    <img
-                      src={`${googleHDViewLink}${img?.id}`}
+                    <LoadImages
+                      url={`${googleHDViewLink}${img?.id}`}
                       className="w-[150px] md:w-[170px] object-cover"
                     />
                   </div>

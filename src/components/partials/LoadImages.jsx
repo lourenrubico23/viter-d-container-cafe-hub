@@ -28,11 +28,12 @@ const LoadImages = ({
         src={url}
         onLoad={({ currentTarget }) => {
           setIsLoading(false);
+          setIsImageError(false);
           currentTarget.classList = className;
         }}
         onError={({ currentTarget }) => {
           currentTarget.classList = "hidden";
-          //   currentTarget.onerror = null; // prevents looping
+          // currentTarget.onerror = null; // prevents looping
           setIsLoading(false);
           setIsImageError(true);
         }}

@@ -1,4 +1,8 @@
-import { devBaseImgUrl } from "@/components/helpers/functions-general";
+import {
+  devBaseImgUrl,
+  getConvertStringToJSONparseData,
+  googleHDViewLink,
+} from "@/components/helpers/functions-general";
 import React from "react";
 import { FaRegImages } from "react-icons/fa";
 import { HiPencil } from "react-icons/hi";
@@ -8,6 +12,7 @@ import ModalAddTestimonialA from "./ModalAddTestimonialA";
 import ModalAddTestimonialB from "./ModalAddTestimonialB";
 import ModalAddTestimonialC from "./ModalAddTestimonialC";
 import { IoImageOutline } from "react-icons/io5";
+import LoadImages from "@/components/partials/LoadImages";
 
 const Testimonial = () => {
   const [itemEdit, setItemEdit] = React.useState("");
@@ -45,6 +50,18 @@ const Testimonial = () => {
     setIsTestimonialC(true);
     setItemEdit("testimonialCUpdate");
   };
+
+  const testimonialA = getConvertStringToJSONparseData(
+    testimonialData?.data?.[0]?.testimonial_client_img_a
+  );
+
+  const testimonialB = getConvertStringToJSONparseData(
+    testimonialData?.data?.[0]?.testimonial_client_img_b
+  );
+
+  const testimonialC = getConvertStringToJSONparseData(
+    testimonialData?.data?.[0]?.testimonial_client_img_c
+  );
 
   return (
     <>
@@ -88,8 +105,8 @@ const Testimonial = () => {
                   {testimonialData?.data?.length > 0 &&
                   testimonialData.data[0]?.testimonial_client_img_a ? (
                     <div className="object-contain object-top md:h-full md:w-full rounded-lg">
-                      <img
-                        src={`${devBaseImgUrl}/${testimonialData.data[0].testimonial_client_img_a}`}
+                      <LoadImages
+                        url={`${googleHDViewLink}${testimonialA[0]?.id}`}
                         alt=""
                         className="object-contain object-top md:h-full md:w-full rounded-lg"
                       />
@@ -113,7 +130,7 @@ const Testimonial = () => {
                       ? testimonialData?.data[0].testimonial_client_name_a
                       : "Lorem ipsum dolor sit"}
                   </h3>
-                  <p className="md:font-bold md:min-h-[160px] font-montserrat ">
+                  <p className=" md:min-h-[160px] font-montserrat ">
                     {testimonialData?.data?.length > 0 &&
                     testimonialData.data[0]?.testimonial_client_message_a
                       ? testimonialData?.data[0].testimonial_client_message_a
@@ -133,8 +150,8 @@ const Testimonial = () => {
                   {testimonialData?.data?.length > 0 &&
                   testimonialData.data[0]?.testimonial_client_img_b ? (
                     <div className="object-contain object-top md:h-full md:w-full rounded-lg">
-                      <img
-                        src={`${devBaseImgUrl}/${testimonialData.data[0].testimonial_client_img_b}`}
+                      <LoadImages
+                        url={`${googleHDViewLink}${testimonialB[0]?.id}`}
                         alt=""
                         className="object-contain object-top md:h-full md:w-full rounded-lg"
                       />
@@ -152,7 +169,7 @@ const Testimonial = () => {
                       ? testimonialData?.data[0].testimonial_client_name_b
                       : "Lorem ipsum dolor sit"}
                   </h3>
-                  <p className="md:font-bold md:min-h-[160px] font-montserrat ">
+                  <p className=" md:min-h-[160px] font-montserrat ">
                     {testimonialData?.data?.length > 0 &&
                     testimonialData.data[0]?.testimonial_client_message_b
                       ? testimonialData?.data[0].testimonial_client_message_b
@@ -172,8 +189,8 @@ const Testimonial = () => {
                   {testimonialData?.data?.length > 0 &&
                   testimonialData.data[0]?.testimonial_client_img_c ? (
                     <div className="object-contain object-top md:h-full md:w-full rounded-lg">
-                      <img
-                        src={`${devBaseImgUrl}/${testimonialData.data[0].testimonial_client_img_c}`}
+                      <LoadImages
+                        url={`${googleHDViewLink}${testimonialC[0]?.id}`}
                         alt=""
                         className="object-contain object-top md:h-full md:w-full rounded-lg"
                       />
@@ -191,7 +208,7 @@ const Testimonial = () => {
                       ? testimonialData?.data[0].testimonial_client_name_c
                       : "Lorem ipsum dolor sit"}
                   </h3>
-                  <p className="md:font-bold md:min-h-[160px] font-montserrat ">
+                  <p className=" md:min-h-[160px] font-montserrat ">
                     {testimonialData?.data?.length > 0 &&
                     testimonialData.data[0]?.testimonial_client_message_c
                       ? testimonialData?.data[0].testimonial_client_message_c

@@ -9,6 +9,7 @@ import {
   googleHDViewLink,
 } from "@/components/helpers/functions-general";
 import LoadImages from "@/components/partials/LoadImages";
+import { FaTimes } from "react-icons/fa";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -108,10 +109,16 @@ const CoffeeMenu = ({ setIsCoffeeMenu, servicesData }) => {
   return (
     <>
       <ModalWrapperCenter
-        className="min-w-[300px] max-w-[350px] h-[600px] md:max-w-[600px] md:h-[760px]"
+        className="min-w-[300px] max-w-[350px] h-[600px] md:max-w-[600px] md:h-[760px] relative"
         handleClose={handleClose}
-         opacity ="opacity-90"
+        opacity="opacity-80"
       >
+        <div
+          className="absolute -top-3 -right-3 p-2 text-lg cursor-pointer z-10 bg-accent rounded-full text-white"
+          onClick={handleClose}
+        >
+          <FaTimes />
+        </div>
         {servicesData?.data?.length > 0 && coffeeMenu?.length > 0 ? (
           <Slider {...settings}>
             {coffeeMenu.map((image, index) =>
@@ -120,8 +127,8 @@ const CoffeeMenu = ({ setIsCoffeeMenu, servicesData }) => {
                   key={index}
                   className="min-w-[300px] max-w-[350px] h-[600px] md:max-w-[600px] md:h-[760px] "
                 >
-                  <img
-                    src={`${googleHDViewLink}${image?.id}`}
+                  <LoadImages
+                    url={`${googleHDViewLink}${image?.id}`}
                     alt={`Menu ${index + 1}`}
                     className="w-fit h-[600px]  md:w-[600px] md:h-[760px] object-fill p-5"
                   />

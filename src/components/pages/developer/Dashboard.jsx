@@ -1,75 +1,21 @@
-import { StoreContext } from "@/store/StoreContext";
-import React from "react";
 import DashboardNavigation from "@/components/partials/dashboard/DashboardNavigation";
 import DashboardUpperNav from "@/components/partials/dashboard/DashboardUpperNav";
-import ModalSuccess from "@/components/partials/modal/ModalSuccess";
 import ModalError from "@/components/partials/modal/ModalError";
-import Header from "./header/Header";
+import ModalSuccess from "@/components/partials/modal/ModalSuccess";
+import { StoreContext } from "@/store/StoreContext";
+import React from "react";
 import About from "./about/About";
-import Services from "./services/Services";
 import ContactUs from "./contact-us/ContactUs";
-import ReachUs from "./reach-us/ReachUs";
 import Footer from "./footer/Footer";
+import Header from "./header/Header";
+import ReachUs from "./reach-us/ReachUs";
+import Services from "./services/Services";
 import Testimonial from "./testimonial/Testimonial";
-import useQueryData from "@/components/custom-hooks/useQueryData";
-import {
-  devApiVersion,
-  hexToRgb,
-} from "@/components/helpers/functions-general";
-import User from "./user/User";
 import UserTable from "./user/UserTable";
 import RoleTable from "./role/RoleTable";
 
 const Dashboard = () => {
   const { store, dispatch } = React.useContext(StoreContext);
-
-  const {
-    isFetching,
-    error,
-    data: colorsData,
-  } = useQueryData(
-    `${devApiVersion}/colors`, // endpoint
-    "get", // method
-    "colors" // key
-  );
-
-  // to change the color when submitted
-  // document
-  //   .querySelector(":root")
-  //   .style.setProperty(
-  //     "--primary-color",
-  //     hexToRgb(colorsData?.data[0].colors_primary)
-  //   );
-  document
-    .querySelector(":root")
-    .style.setProperty(
-      "--primary-color",
-      hexToRgb(colorsData?.data[0]?.colors_primary || "#000000")
-    );
-  document
-    .querySelector(":root")
-    .style.setProperty(
-      "--secondary-color",
-      hexToRgb(colorsData?.data[0]?.colors_secondary || "#000000")
-    );
-  document
-    .querySelector(":root")
-    .style.setProperty(
-      "--accent-color",
-      hexToRgb(colorsData?.data[0]?.colors_accent || "#000000")
-    );
-  document
-    .querySelector(":root")
-    .style.setProperty(
-      "--light-color",
-      hexToRgb(colorsData?.data[0]?.colors_light || "#000000")
-    );
-  document
-    .querySelector(":root")
-    .style.setProperty(
-      "--dark-color",
-      hexToRgb(colorsData?.data[0]?.colors_dark || "#000000")
-    );
 
   return (
     <>

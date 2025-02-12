@@ -56,8 +56,8 @@ const Navigation = ({ headerData, setItemEdit, itemEdit }) => {
           {headerData?.data?.length > 0 &&
           headerData.data[0]?.header_logo_img ? (
             <div className="logo-img w-[55px] lg:w-[98px] lg:h-[90px]">
-              <img
-                src={`${googleHDViewLink}${logo[0]?.id}`}
+              <LoadImages
+                url={`${googleHDViewLink}${logo[0]?.id}`}
                 className="w-[55px] lg:w-[98px] lg:h-[90px] object-cover object-center"
               />
             </div>

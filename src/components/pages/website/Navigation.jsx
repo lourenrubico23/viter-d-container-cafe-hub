@@ -4,6 +4,7 @@ import {
   getConvertStringToJSONparseData,
   googleHDViewLink,
 } from "@/components/helpers/functions-general";
+import LoadImages from "@/components/partials/LoadImages";
 import ToggleNavigation from "@/components/partials/ToggleNavigation";
 import { setIsShow } from "@/store/StoreAction";
 import { StoreContext } from "@/store/StoreContext";
@@ -48,8 +49,8 @@ const Navigation = () => {
     <>
       <div className="container absolute lg:flex  justify-between top-0 lg:top-6 items-center px-0 lg:px-12 ">
         <div className="flex justify-between items-center bg-black lg:bg-transparent py-3 px-4 lg:px-0 lg:py-0">
-          <img
-            src={`${googleHDViewLink}${logo[0]?.id}`}
+          <LoadImages
+            url={`${googleHDViewLink}${logo[0]?.id}`}
             alt="Logo Image"
             className="w-[55px] lg:w-[98px] lg:h-[90px]"
           />
@@ -95,7 +96,7 @@ const Navigation = () => {
         </div>
       </div>
       <div className="lg:hidden block">
-        {isOpen && <ToggleNavigation setIsOpen={setIsOpen} />}
+        {isOpen && <ToggleNavigation setIsOpen={setIsOpen} headerData={headerData}/>}
       </div>
     </>
   );

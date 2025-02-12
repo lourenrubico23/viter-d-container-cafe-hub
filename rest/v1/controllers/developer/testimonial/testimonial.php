@@ -4,6 +4,7 @@ require '../../../core/header.php';
 // use needed functions
 require '../../../core/functions.php';
 require 'functions.php';
+require '../../../core/google-api.php';
 // use needed classes
 require '../../../models/developer/testimonial/Testimonial.php';
 // get payload
@@ -28,6 +29,12 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
   // PUT
   if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $result = require 'update.php';
+    sendResponse($result);
+    exit;
+  }
+  // DELETE
+  if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+    $result = require 'delete.php';
     sendResponse($result);
     exit;
   }

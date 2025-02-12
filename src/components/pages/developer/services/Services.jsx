@@ -150,7 +150,7 @@ const Services = () => {
           <section id="coffee">
             <div className=" lg:flex lg:flex-row-reverse lg:relative md:w-[100%] ">
               <div className="container">
-                <div className="lg:grid lg:grid-cols-2  h-[740px]">
+                <div className="lg:grid lg:grid-cols-2 ">
                   <div></div>
                   <a
                     className="absolute cursor-pointer tooltip-header z-[1] left-0 m-2"
@@ -159,7 +159,7 @@ const Services = () => {
                   >
                     <FaRegImages className=" bg-[#C7AC27] text-black rounded-full w-[25px] h-[25px] p-1 border-[1px]" />
                   </a>
-                  <div className="dicover flex flex-col gap-2 my-8 lg:my-16 max-w-[686px] lg:ml-[74px] md:py-10 md:mb-8">
+                  <div className="dicover flex flex-col gap-2 my-8 lg:mt-16 max-w-[686px] lg:ml-[74px] md:py-10">
                     <h2 className="text-[clamp(36px,6vw,24px)] font-rubikBold text-center lg:text-left">
                       {servicesData?.data?.length > 0 &&
                       servicesData.data[0]?.services_coffee_title
@@ -311,8 +311,8 @@ const Services = () => {
                 {servicesData?.data?.length > 0 &&
                 servicesData.data[0]?.services_coffee_img ? (
                   <div className="lg:w-full lg:h-full object-cover md:w-full">
-                    <img
-                      src={`${googleHDViewLink}${coffeeImage[0]?.id}`}
+                    <LoadImages
+                      url={`${googleHDViewLink}${coffeeImage[0]?.id}`}
                       alt="Coffee"
                       className="lg:w-full lg:h-full object-cover md:w-full"
                     />
@@ -338,8 +338,8 @@ const Services = () => {
               {coffeeGallery.length > 0
                 ? coffeeGallery.map((image, index) => (
                     <div key={index} className="w-48 h-48 md:w-80 md:h-64 px-2">
-                      <img
-                        src={`${googleHDViewLink}${image?.id}`}
+                      <LoadImages
+                        url={`${googleHDViewLink}${image?.id}`}
                         alt={`Service ${index + 1}`}
                         className="w-full h-full object-cover"
                       />
@@ -371,11 +371,11 @@ const Services = () => {
               </a>
               {servicesData?.data?.length > 0 &&
               servicesData.data[0]?.services_salon_img ? (
-                <div className="lg:w-full lg:h-full object-cover md:w-full">
-                  <img
-                    src={`${googleHDViewLink}${salonImage[0]?.id}`}
-                    alt="Coffee"
-                    className="lg:w-full lg:h-full object-cover md:w-full"
+                <div className="lg:w-full lg:h-full object-cover md:w-full place-content-center">
+                  <LoadImages
+                    url={`${googleHDViewLink}${salonImage[0]?.id}`}
+                    alt="Spa Salon"
+                    className="lg:w-full lg:h-[640px] object-contain md:w-full place-content-center"
                   />
                 </div>
               ) : (
@@ -385,7 +385,7 @@ const Services = () => {
               )}
             </div>
             <div className="container">
-              <div className="lg:grid lg:grid-cols-2 lg:mr-20 lg:pr-10 md:py-10 md:mb-8  h-[740px]">
+              <div className="lg:grid lg:grid-cols-2 md:py-5 lg:mr-20 lg:pr-10 lg:py-6">
                 <div className="dicover flex flex-col gap-8 py-2 ">
                   <h2 className="text-[clamp(36px,6vw,1.5rem)] font-rubikBold text-center lg:text-left lg:flex lg:items-center lg:gap-3 lg:py-10">
                     {servicesData?.data?.length > 0 &&
@@ -477,13 +477,13 @@ const Services = () => {
           >
             <FaRegImages className=" bg-[#C7AC27] text-black rounded-full w-[25px] h-[25px] p-1 border-[1px]" />
           </a>
-          <div className=" lg:right-0 lg:top-0 h-full my-8 lg:my-8 lg:mb-8 lg:w-full block overflow-hidden">
+          <div className=" lg:right-0 lg:top-0 h-full my-8 lg:my-0 lg:mb-8 lg:w-full block overflow-hidden">
             <Slider {...settings}>
               {salonGallery.length > 0
                 ? salonGallery.map((image, index) => (
                     <div key={index} className="w-48 h-48 md:w-80 md:h-64 px-2">
-                      <img
-                        src={`${googleHDViewLink}${image?.id}`}
+                      <LoadImages
+                        url={`${googleHDViewLink}${image?.id}`}
                         alt={`Service ${index + 1}`}
                         className="w-full h-full object-cover"
                       />

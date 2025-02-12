@@ -1,9 +1,14 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
-import { devBaseImgUrl } from "@/components/helpers/functions-general";
+import {
+  devBaseImgUrl,
+  getConvertStringToJSONparseData,
+  googleHDViewLink,
+} from "@/components/helpers/functions-general";
 import React, { useState } from "react";
 import { HiPencil } from "react-icons/hi";
 import { IoImageOutline } from "react-icons/io5";
 import ModalAddCopyRight from "./ModalAddCopyright";
+import LoadImages from "@/components/partials/LoadImages";
 
 const Footer = () => {
   const [activeSection, setActiveSection] = React.useState("#header");
@@ -44,6 +49,11 @@ const Footer = () => {
     setIsCopyright(true);
     setItemEdit("copyrightUpdate");
   };
+
+  const logo = getConvertStringToJSONparseData(
+    headerData?.data?.[0]?.header_logo_img
+  );
+
   return (
     <>
       <section id="footer" className="mb-16">
@@ -52,8 +62,8 @@ const Footer = () => {
             {headerData?.data?.length > 0 &&
             headerData.data[0]?.header_logo_img ? (
               <div className="logo-img max-w-[98px] max-h-[90px]">
-                <img
-                  src={`${devBaseImgUrl}/${headerData.data[0].header_logo_img}`}
+                <LoadImages
+                  url={`${googleHDViewLink}${logo[0]?.id}`}
                   alt="Logo Image"
                   className="max-w-[98px] max-h-[90px]"
                 />

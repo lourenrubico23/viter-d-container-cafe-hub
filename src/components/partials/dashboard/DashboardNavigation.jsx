@@ -5,14 +5,59 @@ import { CgMenuGridO, CgUser } from "react-icons/cg";
 import { FaUser } from "react-icons/fa";
 import { VscGear } from "react-icons/vsc";
 import {
+  devApiVersion,
   devBaseImgUrl,
   devNavUrl,
+  hexToRgb,
 } from "@/components/helpers/functions-general";
+import useQueryData from "@/components/custom-hooks/useQueryData";
+import Logo from "../svg/Logo";
 
 const DashboardNavigation = () => {
   const ref = React.useRef();
   const [isOpen, setIsOpen] = React.useState(false);
   const [activeSection, setActiveSection] = React.useState("#header");
+
+  const {
+    isFetching,
+    error,
+    data: colorsData,
+  } = useQueryData(
+    `${devApiVersion}/colors`, // endpoint
+    "get", // method
+    "colors" // key
+  );
+
+  document
+    .querySelector(":root")
+    .style.setProperty(
+      "--primary-color",
+      hexToRgb(colorsData?.data[0]?.colors_primary || "#000000")
+    );
+  document
+    .querySelector(":root")
+    .style.setProperty(
+      "--secondary-color",
+      hexToRgb(colorsData?.data[0]?.colors_secondary || "#000000")
+    );
+  document
+    .querySelector(":root")
+    .style.setProperty(
+      "--accent-color",
+      hexToRgb(colorsData?.data[0]?.colors_accent || "#000000")
+    );
+  document
+    .querySelector(":root")
+    .style.setProperty(
+      "--light-color",
+      hexToRgb(colorsData?.data[0]?.colors_light || "#000000")
+    );
+  document
+    .querySelector(":root")
+    .style.setProperty(
+      "--dark-color",
+      hexToRgb(colorsData?.data[0]?.colors_dark || "#000000")
+    );
 
   console.log(activeSection);
   // const sections = useRef([]);
@@ -90,15 +135,15 @@ const DashboardNavigation = () => {
 
   return (
     <>
-      <div className="theNav bg-[#f5f5f3] w-[211px] h-screen fixed top-0 p-4 z-50  border-customGray">
-        <div className="theLogo mb-[114px] mt-2 ">
+      <div className="theNav bg-[#f5f5f3] w-[211px] h-screen fixed top-0 p-4 z-50  border-customGray flex flex-col justify-between">
+        <div className="theLogo mt-2">
           <img
-            src={`${devBaseImgUrl}/logo-brown.png`}
+            src={`${devBaseImgUrl}/dlogo-brown.webp`}
             alt=""
             className="w-[55px]"
           />
         </div>
-        <div className="flex flex-col justify-between h-[calc(100%_-_200px)]">
+        <div className="flex flex-col justify-between">
           <nav>
             <ul className="flex-col [&>li]:text-left [&>li]:text-[16px] font-semibold [&>li]:mb-[16px]">
               <li
@@ -209,7 +254,7 @@ const DashboardNavigation = () => {
           </nav>
           <div>
             <div
-              className={`py-[51px] relative ${isOpen && "border-black"}`}
+              className={`py-[40px] relative ${isOpen && "border-black"}`}
               onClick={handleOpen}
               ref={ref}
             >
