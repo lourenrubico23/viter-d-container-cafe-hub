@@ -63,7 +63,6 @@ const RoleTable = () => {
     dispatch(setIsArchive({ modal: true, modalCode: "role" }));
     setId(item.role_aid);
   };
-  console.log(id);
 
   const handleRestore = (item) => {
     dispatch(setIsRestore({ modal: true, modalCode: "role" }));
