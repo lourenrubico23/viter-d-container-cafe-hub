@@ -16,6 +16,7 @@ dist-ssr
 apikey.php
 
 # Folder not include 
+rest/v1/notification/PHPMailer
 rest/v1/google-api
 rest/v1/jwt
 

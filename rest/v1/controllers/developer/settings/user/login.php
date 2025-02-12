@@ -1,7 +1,7 @@
 <?php
 
 // set http header
-require '../../../../core/headers.php';
+require '../../../../core/header.php';
 // use needed functions
 require '../../../../core/functions.php';
 // use JWT

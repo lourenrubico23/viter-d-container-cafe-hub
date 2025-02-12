@@ -38,7 +38,9 @@ const ModalSuccess = () => {
             </svg>
             <span className="sr-only">Check icon</span>
           </div>
-          <div className="ms-3 text-sm font-normal pr-4 text-black">{store.message}</div>
+          <div className="ms-3 text-sm font-normal pr-4 text-black">
+            {store.message}
+          </div>
         </div>
 
         <button

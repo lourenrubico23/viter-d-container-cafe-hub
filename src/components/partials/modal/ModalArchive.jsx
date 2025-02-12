@@ -1,36 +1,31 @@
+import { queryData } from "@/components/helpers/queryData";
+import { setIsArchive } from "@/store/StoreAction";
+import { StoreContext } from "@/store/StoreContext";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { FaArchive } from "react-icons/fa";
 import { GrFormClose } from "react-icons/gr";
-import { queryData } from "../../helpers/queryData";
-import { StoreContext } from "../../store/StoreContext";
-import { setError, setMessage, setSuccess } from "../../store/StoreAction";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import ButtonSpinner from "../spinners/ButtonSpinner";
 
-const ModalArchive = ({ setIsArchive, mysqlEndpoint, queryKey, item }) => {
+const ModalArchive = ({ mysqlEndpoint, queryKey, item }) => {
   const { store, dispatch } = React.useContext(StoreContext);
 
   const handleClose = () => {
-    dispatch(setIsArchive(false));
+    dispatch(setIsArchive({ modal: false, modalCode: "" }));
   };
 
   const queryClient = useQueryClient();
-
   const mutation = useMutation({
     mutationFn: (values) => queryData(mysqlEndpoint, "put", values),
     onSuccess: (data) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: [queryKey] });
-      // dispatch(setIsDelete(false));
-
       if (!data.success) {
-        console.log("May error!");
         dispatch(setError(true));
         dispatch(setMessage(data.error));
         dispatch(setSuccess(false));
       } else {
-        dispatch(setIsArchive(false));
-        console.log("Naysuu!");
+        handleClose();
         dispatch(setSuccess(true));
         dispatch(setMessage("Successfully Archived!"));
       }
@@ -43,6 +38,7 @@ const ModalArchive = ({ setIsArchive, mysqlEndpoint, queryKey, item }) => {
       isActive: 0,
     });
   };
+
   return (
     <div className=" fixed top-0 left-0 h-screen w-full flex justify-center items-center z-[999]">
       <div

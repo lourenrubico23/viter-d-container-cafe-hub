@@ -35,7 +35,7 @@ const OtherUserLogin = () => {
 
   const mutation = useMutation({
     mutationFn: (values) =>
-      queryData(`${devApiVersion}/user-other/login`, "post", values),
+      queryData(`${devApiVersion}/user/login`, "post", values),
     onSuccess: (data) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["other"] });
@@ -64,12 +64,12 @@ const OtherUserLogin = () => {
   };
 
   const initVal = {
-    user_other_email: "",
+    user_email: "",
     password: "",
   };
 
   const yupSchema = Yup.object({
-    user_other_email: Yup.string().required("Required").email("Invalid email"),
+    user_email: Yup.string().required("Required").email("Invalid email"),
     password: Yup.string().required("Required"),
   });
 
@@ -116,7 +116,7 @@ const OtherUserLogin = () => {
                       <InputText
                         label="Email"
                         type="text"
-                        name="user_other_email"
+                        name="user_email"
                         disabled={mutation.isPending}
                         className="!bg-white"
                       />
@@ -128,7 +128,7 @@ const OtherUserLogin = () => {
                         name="password"
                         disabled={
                           mutation.isPending ||
-                          (props.values.user_other_email === "" &&
+                          (props.values.user_email === "" &&
                             props.values.password === "")
                         }
                       />

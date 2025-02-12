@@ -229,8 +229,7 @@ function token(
     if (!empty($token)) {
         try {
             $decoded = JWT::decode($token, $key, array('HS256'));
-            ($object->user_system_email = $decoded->data->email
-                or $object->user_other_email = $decoded->data->email);
+            $object->user_email = $decoded->data->email;
             $result = checkLogin($object);
             $row = $result->fetch(PDO::FETCH_ASSOC);
 
@@ -347,13 +346,6 @@ function checkUpdateUserKeyAndNewEmail($object)
     return $query;
 }
 
-function checkUpdateUserOTPcode($object)
-{
-    $query = $object->updateUserOTPcode();
-    checkQuery($query, "There's a problem processing your request. (update user key and new email)");
-    return $query;
-}
-
 // Set password
 function checkSetPassword($object)
 {
@@ -386,24 +378,6 @@ function checkDelete($object)
     return $query;
 }
 
-// Approve
-
-function checkApprove($object)
-{
-    $query = $object->approve();
-    checkQuery($query, "There's a problem processing your request. (approve)");
-    return $query;
-}
-
-
-// Decline 
-function checkDecline($object)
-{
-    $query = $object->decline();
-    checkQuery($query, "There's a problem processing your request. (decline)");
-    return $query;
-}
-
 // Create column data
 function checkAddColumn($object, $column_name)
 {
@@ -433,14 +407,6 @@ function checkDropColumnName($object, $column_name)
 {
     $query = $object->dropColumnName($column_name);
     checkQuery($query, "There's a problem processing your request. (drop column name)");
-    return $query;
-}
-
-// make the trainee inactive in trainee user page 
-function checkArchiveTraineeAccount($object)
-{
-    $query = $object->archiveTraineeAccount();
-    checkQuery($query, "There's a problem processing your request. (archive trainee user)");
     return $query;
 }
 
@@ -529,6 +495,13 @@ function isIdExist($object)
     checkExistence($count, "A record already exist.");
 }
 
+function compareId($object, $id_old, $id)
+{
+    if (strtolower($id_old) != strtolower($id)) {
+        isIdExist($object);
+    }
+}
+
 // compare name
 function compareName($object, $name_old, $name)
 {
@@ -544,7 +517,6 @@ function compareEmail($object, $email_old, $email)
         isEmailExist($object, $email);
     }
 }
-
 
 // check association
 function isAssociated($object)
@@ -602,62 +574,4 @@ function getQueriedData($query)
     $response->setData($returnData);
     $response->send();
     exit;
-}
-// get total time spent
-function getTimeSpent($time_in, $time_out)
-{
-    // // Creating DateTime objects
-    // $timeObject1 = date_create($time_in);
-    // $timeObject2 = date_create($time_out);
-
-    // // Calculating the difference between time objects
-    // $interval = date_diff($timeObject1, $timeObject2);
-    // // $hours = $interval->h;
-
-    // $minutes = $interval->days * 24 * 60;
-    // $minutes += $interval->h * 60;
-    // $minutes += $interval->i;
-
-    // $totalHrsDecimal = $minutes * (1 / 60);
-    // return number_format($totalHrsDecimal, 4);
-
-    $start = new DateTime($time_in);
-    $end = new DateTime($time_out);
-    $diff = $start->diff($end);
-
-    $daysInSecs = $diff->format('%r%a') * 24 * 60 * 60;
-    $hoursInSecs = $diff->h * 60 * 60;
-    $minsInSecs = $diff->i * 60;
-
-    $seconds = $daysInSecs + $hoursInSecs + $minsInSecs + $diff->s;
-
-    $totalHrsDecimal = $seconds * (1 / 3600);
-
-    return number_format($totalHrsDecimal, 2);
-}
-
-// get total time spent in seconds
-function calculateTimeSpent($time_in, $time_out)
-{
-
-    $start = new DateTime($time_in);
-    $end = new DateTime($time_out);
-    $diff = $start->diff($end);
-
-    $daysInSecs = $diff->format('%r%a') * 24 * 60 * 60;
-    $hoursInSecs = $diff->h * 60 * 60;
-    $minsInSecs = $diff->i * 60;
-
-    $seconds = $daysInSecs + $hoursInSecs + $minsInSecs + $diff->s;
-
-    return $seconds;
-}
-
-function console_log($output, $with_script_tags = true)
-{
-    $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) . ');';
-    if ($with_script_tags) {
-        $js_code = '<script>' . $js_code . '</script>';
-    }
-    echo $js_code;
 }

@@ -32,9 +32,9 @@ const UserTable = () => {
   const [id, setIsId] = React.useState("");
   const [isData, setIsData] = React.useState("");
   const [itemEdit, setItemEdit] = React.useState(null);
-  const [itemData, setItemData] = React.useState(null);
   const [isArchiving, setIsArchiving] = React.useState(false);
   const [isReset, setIsReset] = React.useState(false);
+  const [filterData, setFilterData] = React.useState(false);
 
   const [isSendingLoading, setIsSendingLoading] = React.useState(false);
   const [queryCount, setQueryCount] = React.useState(0);
@@ -49,6 +49,7 @@ const UserTable = () => {
   const [page, setPage] = React.useState(1);
   const search = React.useRef({ value: "" });
   const { ref, inView } = useInView();
+  let counter = 1;
 
   const {
     data: result,
@@ -59,16 +60,17 @@ const UserTable = () => {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ["user-other", onSearch, store.isSearch],
+    queryKey: ["user", onSearch, store.isSearch, filterData],
     queryFn: async ({ pageParam = 1 }) =>
       await queryDataInfinite(
-        `${devApiVersion}/user-other/search`, // search endpoint
-        `${devApiVersion}/user-other/page/${pageParam}`, // list endpoint
+        `${devApiVersion}/user/search`, // search endpoint
+        `${devApiVersion}/user/page/${pageParam}`, // list endpoint
         store.isSearch, // search boolean
         {
           searchValue: search.current.value,
           id: "",
           isFilter: false,
+          filterData,
         }, // search value
         "post"
       ),
@@ -81,55 +83,48 @@ const UserTable = () => {
     refetchOnWindowFocus: false,
   });
 
-  let counter = 1;
-
   const handleAdd = () => {
-    dispatch(setIsAdd(true));
     setItemEdit(null);
-    setItemData({ modalCode: "user" });
+    dispatch(setIsAdd({ modal: true, modalCode: "user" }));
   };
 
-  const handleEdit = (item) => {
-    dispatch(setIsAdd(true));
+  const handleEdit = (item) => { 
     setItemEdit(item);
-    setItemData({ modalCode: "user" });
+    dispatch(setIsAdd({ modal: true, modalCode: "user" }));
   };
 
   const handleDelete = (item) => {
-    dispatch(setIsDelete(true));
-    setIsData(item.user_other_email);
-    setIsId(item.user_other_aid);
-    setItemData({ modalCode: "user" });
+    dispatch(setIsDelete({ modal: true, modalCode: "user" }));
+    setIsData(item.user_email);
+    setIsId(item.user_aid);
   };
 
   const handleArchive = (item) => {
-    dispatch(setIsArchive(true));
-    setIsData(item.user_other_email);
-    setIsId(item.user_other_aid);
+    dispatch(setIsArchive({ modal: true, modalCode: "user" }));
+    setIsData(item.user_email);
+    setIsId(item.user_aid);
     setIsArchiving(true);
     setIsRestore(false);
-    setItemData({ modalCode: "user" });
   };
 
   const handleRestore = (item) => {
-    dispatch(setIsRestore(true));
-    setIsData(item.user_other_email);
-    setIsId(item.user_other_aid);
+    dispatch(setIsRestore({ modal: true, modalCode: "user" }));
+    setIsData(item.user_email);
+    setIsId(item.user_aid);
     setIsArchiving(false);
     setIsRestore(true);
-    setItemData({ modalCode: "user" });
   };
 
   const handleReset = (item) => {
     setIsReset(true);
-    setIsId(item.user_other_aid);
+    setIsId(item.user_aid);
     setIsData(item);
 
     // to get all the email
-    const recipientEmails = Array.isArray(item.user_other_email)
-      ? item.user_other_email
-      : item.user_other_email
-      ? [item.user_other_email]
+    const recipientEmails = Array.isArray(item.user_email)
+      ? item.user_email
+      : item.user_email
+      ? [item.user_email]
       : [];
 
     setEmailCount(recipientEmails.length);
@@ -170,7 +165,7 @@ const UserTable = () => {
               onSearch={onSearch}
             />
           </div>
-          <div className=" shadow-md rounded-md overflow-y-auto min-h-full md:min-h-[calc(100vh-30px)] lg:max-h-[calc(90vh-150px)] mb-10 lg:mb-0 lg:min-h-0 relative">
+          <div className=" shadow-md rounded-md overflow-y-auto min-h-full md:min-h-[calc(70dvh)] lg:max-h-[calc(90dvh)] mb-10 lg:mb-0 lg:min-h-0 relative">
             {isFetching && !isFetchingNextPage && status !== "pending" && (
               <FetchingSpinner />
             )}
@@ -189,7 +184,7 @@ const UserTable = () => {
                 {(status === "pending" ||
                   result?.pages[0].data.length === 0) && (
                   <tr className="text-center">
-                    <td colSpan="100%" className="p-10">
+                    <td colSpan="100%" rowSpan="0" className="p-10">
                       {status === "pending" ? <TableLoading /> : <NoData />}
                     </td>
                   </tr>
@@ -205,66 +200,70 @@ const UserTable = () => {
 
                 {result?.pages.map((page, key) => (
                   <React.Fragment key={key}>
-                    {page?.data.map((item, key) => (
-                      <tr key={key} className="text-[14px]">
-                        <td className="pl-2 ">{counter++}.</td>
-                        <td>
-                          {item.user_other_is_active === 1 ? (
-                            <Status text="Active" />
-                          ) : (
-                            <Status text="Inactive" />
-                          )}
-                        </td>
-                        <td className="">{item.fullname}</td>
-                        <td className="">{item.user_other_email}</td>
-                        <td className="">{item.role_name}</td>
-                        <td className="flex items-center gap-3 justify-end mt-2 lg:mt-0 mr-2">
-                          {item.user_other_is_active ? (
-                            <>
-                              <button
-                                className="tooltip-action-table"
-                                data-tooltip="Edit"
-                                onClick={() => handleEdit(item)}
-                              >
-                                <FaEdit className="text-gray-600 text-[16px]" />
-                              </button>
-                              <button
-                                type="button"
-                                className="btn-action-table tooltip-action-table"
-                                data-tooltip="Reset"
-                                onClick={() => handleReset(item)}
-                              >
-                                <FaKey className="text-gray-600 text-[14px]" />
-                              </button>
-                              <button
-                                className="tooltip-action-table"
-                                data-tooltip="Suspend"
-                                onClick={() => handleArchive(item)}
-                              >
-                                <FaUserAltSlash className=" text-gray-600 text-[15px]" />
-                              </button>
-                            </>
-                          ) : (
-                            <>
-                              <button
-                                className="tooltip-action-table"
-                                data-tooltip="Restore"
-                                onClick={() => handleRestore(item)}
-                              >
-                                <MdRestore className="text-gray-600 text-[18px]" />
-                              </button>
-                              <button
-                                className="tooltip-action-table"
-                                data-tooltip="Delete"
-                                onClick={() => handleDelete(item)}
-                              >
-                                <MdDelete className="text-gray-600 text-[18px]" />
-                              </button>
-                            </>
-                          )}
-                        </td>
-                      </tr>
-                    ))}
+                    {page?.data.map((item, key) => {
+                      return (
+                        <tr key={key} className="text-[14px]">
+                          <td className="pl-2 ">{counter++}.</td>
+                          <td>
+                            {item.user_is_active === 1 ? (
+                              <Status text="Active" />
+                            ) : (
+                              <Status text="Inactive" />
+                            )}
+                          </td>
+                          <td className="">
+                            {item.user_last_name}, {item.user_first_name}
+                          </td>
+                          <td className="">{item.user_email}</td>
+                          <td className="">{item.role_name}</td>
+                          <td className="flex items-center gap-3 justify-end mt-2 lg:mt-0 mr-2">
+                            {item.user_is_active ? (
+                              <>
+                                <button
+                                  className="tooltip-action-table"
+                                  data-tooltip="Edit"
+                                  onClick={() => handleEdit(item)}
+                                >
+                                  <FaEdit className="text-gray-600 text-[16px]" />
+                                </button>
+                                <button
+                                  type="button"
+                                  className="btn-action-table tooltip-action-table"
+                                  data-tooltip="Reset"
+                                  onClick={() => handleReset(item)}
+                                >
+                                  <FaKey className="text-gray-600 text-[14px]" />
+                                </button>
+                                <button
+                                  className="tooltip-action-table"
+                                  data-tooltip="Suspend"
+                                  onClick={() => handleArchive(item)}
+                                >
+                                  <FaUserAltSlash className=" text-gray-600 text-[15px]" />
+                                </button>
+                              </>
+                            ) : (
+                              <>
+                                <button
+                                  className="tooltip-action-table"
+                                  data-tooltip="Restore"
+                                  onClick={() => handleRestore(item)}
+                                >
+                                  <MdRestore className="text-gray-600 text-[18px]" />
+                                </button>
+                                <button
+                                  className="tooltip-action-table"
+                                  data-tooltip="Delete"
+                                  onClick={() => handleDelete(item)}
+                                >
+                                  <MdDelete className="text-gray-600 text-[18px]" />
+                                </button>
+                              </>
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    })}
                   </React.Fragment>
                 ))}
               </tbody>
@@ -284,40 +283,40 @@ const UserTable = () => {
         </div>
       </section>
 
-      {store.isDelete && (
+      {store.isDelete.modal && store.isDelete.modalCode === "user" && (
         <ModalDelete
           setIsDelete={setIsDelete}
-          queryKey={"user-other"}
-          mysqlEndpoint={`${devApiVersion}/user-other/${id}`}
+          queryKey={"user"}
+          mysqlEndpoint={`${devApiVersion}/user/${id}`}
           item={isData}
         />
       )}
-      {store.isArchive && (
+      {store.isArchive.modal && store.isArchive.modalCode === "user" && (
         <ModalSuspend
-          mysqlApiArchive={`${devApiVersion}/user-other/active/${id}`}
+          mysqlApiArchive={`${devApiVersion}/user/active/${id}`}
           msg={"Are you sure you want to suspend this user?"}
           successMsg={"Suspended succesfully."}
-          queryKey={"user-other"}
+          queryKey={"user"}
           email={isData}
         />
       )}
-      {store.isRestore && (
+      {store.isRestore.modal && store.isRestore.modalCode === "user" && (
         <ModalRestore
-          mysqlApiRestore={`${devApiVersion}/user-other/active/${id}`}
+          mysqlApiRestore={`${devApiVersion}/user/active/${id}`}
           msg={"Are you sure you want to restore this user?"}
           successMsg={"Restored succesfully."}
-          queryKey={"user-other"}
+          queryKey={"user"}
           setIsRestore={setIsRestore}
         />
       )}
       {isReset && (
         <ModalReset
-          mysqlApiReset={`${devApiVersion}/user-other/reset`}
+          mysqlApiReset={`${devApiVersion}/user/reset`}
           msg={"Are you sure you want to reset the password of this user?"}
           successMsg={
             "Reset succesfully. Please check your email to continue resetting password."
           }
-          queryKey={"user-other"}
+          queryKey={"user"}
           dataItem={isData}
           setIsReset={setIsReset}
           recipientList={recipientList}
@@ -346,7 +345,10 @@ const UserTable = () => {
           }
         />
       )}
-      {store.isAdd && itemData?.modalCode === "user" && <ModalAddUser />}
+
+      {store.isAdd?.modal && store.isAdd?.modalCode === "user" && (
+        <ModalAddUser itemEdit={itemEdit} />
+      )}
     </>
   );
 };

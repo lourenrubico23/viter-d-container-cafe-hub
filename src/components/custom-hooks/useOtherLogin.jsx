@@ -15,16 +15,12 @@ const useOtherLogin = (navigate) => {
   React.useEffect(() => {
     setLoading(true);
     const fetchLogin = async () => {
-      const login = await queryData(
-        `${devApiVersion}/user-other/token`,
-        "post",
-        {
-          token: checkLocalStorage().token,
-        }
-      );
+      const login = await queryData(`${devApiVersion}/user/token`, "post", {
+        token: checkLocalStorage().token,
+      });
 
       if (typeof login === "undefined" || !login.success) {
-        localStorage.removeItem("localfbstoken");
+        localStorage.removeItem("dcontainercafetoken");
         setLoading(false);
       } else {
         setLoading(false);

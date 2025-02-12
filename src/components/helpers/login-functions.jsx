@@ -1,29 +1,22 @@
 import { devNavUrl } from "./functions-general";
 
 export const checkLocalStorage = () => {
-  let localfbstoken = null;
+  let dcontainercafetoken = null;
   try {
-    localfbstoken = JSON.parse(localStorage.getItem("localfbstoken"));
+    dcontainercafetoken = JSON.parse(
+      localStorage.getItem("dcontainercafetoken")
+    );
   } catch (error) {
-    localfbstoken = null;
+    dcontainercafetoken = null;
   }
 
-  return localfbstoken;
+  return dcontainercafetoken;
 };
 
 export const checkRoleToRedirect = (navigate, data) => {
-  if (data.role_code === "role_is_admin") {
-    navigate(`${devNavUrl}/special-offers`);
-  } else if (data.role_code === "role_is_marketing") {
-    navigate(`${devNavUrl}/subscribers`);
-  } else {
-    const rolePath = data.role.toLowerCase().replaceAll(" ", "-");
-    navigate(`${devNavUrl}/${rolePath}/special-offers`);
-  }
-
-  // data.role_is_developer === 1
-  //   ? navigate(`${devNavUrl}/${data.role_name.toLowerCase()}/time`)
-  //   : data.role_is_admin === 1
-  //   ? navigate(`${devNavUrl}/${data.role_name.toLowerCase()}/time`)
-  //   : navigate(`${devNavUrl}/${data.role_name.toLowerCase()}/time`);
+  data.role_is_developer === 1
+    ? navigate(`${devNavUrl}/${data.role_name.toLowerCase()}/dashboard`)
+    : data.role_is_admin === 1
+    ? navigate(`${devNavUrl}/${data.role_name.toLowerCase()}/dashboard`)
+    : navigate(`${devNavUrl}/${data.role_name.toLowerCase()}/dashboard`);
 };

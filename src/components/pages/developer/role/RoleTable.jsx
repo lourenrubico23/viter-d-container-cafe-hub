@@ -19,13 +19,19 @@ import React from "react";
 import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
 import { FaFileZipper, FaTrashArrowUp } from "react-icons/fa6";
 import { useInView } from "react-intersection-observer";
+import ModalAddRole from "./ModalAddRole";
+import ModalArchive from "@/components/partials/modal/ModalArchive";
+import ModalRestore from "@/components/partials/modal/ModalRestore";
+import ModalDelete from "@/components/partials/modal/ModalDelete";
 
-const RoleTable = ({ setItemEdit }) => {
+const RoleTable = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [isFilter, setIsFilter] = React.useState(false);
   const [filterData, setFilterData] = React.useState("");
   const [id, setId] = React.useState(null);
   const [dataItem, setData] = React.useState(null);
+  const [itemEdit, setItemEdit] = React.useState(null);
+  const [itemData, setItemData] = React.useState(null);
   const search = React.useRef({ value: "" });
   const [page, setPage] = React.useState(1);
   const { ref, inView } = useInView();
@@ -43,23 +49,28 @@ const RoleTable = ({ setItemEdit }) => {
     "role" // key
   );
 
+  const handleAdd = () => {
+    setItemEdit(null);
+    dispatch(setIsAdd({ modal: true, modalCode: "role" }));
+  };
+
   const handleItemEdit = (item) => {
     setItemEdit(item);
-    dispatch(setIsAdd(true));
+    dispatch(setIsAdd({ modal: true, modalCode: "role" }));
   };
 
   const handleArchive = (item) => {
-    dispatch(setIsArchive(true));
+    dispatch(setIsArchive({ modal: true, modalCode: "role" }));
     setId(item.role_aid);
   };
 
   const handleRestore = (item) => {
-    dispatch(setIsRestore(true));
+    dispatch(setIsRestore({ modal: true, modalCode: "role" }));
     setId(item.role_aid);
   };
 
   const handleDelete = (item) => {
-    dispatch(setIsDelete(true));
+    dispatch(setIsDelete({ modal: true, modalCode: "role" }));
     setId(item.role_aid);
     setData(item);
   };
@@ -87,6 +98,7 @@ const RoleTable = ({ setItemEdit }) => {
             <button
               type="button"
               className="flex items-center gap-2 hover:text-primary"
+              onClick={() => handleAdd()}
             >
               <FaPlus /> Add
             </button>
@@ -157,7 +169,11 @@ const RoleTable = ({ setItemEdit }) => {
                     >
                       <td className="pl-3 px-6">{count++}.</td>
                       <td className="px-2">
-                        <Status status={item.role_is_active} />
+                        <Status
+                          text={
+                            item.role_is_active == 1 ? "Active" : "Inactive"
+                          }
+                        />
                       </td>
                       <td className="px-6">{item.role_name}</td>
                       <td className="px-6">{item.role_description}</td>
@@ -216,7 +232,7 @@ const RoleTable = ({ setItemEdit }) => {
         </div>
       </section>
 
-      {store.isArchive && (
+      {store.isArchive && store.isArchive?.modalCode === "role" && (
         <ModalArchive
           mysqlApiArchive={`${devApiVersion}/role/active/${id}`}
           msg={"Are you sure you want to archive this role?"}
@@ -224,7 +240,7 @@ const RoleTable = ({ setItemEdit }) => {
           queryKey={"role"}
         />
       )}
-      {store.isRestore && (
+      {store.isRestore && store.isRestore?.modalCode === "role" && (
         <ModalRestore
           mysqlApiRestore={`${devApiVersion}/role/active/${id}`}
           msg={"Are you sure you want to restore this role?"}
@@ -232,7 +248,7 @@ const RoleTable = ({ setItemEdit }) => {
           queryKey={"role"}
         />
       )}
-      {store.isDelete && (
+      {store.isDelete && store.isDelete?.modalCode === "role" && (
         <ModalDelete
           mysqlApiDelete={`${devApiVersion}/role/${id}`}
           msg={"Are you sure you want to delete this role?"}
@@ -240,6 +256,9 @@ const RoleTable = ({ setItemEdit }) => {
           item={dataItem.role_name}
           queryKey={"role"}
         />
+      )}
+      {store.isAdd && store.isAdd?.modalCode === "role" && (
+        <ModalAddRole itemEdit={itemEdit} />
       )}
     </>
   );

@@ -2,7 +2,6 @@ import ModalAddWrapper from "@/components/partials/modal/ModalAddWrapper";
 import React from "react";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 
-
 const ModalSentEmailSummary = ({
   queryCount,
   recipientList,

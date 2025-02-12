@@ -1,36 +1,31 @@
+import { queryData } from "@/components/helpers/queryData";
+import { setIsRestore } from "@/store/StoreAction";
+import { StoreContext } from "@/store/StoreContext";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { FaTrashRestore } from "react-icons/fa";
 import { GrFormClose } from "react-icons/gr";
-import { queryData } from "../../helpers/queryData";
 import ButtonSpinner from "../spinners/ButtonSpinner";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { StoreContext } from "../../store/StoreContext";
-import { setError, setMessage, setSuccess } from "../../store/StoreAction";
 
-const ModalRestore = ({ setIsRestore, mysqlEndpoint, queryKey, item }) => {
+const ModalRestore = ({ mysqlEndpoint, queryKey, item }) => {
   const { store, dispatch } = React.useContext(StoreContext);
 
   const handleClose = () => {
-    dispatch(setIsRestore(false));
+    dispatch(setIsRestore({ modal: false, modalCode: "" }));
   };
 
   const queryClient = useQueryClient();
-
   const mutation = useMutation({
     mutationFn: (values) => queryData(mysqlEndpoint, "put", values),
     onSuccess: (data) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: [queryKey] });
-      // dispatch(setIsDelete(false));
-
       if (!data.success) {
-        console.log("May error!");
         dispatch(setError(true));
         dispatch(setMessage(data.error));
         dispatch(setSuccess(false));
       } else {
-        dispatch(setIsRestore(false));
-        console.log("Naysuu!");
+        handleClose();
         dispatch(setSuccess(true));
         dispatch(setMessage("Successfully Restored!"));
       }

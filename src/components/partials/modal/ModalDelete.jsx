@@ -1,21 +1,20 @@
+import { queryData } from "@/components/helpers/queryData";
+import { setError, setIsDelete, setMessage, setSuccess } from "@/store/StoreAction";
 import { StoreContext } from "@/store/StoreContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
-import { setError, setMessage, setSuccess } from "@/store/StoreAction";
-import { MdDelete } from "react-icons/md";
 import { GrFormClose } from "react-icons/gr";
-import { queryData } from "@/components/helpers/queryData";
+import { MdDelete } from "react-icons/md";
 import ButtonSpinner from "../spinners/ButtonSpinner";
 
-const ModalDelete = ({ setIsDelete, mysqlEndpoint, queryKey, item }) => {
+const ModalDelete = ({ mysqlEndpoint, queryKey, item }) => {
   const { store, dispatch } = React.useContext(StoreContext);
 
   const handleClose = () => {
-    dispatch(setIsDelete(false));
+    dispatch(setIsDelete({ modal: false, modalCode: "" }));
   };
 
   const queryClient = useQueryClient();
-
   const mutation = useMutation({
     mutationFn: (values) => queryData(mysqlEndpoint, "delete", values),
     onSuccess: (data) => {
@@ -27,10 +26,8 @@ const ModalDelete = ({ setIsDelete, mysqlEndpoint, queryKey, item }) => {
         dispatch(setError(true));
         dispatch(setMessage(data.error));
         dispatch(setSuccess(false));
-        console.log("May error!");
       } else {
-        setIsDelete(false);
-        console.log("Naysuu!");
+        handleClose();
         dispatch(setSuccess(true));
         dispatch(setMessage("Successfully Deleted!"));
       }
@@ -65,7 +62,7 @@ const ModalDelete = ({ setIsDelete, mysqlEndpoint, queryKey, item }) => {
           </h3>
           <div className="flex justify-center mt-5 gap-2">
             <button
-              className="inline-block rounded-md w-full px-5 py-2 bg-primary text-white bg-red-500"
+              className="inline-block rounded-md w-full px-5 py-2 text-white bg-red-500"
               onClick={handleYes}
               disabled={mutation.isPending}
             >

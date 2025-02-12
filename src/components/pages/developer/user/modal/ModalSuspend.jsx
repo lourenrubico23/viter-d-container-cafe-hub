@@ -1,10 +1,6 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import React from "react";
-import { FaUserAltSlash } from "react-icons/fa";
-
+import { HandleEscape } from "@/components/helpers/functions-general";
 import { queryData } from "@/components/helpers/queryData";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
-import { StoreContext } from "@/store/StoreContext";
 import {
   setError,
   setIsAccountUpdated,
@@ -12,7 +8,10 @@ import {
   setMessage,
   setSuccess,
 } from "@/store/StoreAction";
-import { HandleEscape } from "@/components/helpers/functions-general";
+import { StoreContext } from "@/store/StoreContext";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import React from "react";
+import { FaUserAltSlash } from "react-icons/fa";
 
 const ModalSuspend = ({
   mysqlApiArchive,
@@ -22,10 +21,9 @@ const ModalSuspend = ({
   email,
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
+  const isOwnAccount = store.credentials.data?.user_email === email;
+
   const queryClient = useQueryClient();
-
-  const isOwnAccount = store.credentials.data.user_other_email === email;
-
   const mutation = useMutation({
     mutationFn: (values) => queryData(mysqlApiArchive, "put", values),
     onSuccess: (data) => {
@@ -54,7 +52,6 @@ const ModalSuspend = ({
     // mutate data
     mutation.mutate({
       isActive: 0,
-      employee_work_email: email,
     });
   };
 

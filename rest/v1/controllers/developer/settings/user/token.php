@@ -2,7 +2,7 @@
 
 use \Firebase\JWT\JWT;
 // set http header
-require '../../../../core/headers.php';
+require '../../../../core/header.php';
 // use needed functions
 require '../../../../core/functions.php';
 // use JWT
@@ -26,7 +26,7 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
 
     $key = "jwt_admin_ko_ito";
 
-    tokenUser($user, $token, $key);
+    token($user, $token, $key);
 }
 
 http_response_code(200);

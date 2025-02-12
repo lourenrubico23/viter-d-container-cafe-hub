@@ -127,7 +127,7 @@ const Footer = () => {
               </li>
             </ul>
 
-            <h3 className="text-center text-[clamp(.5rem,4vw,16px)] text-white font-rubikRegular font-light flex ">
+            <div className="text-center text-[clamp(.5rem,4vw,16px)] text-white font-rubikRegular font-light flex ">
               <a
                 className="cursor-pointer relative tooltip-header-nav"
                 data-tooltip="Edit text"
@@ -144,7 +144,7 @@ const Footer = () => {
                   Copyright
                 </h3>
               )}
-            </h3>
+            </div>
           </div>
         </div>
       </section>

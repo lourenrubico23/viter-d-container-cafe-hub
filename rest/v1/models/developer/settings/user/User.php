@@ -3,8 +3,8 @@ class User
 {
     public $user_aid;
     public $user_is_active;
-    public $user_fname;
-    public $user_lname;
+    public $user_first_name;
+    public $user_last_name;
     public $user_email;
     public $user_email_new;
     public $user_role_id;
@@ -22,18 +22,12 @@ class User
 
     public $tblUser;
     public $tblRole;
-    public $tblResponsible;
-    public $tblLimitAccessUsers;
-    public $tblLimitAccessDepartment;
 
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblUser = "dev_tools_settings_user";
-        $this->tblRole = "dev_tools_settings_role";
-        $this->tblLimitAccessUsers = "dev_tools_settings_limit_access_users";
-        $this->tblLimitAccessDepartment = "dev_tools_settings_limit_access_department";
-        $this->tblResponsible = 'dev_tools_settings_responsible'; // table name on database for responsible
+        $this->tblUser = "dcchv1_settings_users";
+        $this->tblRole = "dcchv1_settings_role";
     }
 
     // create
@@ -41,16 +35,16 @@ class User
     {
         try {
             $sql = "insert into {$this->tblUser} ";
-            $sql .= "( user_fname, ";
-            $sql .= "user_lname, ";
+            $sql .= "( user_first_name, ";
+            $sql .= "user_last_name, ";
             $sql .= "user_is_active, ";
             $sql .= "user_email, ";
             $sql .= "user_role_id, ";
             $sql .= "user_key, ";
             $sql .= "user_created, ";
             $sql .= "user_datetime ) values ( ";
-            $sql .= ":user_fname, ";
-            $sql .= ":user_lname, ";
+            $sql .= ":user_first_name, ";
+            $sql .= ":user_last_name, ";
             $sql .= ":user_is_active, ";
             $sql .= ":user_email, ";
             $sql .= ":user_role_id, ";
@@ -59,8 +53,8 @@ class User
             $sql .= ":user_datetime ) ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "user_fname" => $this->user_fname,
-                "user_lname" => $this->user_lname,
+                "user_first_name" => $this->user_first_name,
+                "user_last_name" => $this->user_last_name,
                 "user_is_active" => $this->user_is_active,
                 "user_email" => $this->user_email,
                 "user_role_id" => $this->user_role_id,
@@ -79,8 +73,8 @@ class User
     public function readAll()
     {
         try {
-            $sql = "select user.user_fname, ";
-            $sql .= "user.user_lname, ";
+            $sql = "select user.user_first_name, ";
+            $sql .= "user.user_last_name, ";
             $sql .= "user.user_is_active, ";
             $sql .= "user.user_email, ";
             $sql .= "user.user_role_id, ";
@@ -90,7 +84,7 @@ class User
             $sql .= "{$this->tblRole} as role ";
             $sql .= "where user.user_role_id = role.role_aid ";
             $sql .= "order by user.user_is_active desc, ";
-            $sql .= "user.user_fname asc ";
+            $sql .= "user.user_first_name asc ";
             $query = $this->connection->query($sql);
         } catch (PDOException $ex) {
             $query = false;
@@ -102,8 +96,8 @@ class User
     public function readLimit()
     {
         try {
-            $sql = "select user.user_fname, ";
-            $sql .= "user.user_lname, ";
+            $sql = "select user.user_first_name, ";
+            $sql .= "user.user_last_name, ";
             $sql .= "user.user_is_active, ";
             $sql .= "user.user_email, ";
             $sql .= "user.user_role_id, ";
@@ -113,7 +107,7 @@ class User
             $sql .= "{$this->tblRole} as role ";
             $sql .= "where user.user_role_id = role.role_aid ";
             $sql .= "order by user.user_is_active desc, ";
-            $sql .= "user.user_fname asc ";
+            $sql .= "user.user_first_name asc ";
             $sql .= "limit :start, ";
             $sql .= ":total ";
             $query = $this->connection->prepare($sql);
@@ -133,8 +127,8 @@ class User
         try {
             $sql = "select user.user_aid, ";
             $sql .= "user.user_is_active, ";
-            $sql .= "user.user_fname, ";
-            $sql .= "user.user_lname, ";
+            $sql .= "user.user_first_name, ";
+            $sql .= "user.user_last_name, ";
             $sql .= "user.user_email, ";
             $sql .= "user.user_password, ";
             $sql .= "role.* ";
@@ -161,17 +155,17 @@ class User
             $sql = "select * from {$this->tblUser} as user, ";
             $sql .= "{$this->tblRole} as role ";
             $sql .= "where user.user_role_id = role.role_aid ";
-            $sql .= "and ( user.user_fname like :user_fname ";
-            $sql .= "or user.user_lname like :user_lname ";
+            $sql .= "and ( user.user_first_name like :user_first_name ";
+            $sql .= "or user.user_last_name like :user_last_name ";
             $sql .= "or user.user_email like :user_email ";
-            $sql .= "or concat(user.user_lname, ' ' , user.user_lname) like :fullname ";
+            $sql .= "or concat(user.user_last_name, ' ' , user.user_last_name) like :fullname ";
             $sql .= ") ";
             $sql .= "order by user.user_is_active desc, ";
-            $sql .= "user.user_fname asc ";
+            $sql .= "user.user_first_name asc ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "user_fname" => "%{$this->user_search}%",
-                "user_lname" => "%{$this->user_search}%",
+                "user_first_name" => "%{$this->user_search}%",
+                "user_last_name" => "%{$this->user_search}%",
                 "user_email" => "%{$this->user_search}%",
                 "fullname" => "%{$this->user_search}%",
             ]);
@@ -189,15 +183,15 @@ class User
             $sql .= "from {$this->tblUser} ";
             $sql .= "where ";
             $sql .= "user_is_active = 1 ";
-            $sql .= "and ( user_fname like :user_fname ";
-            $sql .= "or user_lname like :user_lname ";
-            $sql .= "or CONCAT(user_fname, ' ', user_lname) like :user_full_name ) ";
+            $sql .= "and ( user_first_name like :user_first_name ";
+            $sql .= "or user_last_name like :user_last_name ";
+            $sql .= "or CONCAT(user_first_name, ' ', user_last_name) like :user_full_name ) ";
             $sql .= "order by ";
-            $sql .= "user_lname ";
+            $sql .= "user_last_name ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                'user_fname' => "%{$this->user_search}%",
-                'user_lname' => "%{$this->user_search}%",
+                'user_first_name' => "%{$this->user_search}%",
+                'user_last_name' => "%{$this->user_search}%",
                 'user_full_name' => "%{$this->user_search}%",
             ]);
         } catch (PDOException $ex) {
@@ -212,7 +206,7 @@ class User
         try {
             $sql = "select * from {$this->tblUser} ";
             $sql .= "where user_aid = :user_aid ";
-            $sql .= "order by user_fname asc ";
+            $sql .= "order by user_first_name asc ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "user_aid" => $this->user_aid,
@@ -279,15 +273,15 @@ class User
     {
         try {
             $sql = "update {$this->tblUser} set ";
-            $sql .= "user_fname = :user_fname, ";
-            $sql .= "user_lname = :user_lname, ";
+            $sql .= "user_first_name = :user_first_name, ";
+            $sql .= "user_last_name = :user_last_name, ";
             $sql .= "user_role_id = :user_role_id, ";
             $sql .= "user_datetime = :user_datetime ";
             $sql .= "where user_aid  = :user_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "user_fname" => $this->user_fname,
-                "user_lname" => $this->user_lname,
+                "user_first_name" => $this->user_first_name,
+                "user_last_name" => $this->user_last_name,
                 "user_role_id" => $this->user_role_id,
                 "user_datetime" => $this->user_datetime,
                 "user_aid" => $this->user_aid,
@@ -462,14 +456,14 @@ class User
             $sql .= "from {$this->tblUser} ";
             $sql .= "where ";
             $sql .= "user_is_active = :user_is_active ";
-            $sql .= "and user_fname like :user_fname ";
-            $sql .= "and user_lname like :user_lname ";
+            $sql .= "and user_first_name like :user_first_name ";
+            $sql .= "and user_last_name like :user_last_name ";
             $sql .= "order by user_is_active desc, ";
             $sql .= "user_name asc ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "user_fname" => "%{$this->user_search}%",
-                "user_lname" => "%{$this->user_search}%",
+                "user_first_name" => "%{$this->user_search}%",
+                "user_last_name" => "%{$this->user_search}%",
                 "user_is_active" => $this->user_is_active,
             ]);
         } catch (PDOException $ex) {
@@ -484,8 +478,8 @@ class User
             $sql = "select ";
             $sql .= "user_aid, ";
             $sql .= "user_is_active, ";
-            $sql .= "user_fname, ";
-            $sql .= "user_lname ";
+            $sql .= "user_first_name, ";
+            $sql .= "user_last_name ";
             $sql .= "from {$this->tblUser} ";
             $sql .= "where ";
             $sql .= "user_is_active = :user_is_active ";
@@ -494,88 +488,6 @@ class User
             $query = $this->connection->prepare($sql);
             $query->execute([
                 'user_is_active' => $this->user_is_active,
-            ]);
-        } catch (PDOException $ex) {
-            $query = false;
-        }
-        return $query;
-    }
-
-    public function readUserLimitAccess($user_aid)
-    {
-        try {
-            $sql = "select ";
-            $sql .= "limit_access_users_menu_code, ";
-            $sql .= "limit_access_users_sub_menu_code, ";
-            $sql .= "limit_access_users_item_code, ";
-            $sql .= "limit_access_users_sub_item_code ";
-            $sql .= "from {$this->tblLimitAccessUsers} ";
-            $sql .= "where ";
-            $sql .= "limit_access_users_id = :limit_access_users_id ";
-            $sql .= "order by ";
-            $sql .= "limit_access_users_is_active desc, ";
-            $sql .= "limit_access_users_menu,  ";
-            $sql .= "limit_access_users_sub_menu,  ";
-            $sql .= "limit_access_users_item,  ";
-            $sql .= "limit_access_users_sub_item  ";
-            $query = $this->connection->prepare($sql);
-            $query->execute([
-                "limit_access_users_id" => $user_aid,
-            ]);
-        } catch (PDOException $ex) {
-            $query = false;
-        }
-        return $query;
-    }
-
-    public function readResponsibleByUserId($user_aid)
-    {
-        try {
-            $sql = "select ";
-            $sql .= "responsible_department_id, ";
-            $sql .= "responsible_photo ";
-            $sql .= "from {$this->tblResponsible} ";
-            $sql .= "where ";
-            $sql .= "responsible_user_id = :responsible_user_id ";
-            $query = $this->connection->prepare($sql);
-            $query->execute([
-                'responsible_user_id' => $user_aid,
-            ]);
-        } catch (PDOException $ex) {
-            $query = false;
-        }
-        return $query;
-    }
-
-    public function readDepartmentLimitAccessByUserId($user_aid)
-    {
-        try {
-            $sql = "select ";
-            $sql .= "limit_access_department_id ";
-            $sql .= "from {$this->tblLimitAccessDepartment} ";
-            $sql .= "where ";
-            $sql .= "limit_access_department_users_id = :limit_access_department_users_id ";
-            $query = $this->connection->prepare($sql);
-            $query->execute([
-                'limit_access_department_users_id' => $user_aid,
-            ]);
-        } catch (PDOException $ex) {
-            $query = false;
-        }
-        return $query;
-    }
-
-    public function checkAssociation()
-    {
-        try {
-            $sql = "select ";
-            $sql .= "responsible_user_id ";
-            $sql .= "from {$this->tblResponsible} ";
-            $sql .= "where ";
-            $sql .= "responsible_user_id = :responsible_user_id ";
-            $query = $this->connection->prepare($sql);
-            $query->execute([
-                'responsible_user_id' => $this->user_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;

@@ -8,9 +8,6 @@ class Role
     public $role_created;
     public $role_datetime;
 
-
-
-    // Load more and search variables
     public $role_start;
     public $role_total;
     public $role_search;
@@ -19,15 +16,13 @@ class Role
     public $lastInsertedId;
 
     public $tblRole;
-    public $tblDeveloper;
     public $tblUser;
 
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblRole = "dev_tools_settings_role";
-        $this->tblDeveloper = "dev_tools_settings_developer";
-        $this->tblUser = "dev_tools_settings_user";
+        $this->tblRole = "dcchv1_settings_role";
+        $this->tblUser = "dcchv1_settings_users";
     }
 
     // create
@@ -241,22 +236,6 @@ class Role
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "role_name" => "{$this->role_name}",
-            ]);
-        } catch (PDOException $ex) {
-            $query = false;
-        }
-        return $query;
-    }
-
-    // association
-    public function checkUserSystemAssociation()
-    {
-        try {
-            $sql = "select developer_role_id from {$this->tblDeveloper} ";
-            $sql .= "where developer_role_id = :role_aid ";
-            $query = $this->connection->prepare($sql);
-            $query->execute([
-                "role_aid" => "{$this->role_aid}",
             ]);
         } catch (PDOException $ex) {
             $query = false;
