@@ -136,7 +136,7 @@ const DashboardNavigation = () => {
   return (
     <>
       <div className="theNav bg-[#f5f5f3] w-[211px] h-screen fixed top-0 p-4 z-50  border-customGray flex flex-col justify-between">
-        <div className="theLogo mt-2">
+        <div className="theLogo mt-2 mb-14">
           <img
             src={`${devBaseImgUrl}/dlogo-brown.webp`}
             alt=""
@@ -252,43 +252,43 @@ const DashboardNavigation = () => {
               </li>
             </ul>
           </nav>
-          <div>
-            <div
-              className={`py-[40px] relative ${isOpen && "border-black"}`}
-              onClick={handleOpen}
-              ref={ref}
-            >
-              <span className="w-[40px] h-[40px]">
-                <img src={`${devBaseImgUrl}/user.webp`} alt="" />
-              </span>
-              {isOpen && (
-                <div className="absolute top-16 ml-[45px] bg-[#1E1E1E] shadow-md flex flex-col gap-2 p-3 min-w-[180px]">
-                  <h6 className="text-white font-[inter-regular] text-[15px]">
-                    Louren Rubico
-                  </h6>
-                  <a>
-                    <span className="text-white text-sm">louren@gmail.com</span>
-                  </a>
-                  <Link to="/changePass">
-                    <span className="text-white text-sm">Change Password</span>
+        </div>
+        <div>
+          <div
+            className={`py-[40px] relative ${isOpen && "border-black"}`}
+            onClick={handleOpen}
+            ref={ref}
+          >
+            <span className="w-[40px] h-[40px]">
+              <img src={`${devBaseImgUrl}/user.webp`} alt="" />
+            </span>
+            {isOpen && (
+              <div className="absolute top-16 ml-[45px] bg-[#1E1E1E] shadow-md flex flex-col gap-2 p-3 min-w-[180px]">
+                <h6 className="text-white font-[inter-regular] text-[15px]">
+                  Louren Rubico
+                </h6>
+                <a>
+                  <span className="text-white text-sm">louren@gmail.com</span>
+                </a>
+                <Link to="/changePass">
+                  <span className="text-white text-sm">Change Password</span>
+                </Link>
+                <div className="flex flex-row gap-4 items-center">
+                  <Link>
+                    <button className=" text-white text-sm">Users</button>
                   </Link>
-                  <div className="flex flex-row gap-4 items-center">
-                    <Link>
-                      <button className=" text-white text-sm">Users</button>
-                    </Link>
-                  </div>
                 </div>
-              )}
-            </div>
-            <div className="border-t-[2px] border-dashAccent flex flex-col gap-2">
-              <h5 className="mt-[10px] text-black text-sm">Powered by:</h5>
-              <div className="w-[120px] h-[44px]">
-                <img
-                  src={`${devBaseImgUrl}/logo-fbs.png`}
-                  alt=""
-                  className="object-cover"
-                />
               </div>
+            )}
+          </div>
+          <div className="border-t-[2px] border-dashAccent flex flex-col gap-2">
+            <h5 className="mt-[10px] text-black text-sm">Powered by:</h5>
+            <div className="w-[120px] h-[44px]">
+              <img
+                src={`${devBaseImgUrl}/logo-fbs.png`}
+                alt=""
+                className="object-cover"
+              />
             </div>
           </div>
         </div>

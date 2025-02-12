@@ -57,7 +57,7 @@ const About = () => {
               </div>
             ) : (
               <div className="w-[150px] md:w-[170px] place-content-center">
-                <IoImageOutline className="w-[150px] md:w-[170px] mx-auto text-gray-500" />
+                <IoImageOutline className="w-[150px] md:w-[170px] mx-auto text-gray-500 text-[150px]" />
               </div>
             )}
 

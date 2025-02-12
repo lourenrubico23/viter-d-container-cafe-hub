@@ -33,7 +33,7 @@ const ReachUs = () => {
   );
 
   const handleClick = () => {
-    dispatch(setIsAdd(true));
+    dispatch(setIsAdd({ modal: true, modalCode: "reach-us" }));
   };
   return (
     <>
@@ -139,7 +139,9 @@ const ReachUs = () => {
         </div>
       </section>
 
-      {store.isAdd && <ContactUsForm />}
+      {store.isAdd?.modal && store.isAdd?.modalCode === "reach-us" && (
+        <ContactUsForm />
+      )}
     </>
   );
 };

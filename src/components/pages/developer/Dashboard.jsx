@@ -25,7 +25,7 @@ const Dashboard = () => {
           <DashboardUpperNav menu="dashboard" />
           <div className=" w-[calc(100%_-_10px)] pt-[65px] relative">
             <div className="headerCover fixed top-0 left-[200px] w-full h-[60px]  bg-dashPrimary z-[9]"></div>
-            <div className="addShadow bg-[#f5f5f3] ">
+            <div className="addShadowDash bg-[#f5f5f3] ">
               <Header />
               <About />
               <Services />

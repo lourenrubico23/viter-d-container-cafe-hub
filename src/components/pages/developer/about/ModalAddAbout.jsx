@@ -53,7 +53,7 @@ const ModalAddAbout = ({ itemEdit, setIsAbout, aboutData }) => {
     setPhotoArrayList,
     fieldValue = ""
   ) => {
-    handleChangeMultiplePhoto(e, 10);
+    handleChangeMultiplePhoto(e, 2);
     const files = e.target.files;
     if (files.length > 3) return e;
     let myFiles = Array.from(files);
@@ -153,7 +153,6 @@ const ModalAddAbout = ({ itemEdit, setIsAbout, aboutData }) => {
             initialValues={initVal}
             validationSchema={yupSchema}
             onSubmit={async (values) => {
-
               const data = {
                 ...values,
                 about_img: Array.from(photoArrayList).map((item) =>
@@ -178,7 +177,6 @@ const ModalAddAbout = ({ itemEdit, setIsAbout, aboutData }) => {
                   <div className="form-input">
                     <div className="mt-5">
                       <span className="top-20 px-2 text-[12px]"></span>
-                     
 
                       <div
                         className={`relative mt-7 mb-6 border border-gray-300 rounded-md hover:border-primary hover:border-dashed ${
@@ -320,7 +318,6 @@ const ModalAddAbout = ({ itemEdit, setIsAbout, aboutData }) => {
                       <button
                         className="btn-modal-submit"
                         type="submit"
-                      
                         disabled={mutation.isPending || !props.dirty || loading}
                       >
                         {mutation.isPending || loading ? (

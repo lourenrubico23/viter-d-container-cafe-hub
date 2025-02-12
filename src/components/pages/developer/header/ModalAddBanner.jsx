@@ -50,7 +50,7 @@ const ModalAddBanner = ({ itemEdit, headerData, setIsBanner, setItemEdit }) => {
     setPhotoArrayList,
     fieldValue = ""
   ) => {
-    handleChangeMultiplePhoto(e, 10);
+    handleChangeMultiplePhoto(e, 1);
     const files = e.target.files;
     if (files.length > 3) return e;
     let myFiles = Array.from(files);

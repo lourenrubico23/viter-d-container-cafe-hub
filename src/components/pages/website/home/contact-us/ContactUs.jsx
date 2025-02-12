@@ -18,8 +18,10 @@ const ContactUs = () => {
   );
 
   const handleClick = () => {
-    dispatch(setIsAdd(true));
+    dispatch(setIsAdd({ modal: true, modalCode: "contact-us" }));
   };
+
+  console.log("open contacts: ", store.isAdd?.modalCode === "contact-us");
 
   return (
     <>
@@ -45,7 +47,9 @@ const ContactUs = () => {
         </div>
       </section>
 
-      {store.isAdd && <ContactUsForm />}
+      {store.isAdd?.modal && store.isAdd?.modalCode === "contact-us" && (
+        <ContactUsForm />
+      )}
     </>
   );
 };
