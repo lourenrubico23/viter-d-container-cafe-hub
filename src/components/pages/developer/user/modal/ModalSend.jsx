@@ -1,10 +1,10 @@
 import { queryData } from "@/components/helpers/queryData";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
+import { setError, setMessage } from "@/store/StoreAction";
 import { StoreContext } from "@/store/StoreContext";
 import { useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { IoIosSend } from "react-icons/io";
-
 
 const ModalSend = ({
   recipientList,

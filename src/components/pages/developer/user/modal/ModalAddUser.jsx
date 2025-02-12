@@ -47,22 +47,22 @@ const ModalAddUser = ({ itemEdit }) => {
       queryClient.invalidateQueries({
         queryKey: ["user"],
       });
-
-      if (!data.success) {
+      if (!data?.success) {
         dispatch(setError(true));
         dispatch(setMessage(data.error));
       } else {
-        dispatch(setIsAdd(false));
+        const msgUpdatedEmail =
+          itemEdit &&
+          store?.credentials?.data?.user_email === itemEdit.user_email
+            ? "You will be automatically logged out."
+            : "";
+        handleCloseModal();
         dispatch(setSuccess(true));
         dispatch(
           setMessage(
             `Successfully ${
               itemEdit
-                ? `updated. ${
-                    store.credentials.data.user_email === itemEdit.user_email
-                      ? "You will be automatically logged out."
-                      : ""
-                  }`
+                ? `updated. ${msgUpdatedEmail}`
                 : "added, please check your email for verification."
             }`
           )
@@ -79,29 +79,31 @@ const ModalAddUser = ({ itemEdit }) => {
 
   const initVal = {
     user_aid: itemEdit ? itemEdit.user_aid : "",
-    user_fname: itemEdit ? itemEdit.user_fname : "",
-    user_lname: itemEdit ? itemEdit.user_lname : "",
+    user_first_name: itemEdit ? itemEdit.user_first_name : "",
+    user_last_name: itemEdit ? itemEdit.user_last_name : "",
     user_email: itemEdit ? itemEdit.user_email : "",
     user_role_id: itemEdit ? itemEdit.user_role_id : "",
     user_email_old: itemEdit ? itemEdit.user_email : "",
   };
 
   const yupSchema = Yup.object({
-    user_fname: Yup.string().required("Required"),
-    user_lname: Yup.string().required("Required"),
+    user_first_name: Yup.string().required("Required"),
+    user_last_name: Yup.string().required("Required"),
+    user_role_id: Yup.string().required("Required"),
     user_email: Yup.string().required("Required").email("Invalid email"),
   });
 
   const handleCloseModal = () => {
     setAnimate("translate-x-full");
     setTimeout(() => {
-      dispatch(setIsAdd(!store.isAdd));
+      dispatch(setIsAdd({ modal: false, modalCode: "" }));
     }, 200);
   };
 
   React.useEffect(() => {
     setAnimate("");
   }, []);
+
   return (
     <>
       <ModalWrapper
@@ -132,7 +134,7 @@ const ModalAddUser = ({ itemEdit }) => {
                       <InputText
                         label="First Name"
                         type="text"
-                        name="user_fname"
+                        name="user_first_name"
                         className="text-xs"
                         disabled={mutation.isPending}
                       />
@@ -141,7 +143,7 @@ const ModalAddUser = ({ itemEdit }) => {
                       <InputText
                         label="Last Name"
                         type="text"
-                        name="user_lname"
+                        name="user_last_name"
                         className="text-xs"
                         disabled={mutation.isPending}
                       />

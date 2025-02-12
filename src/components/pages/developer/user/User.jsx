@@ -80,8 +80,8 @@ const User = () => {
         </div>
       </div>
 
-      {store.success && <ModalSuccess />}
       {store.error && <ModalError />}
+      {store.success && <ModalSuccess />}
     </>
   );
 };

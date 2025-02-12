@@ -15,6 +15,7 @@ export const devApiVersion = "/v1";
 export const setTimeZone = "Asia/Taipei";
 
 export const urlDeveloper = "developer";
+export const urlAdmin = "admin";
 
 // dev key
 export const devKey =
@@ -110,7 +111,10 @@ export const getGoogleMapEmbededUrl = (url) => {
 
 // storage after login
 export function setStorageRoute(jwt, isDev) {
-  localStorage.setItem("localfbstoken", JSON.stringify({ token: jwt, isDev }));
+  localStorage.setItem(
+    "dcontainercafetoken",
+    JSON.stringify({ token: jwt, isDev })
+  );
 }
 
 // get the url id parameter

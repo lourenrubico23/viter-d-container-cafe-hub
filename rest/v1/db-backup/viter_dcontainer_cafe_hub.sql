@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 12, 2025 at 12:48 AM
+-- Generation Time: Feb 12, 2025 at 06:28 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,7 +41,7 @@ CREATE TABLE `dcchv1_about` (
 --
 
 INSERT INTO `dcchv1_about` (`about_aid`, `about_img`, `about_description_a`, `about_description_b`, `about_description_c`, `about_datetime`) VALUES
-(1, '[{\"name\":\"logo-brown.webp\",\"id\":\"1Gp1NQoQ9XAF8jQZNMI7CJVQuJEZQqMWB\",\"datetime\":\"2025-02-11 15:07:54\"},{\"name\":\"spa-logo.png\",\"id\":\"1vYqeb-Cm6ID8Lup104zXpBivUCDqVmpk\",\"datetime\":\"2025-02-11 15:07:57\"}]', 'D’ Container Cafe Hub is a one stop shop from coffee, food, drinks to relaxing facial, massage salon spa in one. We started conceptualizing this place last March 2024 and finally open its doors last October 18, 2024. ', 'Our goal is to serve quality and satisfying food while relaxing and pampering yourself in one place.', 'Serving extraordinary food to satisfy your palate.', '2025-02-11 15:10:51');
+(1, '[{\"name\":\"logo-brown.webp\",\"id\":\"1Gp1NQoQ9XAF8jQZNMI7CJVQuJEZQqMWB\",\"datetime\":\"2025-02-11 15:07:54\"},{\"name\":\"spa-logo.png\",\"id\":\"1vYqeb-Cm6ID8Lup104zXpBivUCDqVmpk\",\"datetime\":\"2025-02-11 15:07:57\"}]', 'D’ Container Cafe Hub is a one stop shop from coffee, food, drinks to relaxing facial, massage salon spa in one. We started conceptualizing this place last March 2024 and finally open its doors last October 18, 2024.', 'Our goal is to serve quality and satisfying food while relaxing and pampering yourself in one place.', 'Serving extraordinary food to satisfy your palate.', '2025-02-12 09:33:37');
 
 -- --------------------------------------------------------
 
@@ -130,7 +130,7 @@ CREATE TABLE `dcchv1_header` (
 --
 
 INSERT INTO `dcchv1_header` (`header_aid`, `header_logo_img`, `header_banner_img`, `header_nav_a`, `header_nav_b`, `header_nav_c`, `header_nav_d`, `header_banner_title`, `header_button_text`, `header_datetime`) VALUES
-(2, '[{\"name\":\"logo.png\",\"id\":\"19gyKQHFK3xsKEDIgpWpEcCk_NBlqLkZ6\",\"datetime\":\"2025-02-11 14:11:01\"}]', '[{\"name\":\"bannerImage.webp\",\"id\":\"1n2NKcAK5TL0mlSaKhPzFLwio8kXPaQ6Z\",\"datetime\":\"2025-02-11 13:54:20\"}]', 'About', 'Coffee', 'Spa Salon', 'Reach Us', 'Indulge in delicious, high-quality food while unwinding and treating yourself—all in one perfect destination.', 'See Where We At', '2025-02-11 15:11:56');
+(2, '[{\"name\":\"logo.png\",\"id\":\"1Lv9LygLPwKOid2lVpGQsEtu3tASlYTyI\",\"datetime\":\"2025-02-12 07:50:37\"}]', '[{\"name\":\"bannerImage.webp\",\"id\":\"1n2NKcAK5TL0mlSaKhPzFLwio8kXPaQ6Z\",\"datetime\":\"2025-02-11 13:54:20\"}]', 'About', 'Coffee', 'Spa Salon', 'Reach Us', 'Indulge in delicious, high-quality food while unwinding and treating yourself—all in one perfect destination.', 'See Where We At', '2025-02-12 10:09:58');
 
 -- --------------------------------------------------------
 
@@ -196,7 +196,58 @@ CREATE TABLE `dcchv1_services` (
 --
 
 INSERT INTO `dcchv1_services` (`services_aid`, `services_coffee_img`, `services_coffee_gallery`, `services_coffee_title`, `services_coffee_description`, `services_product_a`, `services_product_b`, `services_product_c`, `services_product_description_a`, `services_product_description_b`, `services_product_description_c`, `services_salon_title`, `services_salon_img`, `services_salon_gallery`, `services_salon_description_a`, `services_salon_description_b`, `services_contact`, `services_coffee_button_a`, `services_coffee_button_b`, `services_coffee_facebook_link`, `services_coffee_menu_images`, `services_salon_button_a`, `services_salon_button_b`, `services_salon_facebook_link`, `services_salon_services_images`, `services_datetime`) VALUES
-(1, '[{\"name\":\"services-img-1.webp\",\"id\":\"1n47uXemdbi7kXXLh8brBrz_BK7d_wErm\",\"datetime\":\"2025-02-11 15:33:44\"}]', '[{\"name\":\"coffee-1.webp\",\"id\":\"1MMV3ojFwrqe35l289pd1OdBH8ETbk-E1\",\"datetime\":\"2025-02-12 07:13:16\"},{\"name\":\"coffee-2.webp\",\"id\":\"1YF1u0sRFIr7wK8OAjARDbW3kuZc4BUyJ\",\"datetime\":\"2025-02-12 07:13:19\"},{\"name\":\"coffee-3.webp\",\"id\":\"11OafgvsulwLJNx2Ki94RuU33g8d2zXwW\",\"datetime\":\"2025-02-12 07:13:22\"},{\"name\":\"coffee-4.webp\",\"id\":\"1j0c4Cni3IMHQR_rTH2GPf1IZ60Ph9Wtx\",\"datetime\":\"2025-02-12 07:13:25\"},{\"name\":\"coffee-5.webp\",\"id\":\"1WKHpWczC-P4wj0qX3FUGdB8rTqiUWr75\",\"datetime\":\"2025-02-12 07:13:27\"},{\"name\":\"coffee-6.webp\",\"id\":\"1I9fdlvf0BtEPgyqBgV7wY3XyqYMElWYp\",\"datetime\":\"2025-02-12 07:13:31\"},{\"name\":\"coffee-7.webp\",\"id\":\"1OR4z25EmfZ6nnbvD_9IjGQ_xRrO1L4Fq\",\"datetime\":\"2025-02-12 07:13:34\"},{\"name\":\"coffee-8.webp\",\"id\":\"1LGA583WQ66u43Tv9seK0JMyMn5kdIaW1\",\"datetime\":\"2025-02-12 07:13:37\"},{\"name\":\"coffee-9.webp\",\"id\":\"1z8r1-a8viz5-Va_uRa65OY3UsjEwe_oi\",\"datetime\":\"2025-02-12 07:13:40\"},{\"name\":\"coffee-10.webp\",\"id\":\"1HVdbNzOtz2cQSuc8YyJZQwmOzeN_ZIYF\",\"datetime\":\"2025-02-12 07:13:43\"},{\"name\":\"coffee-11.webp\",\"id\":\"163pPFJLXf7dk29CiJFw1ty7jsx7CunS6\",\"datetime\":\"2025-02-12 07:13:46\"},{\"name\":\"coffee-12.webp\",\"id\":\"1qDANkmkFih94avyftfxpeQFNiIJnXjeU\",\"datetime\":\"2025-02-12 07:13:51\"}]', 'Our Coffee', ' Our coffee is more than just a drink; it’s an experience.\n                      Sourced from the finest beans, expertly roasted to\n                      perfection, and brewed with care, every cup delivers rich\n                      flavors and an irresistible aroma. Whether you’re\n                      kick-starting your morning or enjoying a relaxing break,\n                      our coffee offers the perfect balance of quality, warmth,\n                      and satisfaction. From bold espressos to creamy lattes,\n                      every sip is crafted to delight your senses and elevate\n                      your day.', 'Boosts Energy and Focus:', 'Rich in Antioxidants:', 'Enhances Social Connections:', 'Coffee provides a natural energy lift, helping you\n                          stay alert and focused throughout your day.', ' Packed with antioxidants, coffee can support your\n                          overall health by combating harmful free radicals.', ' Whether shared with friends or enjoyed during a quiet\n                          moment, coffee fosters connection and relaxation in\n                          everyday life.', 'Spa Salon', '[{\"name\":\"services-img-2.webp\",\"id\":\"1iv1_3GnMxYZHF9gPPh2UxycYTaIIVkj3\",\"datetime\":\"2025-02-12 07:14:14\"}]', '[{\"name\":\"salon-1.webp\",\"id\":\"1QkUSVwGxML1IzfZigaruMyYDmAFCVPdS\",\"datetime\":\"2025-02-12 07:15:07\"},{\"name\":\"salon-2.webp\",\"id\":\"1kI_KZ8VV7FSUlt4HG1VGyEmDXWlW1j2d\",\"datetime\":\"2025-02-12 07:15:10\"},{\"name\":\"salon-3.webp\",\"id\":\"1Tix8QsLS9yrDMdlWyAWw3l--En2MyxLd\",\"datetime\":\"2025-02-12 07:15:13\"},{\"name\":\"salon-4.webp\",\"id\":\"1mekGEHzeV2qXWDEwu6vqwK0mKDeR76gZ\",\"datetime\":\"2025-02-12 07:15:17\"},{\"name\":\"salon-5.webp\",\"id\":\"12m94KY8c8LLHPoWQI5aHWRNL73qe8nNY\",\"datetime\":\"2025-02-12 07:15:20\"},{\"name\":\"salon-6.webp\",\"id\":\"1hBYqSlmPHLm1-pNiAx2BMqeYHK2Ebnvj\",\"datetime\":\"2025-02-12 07:15:23\"},{\"name\":\"salon-7.webp\",\"id\":\"1zH480BQKmI_sBsPagJNrBRGfAHr3f70R\",\"datetime\":\"2025-02-12 07:15:26\"},{\"name\":\"salon-8.webp\",\"id\":\"1tzuRnO46lSrT4kgMhgHA2CQhAuAsmA1T\",\"datetime\":\"2025-02-12 07:15:31\"},{\"name\":\"salon-9.webp\",\"id\":\"1rr8nqa1cXe_M4_4yb5IEv9fc-_Ek9dY1\",\"datetime\":\"2025-02-12 07:15:34\"},{\"name\":\"salon-10.webp\",\"id\":\"1_aK3cMUJUrOG1UinNH4VoBkbGq-fjb__\",\"datetime\":\"2025-02-12 07:34:20\"},{\"name\":\"coffee-9.webp\",\"id\":\"1NbyyOLD8I3Mghwsi9odErqBH-ETiOfAG\",\"datetime\":\"2025-02-12 07:37:45\"}]', 'Escape to our spa salon, where relaxation meets\n                      rejuvenation. Immerse yourself in a tranquil atmosphere\n                      designed to soothe your senses and refresh your spirit.\n                      From luxurious massages and revitalizing facials to\n                      expertly curated treatments, our skilled professionals are\n                      dedicated to helping you look and feel your best. Whether\n                      you\'re seeking a moment of calm or a complete\n                      transformation, our spa salon is your sanctuary for\n                      wellness and beauty.', 'Step into our hair salon and discover the perfect blend of\n                      style and expertise. Our talented stylists are passionate\n                      about creating looks that complement your unique\n                      personality, whether it’s a fresh cut, vibrant color, or a\n                      complete makeover. Using top-quality products and the\n                      latest techniques, we ensure your hair not only looks\n                      amazing but feels healthy and radiant. From everyday chic\n                      to show-stopping glamour, our salon is your destination\n                      for confidence-boosting transformations.', '+63 915 110 1112', 'Make A Reservation', 'Menu', 'https://www.facebook.com/profile.php?id=100066976194884', '[{\"name\":\"coffee-menu-1.webp\",\"id\":\"1119JPZoTJOnKFToWEyMApbiI5e_bjU_z\",\"datetime\":\"2025-02-11 15:45:30\"},{\"name\":\"coffee-menu-2.webp\",\"id\":\"1855E4mwKnWWm3VJhgbzt37_eZzJEOIm1\",\"datetime\":\"2025-02-11 15:45:34\"},{\"name\":\"coffee-menu-3.webp\",\"id\":\"1vU6tMjiqRvKZTnbO1TwhmvCt_KlY-nOe\",\"datetime\":\"2025-02-11 15:45:37\"},{\"name\":\"coffee-menu-4.webp\",\"id\":\"1-0Tug5u2T6hcUCifkaVTLQadS5xdXZ-S\",\"datetime\":\"2025-02-11 15:45:42\"},{\"name\":\"coffee-menu-5.webp\",\"id\":\"18LIQ_nUgzMGUYtbVMOsf6Qu8i7D_8ew3\",\"datetime\":\"2025-02-11 15:45:45\"},{\"name\":\"coffee-menu-6.webp\",\"id\":\"1LuB2tace1fdf4xE2uESjkpWJHXudTobT\",\"datetime\":\"2025-02-11 15:45:49\"}]', 'Make A Reservation', 'Services', 'https://www.facebook.com/profile.php?id=100066976194884', '[{\"name\":\"salon-services-1.webp\",\"id\":\"1BhcdUhrCzmGowNiMWrWZ0yeufqhSPG2T\",\"datetime\":\"2025-02-12 07:03:43\"}]', '2025-02-12 07:37:42');
+(1, '[{\"name\":\"services-img-1.webp\",\"id\":\"19iQN1kwNJ7BuH7KARx1JDbXquJaqNIC0\",\"datetime\":\"2025-02-12 09:22:52\"}]', '[{\"name\":\"coffee-10.webp\",\"id\":\"1lOAHpwsSsFgmbMDlyh0-Sb53gbW420C9\",\"datetime\":\"2025-02-12 09:47:38\"},{\"name\":\"coffee-11.webp\",\"id\":\"1ZZpgtmpr-1UBvECS5vX6LCSwirFWEgzm\",\"datetime\":\"2025-02-12 09:47:42\"},{\"name\":\"coffee-12.webp\",\"id\":\"16T8AOZ967udrMZnTP5Z0O0Kf6F1Ox_Fu\",\"datetime\":\"2025-02-12 09:47:47\"},{\"name\":\"coffee-2.webp\",\"id\":\"1yQutEbSt_f58x6nwkWj-CkaOtXeCJVG0\",\"datetime\":\"2025-02-12 09:47:50\"},{\"name\":\"coffee-3.webp\",\"id\":\"1aWeviJgwLSnfN6lWb16x013RfoPmlaW_\",\"datetime\":\"2025-02-12 09:47:52\"},{\"name\":\"coffee-4.webp\",\"id\":\"1KjYLCiHvpv_xsKtTFKq9_njmtkkX93HO\",\"datetime\":\"2025-02-12 09:47:55\"},{\"name\":\"coffee-5.webp\",\"id\":\"1AZ53_5zv-5KXnIX2uT7fFCPs1timQrPt\",\"datetime\":\"2025-02-12 09:47:58\"},{\"name\":\"coffee-6.webp\",\"id\":\"1EuLxPZTYXZ83aSmgf0PztQkNyiy2zW6l\",\"datetime\":\"2025-02-12 09:48:02\"},{\"name\":\"coffee-7.webp\",\"id\":\"14uAt669XT-5LyQhX1m1VtoXjw-d5_7dU\",\"datetime\":\"2025-02-12 09:48:05\"},{\"name\":\"coffee-8.webp\",\"id\":\"17oDy_3kRR4yPgU0D0Rpt7KLMio6O61oD\",\"datetime\":\"2025-02-12 09:48:08\"},{\"name\":\"coffee-9.webp\",\"id\":\"15K2hHEvCewjRmDAhp9j0msS6pPNdqBU6\",\"datetime\":\"2025-02-12 09:48:11\"}]', 'Our Coffee', ' Our coffee is more than just a drink; it’s an experience.\n                      Sourced from the finest beans, expertly roasted to\n                      perfection, and brewed with care, every cup delivers rich\n                      flavors and an irresistible aroma. Whether you’re\n                      kick-starting your morning or enjoying a relaxing break,\n                      our coffee offers the perfect balance of quality, warmth,\n                      and satisfaction. From bold espressos to creamy lattes,\n                      every sip is crafted to delight your senses and elevate\n                      your day.', 'Boosts Energy and Focus', 'Rich in Antioxidants', 'Enhances Social Connections', 'Coffee provides a natural energy lift, helping you\n                          stay alert and focused throughout your day.', ' Packed with antioxidants, coffee can support your\n                          overall health by combating harmful free radicals.', ' Whether shared with friends or enjoyed during a quiet\n                          moment, coffee fosters connection and relaxation in\n                          everyday life.', 'Spa Salon', '[{\"name\":\"ES-Final Logo.png\",\"id\":\"1PIq_s4wrYnoM2qpX_bbHQTguvLY3q49b\",\"datetime\":\"2025-02-12 10:00:56\"}]', '[{\"name\":\"salon-1.webp\",\"id\":\"1QkUSVwGxML1IzfZigaruMyYDmAFCVPdS\",\"datetime\":\"2025-02-12 07:15:07\"},{\"name\":\"salon-2.webp\",\"id\":\"1kI_KZ8VV7FSUlt4HG1VGyEmDXWlW1j2d\",\"datetime\":\"2025-02-12 07:15:10\"},{\"name\":\"salon-3.webp\",\"id\":\"1Tix8QsLS9yrDMdlWyAWw3l--En2MyxLd\",\"datetime\":\"2025-02-12 07:15:13\"},{\"name\":\"salon-4.webp\",\"id\":\"1mekGEHzeV2qXWDEwu6vqwK0mKDeR76gZ\",\"datetime\":\"2025-02-12 07:15:17\"},{\"name\":\"salon-5.webp\",\"id\":\"12m94KY8c8LLHPoWQI5aHWRNL73qe8nNY\",\"datetime\":\"2025-02-12 07:15:20\"},{\"name\":\"salon-6.webp\",\"id\":\"1hBYqSlmPHLm1-pNiAx2BMqeYHK2Ebnvj\",\"datetime\":\"2025-02-12 07:15:23\"},{\"name\":\"salon-7.webp\",\"id\":\"1zH480BQKmI_sBsPagJNrBRGfAHr3f70R\",\"datetime\":\"2025-02-12 07:15:26\"},{\"name\":\"salon-8.webp\",\"id\":\"1tzuRnO46lSrT4kgMhgHA2CQhAuAsmA1T\",\"datetime\":\"2025-02-12 07:15:31\"},{\"name\":\"salon-9.webp\",\"id\":\"1rr8nqa1cXe_M4_4yb5IEv9fc-_Ek9dY1\",\"datetime\":\"2025-02-12 07:15:34\"}]', 'Escape to our spa salon, where relaxation meets rejuvenation. Immerse yourself in a tranquil atmosphere designed to soothe your senses and refresh your spirit. From luxurious massages and revitalizing facials to expertly curated treatments, our skilled professionals are dedicated to helping you look and feel your best. Whether you\'re seeking a moment of calm or a complete transformation, our spa salon is your sanctuary for wellness and beauty.', 'Step into our hair salon and discover the perfect blend of style and expertise. Our talented stylists are passionate about creating looks that complement your unique personality, whether it’s a fresh cut, vibrant color, or a  complete makeover. Using top-quality products and the latest techniques, we ensure your hair not only looks amazing but feels healthy and radiant. From everyday chic  to show-stopping glamour, our salon is your destination for confidence-boosting transformations.\n', '+63 915 110 1112', 'Make A Reservation', 'Menu', 'https://www.facebook.com/profile.php?id=100066976194884', '[{\"name\":\"coffee-menu-1.webp\",\"id\":\"1119JPZoTJOnKFToWEyMApbiI5e_bjU_z\",\"datetime\":\"2025-02-11 15:45:30\"},{\"name\":\"coffee-menu-2.webp\",\"id\":\"1855E4mwKnWWm3VJhgbzt37_eZzJEOIm1\",\"datetime\":\"2025-02-11 15:45:34\"},{\"name\":\"coffee-menu-3.webp\",\"id\":\"1vU6tMjiqRvKZTnbO1TwhmvCt_KlY-nOe\",\"datetime\":\"2025-02-11 15:45:37\"},{\"name\":\"coffee-menu-4.webp\",\"id\":\"1-0Tug5u2T6hcUCifkaVTLQadS5xdXZ-S\",\"datetime\":\"2025-02-11 15:45:42\"},{\"name\":\"coffee-menu-5.webp\",\"id\":\"18LIQ_nUgzMGUYtbVMOsf6Qu8i7D_8ew3\",\"datetime\":\"2025-02-11 15:45:45\"},{\"name\":\"coffee-menu-6.webp\",\"id\":\"1LuB2tace1fdf4xE2uESjkpWJHXudTobT\",\"datetime\":\"2025-02-11 15:45:49\"}]', 'Make A Reservation', 'Services', 'https://www.facebook.com/profile.php?id=100066976194884', '[{\"name\":\"salon-services-1.webp\",\"id\":\"1BhcdUhrCzmGowNiMWrWZ0yeufqhSPG2T\",\"datetime\":\"2025-02-12 07:03:43\"}]', '2025-02-12 13:15:31');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dcchv1_settings_role`
+--
+
+CREATE TABLE `dcchv1_settings_role` (
+  `role_aid` int(11) NOT NULL,
+  `role_is_active` tinyint(1) NOT NULL,
+  `role_name` varchar(128) NOT NULL,
+  `role_description` text NOT NULL,
+  `role_created` datetime NOT NULL,
+  `role_datetime` datetime NOT NULL,
+  `role_is_admin` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `dcchv1_settings_role`
+--
+
+INSERT INTO `dcchv1_settings_role` (`role_aid`, `role_is_active`, `role_name`, `role_description`, `role_created`, `role_datetime`, `role_is_admin`) VALUES
+(1, 1, 'Admin', 'Admin', '2025-02-12 09:47:01', '2025-02-12 09:47:01', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dcchv1_settings_users`
+--
+
+CREATE TABLE `dcchv1_settings_users` (
+  `user_aid` int(11) NOT NULL,
+  `user_is_active` tinyint(1) NOT NULL,
+  `user_first_name` varchar(128) NOT NULL,
+  `user_last_name` varchar(128) NOT NULL,
+  `user_email` varchar(128) NOT NULL,
+  `user_email_new` varchar(128) NOT NULL,
+  `user_role_id` int(11) NOT NULL,
+  `user_key` varchar(255) NOT NULL,
+  `user_password` varchar(255) NOT NULL,
+  `user_created` datetime NOT NULL,
+  `user_datetime` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `dcchv1_settings_users`
+--
+
+INSERT INTO `dcchv1_settings_users` (`user_aid`, `user_is_active`, `user_first_name`, `user_last_name`, `user_email`, `user_email_new`, `user_role_id`, `user_key`, `user_password`, `user_created`, `user_datetime`) VALUES
+(1, 1, 'Emmanuelsda', 'Manalo', 'emmanuel.manalo@frontlinebusiness.com.ph', '', 1, '', '$2y$10$ZM8XsSt.K5ed.zGrSKg.HOblX7WjvmdkBkk7g0eWfADvpQy8HOKpC', '2025-02-12 10:12:34', '2025-02-12 12:59:16'),
+(2, 1, 'Louren', 'Rubico', 'louren.rubico@frontlinebusiness.com.ph', '', 1, '', '$2y$10$aQfN5h8sQUjCTuS/d3zKs.DhSyziJmvV.kdasZ4rXUMSWayeD4wKi', '2025-02-12 13:25:56', '2025-02-12 13:26:59');
 
 -- --------------------------------------------------------
 
@@ -225,7 +276,7 @@ CREATE TABLE `dcchv1_testimonial` (
 --
 
 INSERT INTO `dcchv1_testimonial` (`testimonial_aid`, `testimonial_title`, `testimonial_subtitle`, `testimonial_client_img_a`, `testimonial_client_img_b`, `testimonial_client_img_c`, `testimonial_client_name_a`, `testimonial_client_name_b`, `testimonial_client_name_c`, `testimonial_client_message_a`, `testimonial_client_message_b`, `testimonial_client_message_c`, `testimonial_datetime`) VALUES
-(1, 'What Our Clients Are Saying', 'subtitle', 'testimonial-1.webp', 'testimonial-2.webp', 'feedback3.webp', 'Ms. Ertha', 'Rudy Aguilar', '', 'This is more than just a café; it feels like home. It brought back the taste of my favorite arroz a la cubana, just like my loving mother used to make when she was alive and able to cook. The beef tapa and dynamite are absolutely worth trying—truly irresistible! This place isn’t just for a quick Instagram moment; it’s one you’ll want to return to time and again. You can even customize your coffee just the way you like it. Don’t miss out on the refreshing mango drink that’s sure to please your palate. Plus, it’s the NUMBER ONE pet-friendly place, which is incredibly important for dog lovers like our family. The D’ Container Cafe Hub is a must-visit experience!', 'Staffs are very friendly. Very good place. Price is reasonable. Overall, looks great. Keep it up!!!', '', '2025-02-11 10:25:56');
+(1, 'What Our Clients Are Saying', 'Real Experiences, Genuine Feedback', '[{\"name\":\"testimonial-1.webp\",\"id\":\"1Ych_WTka_E6jUeBbtbfYdCBrZ-XIhDF2\",\"datetime\":\"2025-02-12 08:31:48\"}]', '[{\"name\":\"85ae0347-858d-495c-8a29-a84725e2b5f5.jpg\",\"id\":\"1zjfjFZmbZfdFEoMSqj2RrTjzaa2IR7Fl\",\"datetime\":\"2025-02-12 12:45:14\"}]', '[{\"name\":\"testimonial-2.webp\",\"id\":\"1nMXhKPu7xPlZQPEqSXNMVaXX470W-Jhp\",\"datetime\":\"2025-02-12 12:47:26\"}]', 'Ms. Ertha', 'Tom Alvarado', 'Rudy Aguilar', 'D’ Container Cafe Hub offers a warm, homey atmosphere and delicious food reminiscent of cherished family recipes. Their arroz a la cubana brings back nostalgic flavors, while the beef tapa and dynamite are must-tries. More than just a trendy spot, it\'s a place worth revisiting. Enjoy customizable coffee and a refreshing mango drink, and for pet lovers, it stands out as the top pet-friendly destination. A must-visit experience!', 'With an excellent food and drinks and a very cozy ambiance, perfect for your any or special occasion. I\'m highly recommend the newest Art Hub Cafe in Alaminos Laguna. D\' CONTAINER HUB CAFE Mabuhay !!', 'The staff is very friendly. It\'s a very good place. The price is reasonable. Overall, it looks great. Keep it up!!!', '2025-02-12 12:47:24');
 
 --
 -- Indexes for dumped tables
@@ -272,6 +323,18 @@ ALTER TABLE `dcchv1_reach_us`
 --
 ALTER TABLE `dcchv1_services`
   ADD PRIMARY KEY (`services_aid`);
+
+--
+-- Indexes for table `dcchv1_settings_role`
+--
+ALTER TABLE `dcchv1_settings_role`
+  ADD PRIMARY KEY (`role_aid`);
+
+--
+-- Indexes for table `dcchv1_settings_users`
+--
+ALTER TABLE `dcchv1_settings_users`
+  ADD PRIMARY KEY (`user_aid`);
 
 --
 -- Indexes for table `dcchv1_testimonial`
@@ -324,6 +387,18 @@ ALTER TABLE `dcchv1_reach_us`
 --
 ALTER TABLE `dcchv1_services`
   MODIFY `services_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `dcchv1_settings_role`
+--
+ALTER TABLE `dcchv1_settings_role`
+  MODIFY `role_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `dcchv1_settings_users`
+--
+ALTER TABLE `dcchv1_settings_users`
+  MODIFY `user_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `dcchv1_testimonial`

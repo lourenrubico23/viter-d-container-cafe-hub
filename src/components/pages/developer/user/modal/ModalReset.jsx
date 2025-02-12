@@ -1,5 +1,6 @@
 import { HandleEscape } from "@/components/helpers/functions-general";
 import { queryData } from "@/components/helpers/queryData";
+import { setError, setMessage } from "@/store/StoreAction";
 import { StoreContext } from "@/store/StoreContext";
 import { useQueryClient } from "@tanstack/react-query";
 import React from "react";
@@ -31,7 +32,7 @@ const ModalReset = ({
     setIsSendingLoading(true);
 
     const queryResetPassword = await queryData(mysqlApiReset, "post", {
-      email: dataItem.user_other_email,
+      email: dataItem.user_email,
     });
 
     console.log("Query: ", queryResetPassword);

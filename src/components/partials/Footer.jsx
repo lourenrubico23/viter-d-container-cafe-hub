@@ -116,17 +116,17 @@ const Footer = () => {
                 )}
               </li>
             </ul>
-            <h3 className="text-center text-[clamp(.5rem,4vw,16px)] text-white font-rubikRegular font-light">
+            <div className="text-center text-[clamp(.5rem,4vw,16px)] text-white font-rubikRegular font-light">
               &copy;{" "}
               {copyrightData?.data?.length > 0 &&
               copyrightData.data[0]?.copyright_title ? (
                 copyrightData?.data[0].copyright_title
               ) : (
-                <h3 className="text-center text-[clamp(.5rem,4vw,16px)] text-white font-rubikRegular font-light flex">
+                <h4 className="text-center text-[clamp(.5rem,4vw,16px)] text-white font-rubikRegular font-light flex">
                   Copyright
-                </h3>
+                </h4>
               )}
-            </h3>
+            </div>
           </div>
         </div>
       </section>

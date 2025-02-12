@@ -14,8 +14,8 @@ if (array_key_exists("userid", $_GET)) {
 // check data
 checkPayload($data);
 // get data
-$user->user_fname = trim($data["user_fname"]);
-$user->user_lname = trim($data["user_lname"]);
+$user->user_first_name = trim($data["user_first_name"]);
+$user->user_last_name = trim($data["user_last_name"]);
 $user->user_email = trim($data["user_email"]);
 $user->user_role_id = trim($data["user_role_id"]);
 $user->user_key = $encrypt->doHash(rand());
@@ -29,7 +29,7 @@ $query = checkCreate($user);
 if ($query->rowCount() > 0) {
     $mailData = sendEmail(
         $password_link,
-        $user->user_fname,
+        $user->user_first_name,
         $user->user_email,
         $user->user_key
     );

@@ -1,6 +1,6 @@
 <?php
 // set http header
-require '../../../../core/headers.php';
+require '../../../../core/header.php';
 require '../../../../core/Encryption.php';
 // use needed functions
 require '../../../../core/functions.php';

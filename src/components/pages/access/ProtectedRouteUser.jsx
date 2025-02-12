@@ -1,25 +1,27 @@
+import { devNavUrl } from "@/components/helpers/functions-general";
+import { queryData } from "@/components/helpers/queryData";
+import PageNotFound from "@/components/partials/PageNotFound";
+import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner";
+import { setCredentials } from "@/store/StoreAction";
+import { StoreContext } from "@/store/StoreContext";
 import React from "react";
 import { Navigate } from "react-router-dom";
-import PageNotFound from "@/components/partials/PageNotFound";
-import { StoreContext } from "@/components/store/StoreContext";
-import { queryData } from "@/components/helpers/queryData";
-import { setCredentials } from "@/components/store/StoreAction";
-import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner";
-import { devNavUrl } from "@/components/helpers/functions-general";
 
-const ProtectedRouteOther = ({ children }) => {
+const ProtectedRouteUser = ({ children }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [loading, setLoading] = React.useState(true);
   const [isAuth, setIsAuth] = React.useState("");
-  const localfbstoken = JSON.parse(localStorage.getItem("localfbstoken"));
+  const dcontainercafetoken = JSON.parse(
+    localStorage.getItem("dcontainercafetoken")
+  );
   const [pageStatus, setPageStatus] = React.useState(false);
 
   // console.log(currentPath);
 
   React.useEffect(() => {
     const fetchLogin = async () => {
-      const login = await queryData(`/v1/user-other/token`, "post", {
-        token: localfbstoken.token,
+      const login = await queryData(`/v1/user/token`, "post", {
+        token: dcontainercafetoken.token,
       });
 
       const isUserKeyMatched =
@@ -32,7 +34,7 @@ const ProtectedRouteOther = ({ children }) => {
       if (isUserKeyMatched === false) {
         setLoading(false);
         setIsAuth("456");
-        localStorage.removeItem("localfbstoken");
+        localStorage.removeItem("dcontainercafetoken");
         return;
       }
 
@@ -64,11 +66,11 @@ const ProtectedRouteOther = ({ children }) => {
       }
     };
 
-    if (localfbstoken !== null) {
+    if (dcontainercafetoken !== null) {
       fetchLogin();
     } else {
       setLoading(false);
-      localStorage.removeItem("localfbstoken");
+      localStorage.removeItem("dcontainercafetoken");
       setIsAuth("456");
     }
   }, [dispatch]);
@@ -92,4 +94,4 @@ const ProtectedRouteOther = ({ children }) => {
   }
 };
 
-export default ProtectedRouteOther;
+export default ProtectedRouteUser;

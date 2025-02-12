@@ -1,19 +1,20 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Form, Formik } from "formik";
-import React from "react";
-import * as Yup from "yup";
+import { InputText, InputTextArea } from "@/components/helpers/FormInputs";
+import { devApiVersion } from "@/components/helpers/functions-general";
+import { queryData } from "@/components/helpers/queryData";
+import ModalWrapper from "@/components/partials/modal/ModalWrapper";
+import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import {
   setError,
   setIsAdd,
   setMessage,
   setSuccess,
-} from "../../../../../store/StoreAction";
-import { StoreContext } from "../../../../../store/StoreContext";
-import { InputText, InputTextArea } from "../../../../helpers/FormInputs";
-import { devApiVersion } from "../../../../helpers/function-general";
-import { queryData } from "../../../../helpers/queryData";
-import ModalWrapperSide from "../../../../partials/modal/ModalWrapperSide";
-import ButtonSpinner from "../../../../partials/spinner/ButtonSpinner";
+} from "@/store/StoreAction";
+import { StoreContext } from "@/store/StoreContext";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Form, Formik } from "formik";
+import React from "react";
+import { GrFormClose } from "react-icons/gr";
+import * as Yup from "yup";
 
 const ModalAddRole = ({ itemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -61,7 +62,7 @@ const ModalAddRole = ({ itemEdit }) => {
   const handleCloseModal = () => {
     setAnimate("translate-x-full");
     setTimeout(() => {
-      dispatch(setIsAdd(!store.isAdd));
+      dispatch(setIsAdd({ modal: false, modalCode: "" }));
     }, 200);
   };
 
@@ -70,11 +71,16 @@ const ModalAddRole = ({ itemEdit }) => {
   }, []);
   return (
     <>
-      <ModalWrapperSide
+      <ModalWrapper
         handleClose={handleCloseModal}
-        title={itemEdit ? "Edit Role" : "Add Role"}
-        className={`${animate}`}
+        className={`transition-all ease-linear transform duration-200 ${animate}`}
       >
+        <div className="modal-title">
+          <h2 className="text-sm">{itemEdit ? "Edit" : "Add"} Role</h2>
+          <button onClick={handleCloseModal}>
+            <GrFormClose className="text-[25px]" />
+          </button>
+        </div>
         <Formik
           initialValues={initVal}
           validationSchema={yupSchema}
@@ -85,9 +91,9 @@ const ModalAddRole = ({ itemEdit }) => {
           {(props) => {
             return (
               <Form>
-                <div className="modal-overflow max-h-[81dvh] flex flex-col justify-between">
+                <div className="modal-form">
                   <div className="modal_container overflow-y-auto overflow-x-hidden h-[100dvh]">
-                    <div className="form-wrapper mt-0">
+                    <div className="input-wrapper">
                       <InputText
                         label="Name"
                         type="text"
@@ -96,7 +102,7 @@ const ModalAddRole = ({ itemEdit }) => {
                         disabled={itemEdit || mutation.isPending}
                       />
                     </div>
-                    <div className="form-wrapper flex flex-col gap-1">
+                    <div className="input-wrapper">
                       <InputTextArea
                         label="Description"
                         name="role_description"
@@ -135,7 +141,7 @@ const ModalAddRole = ({ itemEdit }) => {
             );
           }}
         </Formik>
-      </ModalWrapperSide>
+      </ModalWrapper>
     </>
   );
 };
