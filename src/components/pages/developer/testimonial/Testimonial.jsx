@@ -65,7 +65,7 @@ const Testimonial = () => {
 
   return (
     <>
-      <section id="testimonial">
+      <section id="testimonial" className="bg-white">
         <div
           className="feedback_wrapper py-12 md:py-32 md:pb-28 "
           id="testimonials"

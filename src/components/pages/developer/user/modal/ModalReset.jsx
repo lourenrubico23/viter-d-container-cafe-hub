@@ -100,7 +100,7 @@ const ModalReset = ({
   return (
     <>
       <div
-        className="bg-dark/50 overflow-y-auto overflow-x-hidden fixed top-0 right-0 bottom-0 left-0 z-[99] flex justify-center items-center w-full md:inset-0 max-h-full"
+        className="bg-black/50 overflow-y-auto overflow-x-hidden fixed top-0 right-0 bottom-0 left-0 z-[99] flex justify-center items-center w-full md:inset-0 max-h-full"
         onClick={handleClose}
       >
         <div className="relative p-4 w-full max-w-md max-h-full">
@@ -132,7 +132,7 @@ const ModalReset = ({
             <div className="p-4 md:p-5 text-center">
               <FaKey className="mx-auto mb-8 text-warning w-12 h-12" />
 
-              <h3 className="mb-8 text-sm font-normal text-dark">{msg}</h3>
+              <h3 className="mb-8 text-sm font-normal text-black">{msg}</h3>
               <div className="text-sm flex gap-2">
                 <button
                   type="submit"

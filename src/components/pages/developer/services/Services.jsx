@@ -145,7 +145,7 @@ const Services = () => {
 
   return (
     <>
-      <div className="text-accent">
+      <div className="text-accent bg-white">
         <div className="discover_wrapper">
           <section id="coffee">
             <div className=" lg:flex lg:flex-row-reverse lg:relative md:w-[100%] ">
@@ -295,7 +295,7 @@ const Services = () => {
                               : "Text Here"}
                           </button>
                           <a
-                            className="absolute cursor-pointer tooltip-header z-[1] right-24"
+                            className="absolute cursor-pointer tooltip-header z-[1] ml-[470px]"
                             data-tooltip="Upload Menu"
                             onClick={handleAddCoffeeMenu}
                           >
@@ -459,7 +459,7 @@ const Services = () => {
                         : "Text Here"}
                     </button>
                     <a
-                      className="absolute cursor-pointer tooltip-header z-[1] left-[510px]"
+                      className="absolute cursor-pointer tooltip-header z-[1] ml-[470px]"
                       data-tooltip="Upload Services"
                       onClick={handleAddSalonServices}
                     >

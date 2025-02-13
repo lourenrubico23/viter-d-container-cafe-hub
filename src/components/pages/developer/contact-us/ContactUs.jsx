@@ -31,7 +31,7 @@ const ContactUs = () => {
 
   return (
     <>
-      <section id="contactUs">
+      <section id="contactUs" className="bg-light">
         <div className="h-[437px] bg-light">
           <a
             className="absolute cursor-pointer tooltip-header z-[1] right-20 mt-10"

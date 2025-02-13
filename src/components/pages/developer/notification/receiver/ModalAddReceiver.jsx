@@ -79,7 +79,7 @@ const ModalAddReceiver = ({ itemEdit }) => {
         className={`transition-all ease-linear transform duration-200 ${animate}`}
       >
         <div className="modal-title">
-          <h2 className="text-sm">{itemEdit ? "Edit" : "Add"} Role</h2>
+          <h2 className="text-sm">{itemEdit ? "Edit" : "Add"} Receiver</h2>
           <button onClick={handleCloseModal}>
             <GrFormClose className="text-[25px]" />
           </button>
@@ -117,7 +117,8 @@ const ModalAddReceiver = ({ itemEdit }) => {
                     <div className="input-wrapper">
                       <InputText
                         label="Phone No."
-                        type="number"
+                        type="text"
+                        number="number"
                         name="receiver_phone_no"
                         className="text-xs"
                         disabled={mutation.isPending}

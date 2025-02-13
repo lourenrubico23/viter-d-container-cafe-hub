@@ -104,7 +104,7 @@ const ContactUsForm = () => {
           <FaTimes />
         </div>
         <div className="h-full overflow-y-auto pt-8 pb-4 px-5 bg-light ">
-          <div className="mt-1 mb-2">
+          <div className="">
             <h4 className="font-rubikBold text-[clamp(30px,4vw,36px)]">
               {contactUsData?.data?.length > 0 &&
               contactUsData.data[0]?.contact_us_form_title
@@ -170,7 +170,7 @@ const ContactUsForm = () => {
                         <InputTextArea
                           type="text"
                           name="client_message"
-                          className="h-[181px]"
+                          className="h-[100px]"
                           disabled={mutation.isPending}
                         />
                       </div>

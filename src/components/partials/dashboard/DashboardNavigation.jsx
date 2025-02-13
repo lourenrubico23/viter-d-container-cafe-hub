@@ -206,7 +206,7 @@ const DashboardNavigation = ({ menu, submenu }) => {
             className="w-[55px]"
           />
         </div>
-        <div className="flex flex-col justify-between h-full overflow-y-auto">
+        <div className="flex flex-col justify-between h-full overflow-y-auto overflow-x-hidden">
           <nav>
             <ul className="flex-col [&>li]:text-left [&>li]:text-[16px] font-semibold [&>li]:mb-[15px]">
               <li
@@ -393,34 +393,34 @@ const DashboardNavigation = ({ menu, submenu }) => {
         </div>
         <div>
           <div
-            className={`py-[18px] relative ${isOpen && "border-black"}`}
+            className={`py-[18px] relative ${isOpen && " border-black"}`}
             onClick={handleOpen}
             ref={ref}
           >
             {/* <span className="w-[40px] h-[40px]">
               <img src={`${devBaseImgUrl}/user.webp`} alt="" />
             </span> */}
-            <div className="bg-gray-500 rounded-full w-10 h-10 flex items-center justify-center text-white text-sm font-semibold">
+            <div className="bg-accent rounded-full w-10 h-10 flex items-center justify-center text-white text-sm font-semibold">
               {initials}
             </div>
             {isOpen && (
-              <div className="absolute top-10 ml-[50px] bg-black/80 shadow-md flex flex-col gap-2 p-4 min-w-[180px] rounded-md">
-                <p className="text-white font-rubikRegular text-sm font-semibold tracking-wide">
+              <div className="absolute top-8 ml-[50px] bg-dashSecondary shadow-lg flex flex-col gap-2 p-4 min-w-[180px] rounded-md">
+                <p className="text-black font-rubikRegular text-sm font-semibold tracking-wide">
                   {fullname}
                 </p>
                 <a>
-                  <span className="text-white text-xs">{email}</span>
+                  <span className="text-black text-xs">{email}</span>
                 </a>
                 <button
                   type="button"
-                  className="text-white text-xs text-left hover:text-accent"
+                  className="text-black text-xs text-left hover:text-accent"
                   onClick={() => setIsChangePassword(true)}
                 >
                   Change Password
                 </button>
                 <button
                   type="button"
-                  className="text-white text-xs text-left hover:text-accent"
+                  className="text-black text-xs text-left hover:text-accent"
                   onClick={() => handleLogout()}
                 >
                   Logout

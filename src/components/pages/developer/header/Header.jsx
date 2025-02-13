@@ -52,7 +52,7 @@ const Header = () => {
     <>
       <section
         id="header"
-        className="banner h-[110vh] relative flex items-center place-content-center bg-dashAccent"
+        className="banner relative flex items-center place-content-center min-h-screen lg:min-h-[800px]"
       >
         <div className="">
           <a
