@@ -10,8 +10,14 @@ import {
   devApiVersion,
   hexToRgb,
 } from "@/components/helpers/functions-general";
+import { StoreContext } from "@/store/StoreContext";
+import ModalSuccess from "@/components/partials/modal/ModalSuccess";
+import ModalError from "@/components/partials/modal/ModalError";
+import React from "react";
 
 const Home = () => {
+  const { store, dispatch } = React.useContext(StoreContext);
+
   const {
     isFetching,
     error,
@@ -55,17 +61,21 @@ const Home = () => {
     );
 
   return (
-    <div className="outer-wrapper">
-      <div className="wrapper">
-        <Header />
-        <About />
-        <Services />
-        <ContactUs />
-        <Testimonial />
-        <ReachUs />
-        <Footer />
+    <>
+      <div className="outer-wrapper">
+        <div className="wrapper">
+          <Header />
+          <About />
+          <Services />
+          <ContactUs />
+          <Testimonial />
+          <ReachUs />
+          <Footer />
+        </div>
       </div>
-    </div>
+
+     
+    </>
   );
 };
 

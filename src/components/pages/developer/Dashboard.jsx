@@ -33,8 +33,8 @@ const Dashboard = () => {
               <Testimonial />
               <ReachUs />
               <Footer />
-              <UserTable />
-              <RoleTable />
+              {/* <UserTable />
+              <RoleTable /> */}
             </div>
           </div>
         </div>

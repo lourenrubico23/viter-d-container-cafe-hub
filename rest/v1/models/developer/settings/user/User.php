@@ -392,7 +392,6 @@ class User
     }
 
     // validator
-
     // email
     public function checkEmail()
     {

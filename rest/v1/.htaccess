@@ -67,3 +67,19 @@ RewriteRule ^testimonial/([0-9]+)$ controllers/developer/testimonial/testimonial
 # COLORS
 RewriteRule ^colors$ controllers/developer/colors/colors.php [L]
 RewriteRule ^colors/([0-9]+)$ controllers/developer/colors/colors.php?colorsid=$1 [L]
+
+# NOTIFICATION RECEIVER
+RewriteRule ^receiver$ controllers/developer/notification/receiver/receiver.php [L]
+RewriteRule ^receiver/([0-9]+)$ controllers/developer/notification/receiver/receiver.php?receiverid=$1 [L]
+RewriteRule ^receiver/active/([0-9]+)$ controllers/developer/notification/receiver/active.php?receiverid=$1 [L]
+RewriteRule ^receiver/page/([0-9]+)$ controllers/developer/notification/receiver/page.php?start=$1 [L]
+RewriteRule ^receiver/search$ controllers/developer/notification/receiver/search.php [L] 
+
+# NOTIFICATION LOG
+RewriteRule ^notificationlog$ controllers/developer/notification/log/log.php [L]
+RewriteRule ^notificationlog/([0-9]+)$ controllers/developer/notification/log/log.php?notificationLogId=$1 [L]
+RewriteRule ^notificationlog/page/([0-9]+)$ controllers/developer/notification/log/page.php?start=$1 [L]
+RewriteRule ^notificationlog/search$ controllers/developer/notification/log/search.php [L] 
+
+# SENDING EMAIL
+RewriteRule ^sending-email$ controllers/developer/sending-email/sending-email.php [L]

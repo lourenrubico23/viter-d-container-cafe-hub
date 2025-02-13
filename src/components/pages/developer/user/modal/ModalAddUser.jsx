@@ -107,7 +107,7 @@ const ModalAddUser = ({ itemEdit }) => {
   return (
     <>
       <ModalWrapper
-        className={`transition-all ease-linear transform duration-200 ${animate}`}
+        className={`transition-all ease-linear transform duration-200 ${animate} z-50`}
         handleClose={handleCloseModal}
       >
         <div className="modal-title">

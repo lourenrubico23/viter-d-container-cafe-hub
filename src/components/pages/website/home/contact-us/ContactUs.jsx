@@ -1,5 +1,7 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
 import ContactUsForm from "@/components/partials/form/ContactUsForm";
+import ModalError from "@/components/partials/modal/ModalError";
+import ModalSuccess from "@/components/partials/modal/ModalSuccess";
 import { setIsAdd } from "@/store/StoreAction";
 import { StoreContext } from "@/store/StoreContext";
 import React, { useContext } from "react";
@@ -20,8 +22,6 @@ const ContactUs = () => {
   const handleClick = () => {
     dispatch(setIsAdd({ modal: true, modalCode: "contact-us" }));
   };
-
-  console.log("open contacts: ", store.isAdd?.modalCode === "contact-us");
 
   return (
     <>
@@ -50,6 +50,9 @@ const ContactUs = () => {
       {store.isAdd?.modal && store.isAdd?.modalCode === "contact-us" && (
         <ContactUsForm />
       )}
+
+      {store.success && <ModalSuccess />}
+      {store.error && <ModalError />}
     </>
   );
 };

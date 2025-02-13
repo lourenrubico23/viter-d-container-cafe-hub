@@ -26,12 +26,27 @@ export const googleThumbnailLink = "https://drive.google.com/thumbnail?id=";
 export const googleHDViewLink = "https://lh3.googleusercontent.com/d/";
 export const googleViewLink = "https://drive.google.com/file/d/";
 
+// reCAPTCHA site key PRODUCTION
+export const siteKey = "6LeUuBgqAAAAAKDIsrmFwuV8ocqZusI7fB_69Gva";
+
+
 // get focus on a button
 export const GetFocus = (id) => {
   React.useEffect(() => {
     const obj = document.getElementById(id);
     obj.focus();
   }, []);
+};
+
+export const formatDate = (dateVal, val = "", format = "") => {
+  const formatedDate = val;
+  if (typeof dateVal !== "undefined" && dateVal !== "") {
+    // formatting date
+    const event = new Date(dateVal);
+
+    return event.toLocaleString("en", options(format));
+  }
+  return formatedDate;
 };
 
 export const HandleEscape = (handleClose) => {

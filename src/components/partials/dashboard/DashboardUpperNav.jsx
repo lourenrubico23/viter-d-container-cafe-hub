@@ -2,6 +2,7 @@ import useQueryData from "@/components/custom-hooks/useQueryData";
 import {
   devApiVersion,
   devNavUrl,
+  urlAdmin,
 } from "@/components/helpers/functions-general";
 import React from "react";
 import { BsBoxArrowUpRight } from "react-icons/bs";
@@ -52,7 +53,7 @@ const DashboardUpperNav = ({ menu }) => {
             </div>
             <div className="">
               <Link
-                to={`${devNavUrl}/dashboard`}
+                to={`${devNavUrl}/${urlAdmin}/dashboard`}
                 className="tooltip-desktop"
                 data-tooltip="Desktop"
               >

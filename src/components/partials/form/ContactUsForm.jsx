@@ -1,6 +1,6 @@
 import React from "react";
 import ModalWrapperCenter from "../modal/ModalWrapperCenter";
-import { setIsAdd } from "@/store/StoreAction";
+
 import { FaTimes } from "react-icons/fa";
 import { StoreContext } from "@/store/StoreContext";
 import ButtonSpinner from "../spinners/ButtonSpinner";
@@ -9,9 +9,21 @@ import { InputText, InputTextArea } from "@/components/helpers/FormInputs";
 import * as Yup from "yup";
 import useQueryData from "@/components/custom-hooks/useQueryData";
 
+import { queryData } from "@/components/helpers/queryData";
+import { siteKey } from "@/components/helpers/functions-general";
+import ReCAPTCHA from "react-google-recaptcha";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  setError,
+  setIsAdd,
+  setMessage,
+  setSuccess,
+} from "@/store/StoreAction";
+
 const ContactUsForm = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [animate, setAnimate] = React.useState("opacity-0");
+  const recaptchaRef = React.useRef();
 
   const {
     isFetching,
@@ -23,6 +35,28 @@ const ContactUsForm = () => {
     "contactUs" // key
   );
 
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: (values) => queryData(`/v1/sending-email`, "post", values),
+    onSuccess: (data) => {
+      console.log("Mutation Success:", data);
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ["sending-email"] });
+      if (data.success) {
+        dispatch(setIsAdd(false));
+        dispatch(setSuccess(true));
+        dispatch(setMessage(`Message Sent Success`));
+        console.log(data);
+      }
+      // show error box
+      if (!data.success) {
+        dispatch(setError(true));
+        dispatch(setMessage(data.error));
+      }
+    },
+  });
+
   const handleClose = () => {
     // set animation
     setAnimate("opacity-0");
@@ -33,26 +67,28 @@ const ContactUsForm = () => {
     }, 200);
   };
 
+  const handleChange = (value) => {
+    console.log(value);
+    // setCaptcha(value);
+  };
+
   React.useEffect(() => {
     setAnimate("");
   }, []);
 
-  //   const initVal = {
-  //     notification_aid: itemEdit ? itemEdit.notification_aid : "",
-  //     notification_name: itemEdit ? itemEdit.notification_name : "",
-  //     notification_email: itemEdit ? itemEdit.notification_email : "",
-  //     notification_phone_no: itemEdit ? itemEdit.notification_phone_no : "",
-  //     notification_purpose: itemEdit ? itemEdit.notification_purpose : "",
-  //     notification_name_old: itemEdit ? itemEdit.notification_name : "",
-  //   };
+  const initVal = {
+    client_name: "",
+    client_email: "",
+    client_phone: "",
+    client_message: "",
+  };
 
-  //   const yupSchema = Yup.object({
-  //     notification_email: Yup.string()
-  //       .required("Required")
-  //       .email("Invalid email"),
-  //     notification_name: Yup.string().required("Required"),
-  //     notification_purpose: Yup.string().required("Required"),
-  //   });
+  const yupSchema = Yup.object({
+    client_name: Yup.string().required("Required"),
+    client_email: Yup.string().required("Required").email("Invalid email"),
+    client_phone: Yup.string().required("Required"),
+    client_message: Yup.string().required("Required"),
+  });
 
   return (
     <>
@@ -79,15 +115,26 @@ const ContactUsForm = () => {
 
           <div className="theForm py-2 addShadow rounded-lg relative z-[1] w-full">
             <Formik
-            // initialValues={initVal}
-            // validationSchema={yupSchema}
-            // onSubmit={async (values, { setSubmitting, resetForm }) => {
-            //   // mutate data
-            //   const data = {
-            //     ...values,
-            //   };
-            //   mutation.mutate(data);
-            // }}
+              initialValues={initVal}
+              validationSchema={yupSchema}
+              onSubmit={async (values, { setSubmitting, resetForm }) => {
+                const captchaValue = recaptchaRef.current.getValue();
+
+                console.log(captchaValue);
+                if (captchaValue === "") {
+                  dispatch(setError(true));
+                  dispatch(
+                    setMessage(
+                      "Please verify that you are not a robot by completing the reCAPTCHA below."
+                    )
+                  );
+                  return;
+                }
+
+                // mutate data
+                mutation.mutate({ ...values, captchaValue });
+                recaptchaRef.current?.reset();
+              }}
             >
               {(props) => {
                 return (
@@ -95,36 +142,43 @@ const ContactUsForm = () => {
                     <div className="modal__body">
                       <div className="input-wrapper">
                         <span>Full Name</span>
-                        <input
+                        <InputText
                           type="text"
                           name="client_name"
-                          // disabled={mutation.isPending}
+                          disabled={mutation.isPending}
                         />
                       </div>
                       <div className="input-wrapper">
                         <span>Email Address</span>
-                        <input
+                        <InputText
                           type="text"
-                          name="client_name"
-                          // disabled={mutation.isPending}
+                          name="client_email"
+                          disabled={mutation.isPending}
                         />
                       </div>
                       <div className="input-wrapper">
                         <span>Contact No.</span>
-                        <input
+                        <InputText
                           type="text"
-                          name="client_name"
-                          // disabled={mutation.isPending}
+                          name="client_phone"
+                          disabled={mutation.isPending}
                         />
                       </div>
 
                       <div className="input-wrapper">
                         <span>Message</span>
-                        <textarea
+                        <InputTextArea
                           type="text"
-                          name="client_name"
+                          name="client_message"
                           className="h-[181px]"
-                          // disabled={mutation.isPending}
+                          disabled={mutation.isPending}
+                        />
+                      </div>
+                      <div className="input-wrapper reCaptcha">
+                        <ReCAPTCHA
+                          ref={recaptchaRef}
+                          sitekey={siteKey}
+                          onChange={(e) => handleChange(e)}
                         />
                       </div>
 
@@ -132,16 +186,15 @@ const ContactUsForm = () => {
                         <button
                           className="btn text-light text-[16px] font-rubikRegular flex items-center gap-2 w-[172px] h-[54px] "
                           type="submit"
-                          // disabled={mutation.isPending || !props.dirty}
+                          disabled={mutation.isPending || !props.dirty}
                         >
-                          {/* {mutation.isPending ? (
-                          <div className="flex items-center gap-2">
-                            <ButtonSpinner /> Send Message
-                          </div>
-                        ) : (
-                          "Send Message"
-                        )} */}
-                          Send Message
+                          {mutation.isPending ? (
+                            <div className="flex items-center gap-2">
+                              <ButtonSpinner /> Send Message
+                            </div>
+                          ) : (
+                            "Send Message"
+                          )}
                         </button>
                       </div>
                     </div>
