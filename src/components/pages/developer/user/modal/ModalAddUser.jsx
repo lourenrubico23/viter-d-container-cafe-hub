@@ -18,7 +18,13 @@ import useQueryData from "@/components/custom-hooks/useQueryData";
 import { devApiVersion } from "@/components/helpers/functions-general";
 import { GrFormClose } from "react-icons/gr";
 
-const ModalAddUser = ({ itemEdit }) => {
+const ModalAddUser = ({
+  itemEdit,
+  setIsSend,
+  setPayloadData,
+  setEmailCount,
+  setRecipientList,
+}) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [animate, setAnimate] = React.useState("translate-x-full");
 
@@ -37,10 +43,8 @@ const ModalAddUser = ({ itemEdit }) => {
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        itemEdit
-          ? `${devApiVersion}/user/${itemEdit.user_aid}` // Update
-          : `${devApiVersion}/user`, // Create
-        itemEdit ? "put" : "post",
+        itemEdit && `${devApiVersion}/user/${itemEdit.user_aid}`, // Update
+        "put",
         values
       ),
     onSuccess: (data) => {
@@ -100,6 +104,28 @@ const ModalAddUser = ({ itemEdit }) => {
     }, 200);
   };
 
+  const handleSend = (values) => {
+    if (itemEdit) {
+      mutation.mutate(values);
+    } else {
+      setPayloadData(values); // Pass data to the next modal
+
+      const recipientEmails = Array.isArray(values.user_email)
+        ? values.user_email
+        : values.user_email
+        ? [values.user_email]
+        : [];
+
+      setEmailCount(recipientEmails.length);
+      setIsSend(true);
+      setRecipientList(recipientEmails);
+
+      console.log("Recipient: ", recipientEmails.length);
+
+      dispatch(setIsAdd(false));
+    }
+  };
+
   React.useEffect(() => {
     setAnimate("");
   }, []);
@@ -107,7 +133,7 @@ const ModalAddUser = ({ itemEdit }) => {
   return (
     <>
       <ModalWrapper
-        className={`transition-all ease-linear transform duration-200 ${animate} z-50`}
+        className={`transition-all ease-linear transform duration-200 ${animate}`}
         handleClose={handleCloseModal}
       >
         <div className="modal-title">
@@ -119,11 +145,7 @@ const ModalAddUser = ({ itemEdit }) => {
         <Formik
           initialValues={initVal}
           validationSchema={yupSchema}
-          onSubmit={async (values, { setSubmitting, resetForm }) => {
-            mutation.mutate({
-              ...values,
-            });
-          }}
+          onSubmit={handleSend}
         >
           {(props) => {
             return (

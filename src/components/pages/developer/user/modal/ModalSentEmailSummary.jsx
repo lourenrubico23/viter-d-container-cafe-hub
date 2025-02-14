@@ -22,7 +22,7 @@ const ModalSentEmailSummary = ({
   };
 
   return (
-    <ModalAddWrapper className={"max-w-[20rem] h-fit p-5"}>
+    <ModalAddWrapper className={"max-w-[20rem] h-fit p-5 place-self-center"}>
       <div className="">
         <div className="flex flex-col items-center gap-7 my-6">
           <div className="inline-flex items-center justify-center flex-shrink-0">
@@ -35,9 +35,9 @@ const ModalSentEmailSummary = ({
 
           <h3 className="text-[12px] text-center">{message}</h3>
 
-          {/* <span className="text-sm">
+          <span className="text-sm">
             {sucessCount} of {totalCount}
-          </span> */}
+          </span>
           <button
             className="inline-block rounded-md w-full px-5 py-2 bg-primary text-white"
             onClick={() => handleClose()}

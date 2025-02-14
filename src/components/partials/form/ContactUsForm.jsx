@@ -10,7 +10,7 @@ import * as Yup from "yup";
 import useQueryData from "@/components/custom-hooks/useQueryData";
 
 import { queryData } from "@/components/helpers/queryData";
-import { siteKey } from "@/components/helpers/functions-general";
+import { devApiVersion, siteKey } from "@/components/helpers/functions-general";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
@@ -19,10 +19,23 @@ import {
   setMessage,
   setSuccess,
 } from "@/store/StoreAction";
+import ModalSendForm from "./ModalSendForm";
+import ModalSendingEmailStatus from "@/components/pages/developer/user/modal/ModalSendingEmailStatus";
+import ModalSentEmailSummary from "@/components/pages/developer/user/modal/ModalSentEmailSummary";
 
 const ContactUsForm = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [animate, setAnimate] = React.useState("opacity-0");
+  const [isSend, setIsSend] = React.useState(false);
+  const [isSendingLoading, setIsSendingLoading] = React.useState(false);
+  const [queryCount, setQueryCount] = React.useState(0);
+  const [emailCount, setEmailCount] = React.useState(0);
+  const [confirmSend, setConfirmSend] = React.useState(false);
+  const [recipientList, setRecipientList] = React.useState([]);
+  const [isSuccessSendingEmail, setIsSuccessSendingEmail] =
+    React.useState(false);
+  const [queryStatus, setQueryStatus] = React.useState(null);
+  const [payloadData, setPayloadData] = React.useState(null); // Store form values
   const recaptchaRef = React.useRef();
 
   const {
@@ -35,27 +48,15 @@ const ContactUsForm = () => {
     "contactUs" // key
   );
 
-  const queryClient = useQueryClient();
-
-  const mutation = useMutation({
-    mutationFn: (values) => queryData(`/v1/sending-email`, "post", values),
-    onSuccess: (data) => {
-      console.log("Mutation Success:", data);
-      // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["sending-email"] });
-      if (data.success) {
-        dispatch(setIsAdd(false));
-        dispatch(setSuccess(true));
-        dispatch(setMessage(`Message Sent Success`));
-        console.log(data);
-      }
-      // show error box
-      if (!data.success) {
-        dispatch(setError(true));
-        dispatch(setMessage(data.error));
-      }
-    },
-  });
+  const {
+    isFetchingReceiver,
+    errorReceiver,
+    data: receiverData,
+  } = useQueryData(
+    "/v1/receiver", // endpoint
+    "get", // method
+    "receiver" // key
+  );
 
   const handleClose = () => {
     // set animation
@@ -70,6 +71,39 @@ const ContactUsForm = () => {
   const handleChange = (value) => {
     console.log(value);
     // setCaptcha(value);
+  };
+
+  const handleSend = (values) => {
+    const captchaValue = recaptchaRef.current?.getValue();
+
+    console.log("reCAPTCHA Value:", captchaValue);
+
+    if (!captchaValue) {
+      dispatch(setError(true));
+      dispatch(
+        setMessage(
+          "Please verify that you are not a robot by completing the reCAPTCHA below."
+        )
+      );
+      return;
+    }
+
+    // Reset reCAPTCHA after mutation
+    recaptchaRef.current?.reset();
+
+    // Pass data to the next modal, including captchaValue
+    setPayloadData({ ...values, captchaValue });
+
+    // Extract recipient emails from receiverData
+    const recipientEmails =
+      receiverData?.data.map((receiver) => receiver.email) || [];
+
+    setEmailCount(recipientEmails.length);
+    setIsSend(true);
+    setRecipientList(recipientEmails);
+
+    console.log("Recipient count:", recipientEmails.length);
+    console.log("Payload Data:", { ...values, captchaValue });
   };
 
   React.useEffect(() => {
@@ -117,26 +151,9 @@ const ContactUsForm = () => {
             <Formik
               initialValues={initVal}
               validationSchema={yupSchema}
-              onSubmit={async (values, { setSubmitting, resetForm }) => {
-                const captchaValue = recaptchaRef.current.getValue();
-
-                console.log(captchaValue);
-                if (captchaValue === "") {
-                  dispatch(setError(true));
-                  dispatch(
-                    setMessage(
-                      "Please verify that you are not a robot by completing the reCAPTCHA below."
-                    )
-                  );
-                  return;
-                }
-
-                // mutate data
-                mutation.mutate({ ...values, captchaValue });
-                recaptchaRef.current?.reset();
-              }}
+              onSubmit={handleSend}
             >
-              {(props) => {
+              {({ resetForm, dirty }) => {
                 return (
                   <Form>
                     <div className="modal__body">
@@ -145,7 +162,7 @@ const ContactUsForm = () => {
                         <InputText
                           type="text"
                           name="client_name"
-                          disabled={mutation.isPending}
+                          disabled={isSendingLoading}
                         />
                       </div>
                       <div className="input-wrapper">
@@ -153,7 +170,7 @@ const ContactUsForm = () => {
                         <InputText
                           type="text"
                           name="client_email"
-                          disabled={mutation.isPending}
+                          disabled={isSendingLoading}
                         />
                       </div>
                       <div className="input-wrapper">
@@ -161,7 +178,7 @@ const ContactUsForm = () => {
                         <InputText
                           type="text"
                           name="client_phone"
-                          disabled={mutation.isPending}
+                          disabled={isSendingLoading}
                         />
                       </div>
 
@@ -171,7 +188,7 @@ const ContactUsForm = () => {
                           type="text"
                           name="client_message"
                           className="h-[100px]"
-                          disabled={mutation.isPending}
+                          disabled={isSendingLoading}
                         />
                       </div>
                       <div className="input-wrapper reCaptcha">
@@ -182,22 +199,39 @@ const ContactUsForm = () => {
                         />
                       </div>
 
-                      <div className="modal__action flex justify-end mt-6 gap-2">
+                      <div className=" flex justify-end mt-6 gap-2">
                         <button
-                          className="btn text-light text-[16px] font-rubikRegular flex items-center gap-2 w-[172px] h-[54px] "
+                          className="btn-modal-submit text-[16px] font-rubikRegular w-[172px] h-10 hover:text-white"
                           type="submit"
-                          disabled={mutation.isPending || !props.dirty}
+                          disabled={isSendingLoading || !dirty}
                         >
-                          {mutation.isPending ? (
-                            <div className="flex items-center gap-2">
-                              <ButtonSpinner /> Send Message
-                            </div>
+                          {isSendingLoading ? (
+                            <ButtonSpinner />
                           ) : (
                             "Send Message"
                           )}
                         </button>
                       </div>
                     </div>
+
+                    {isSend && (
+                      <ModalSendForm
+                        recipientList={recipientList}
+                        payloadData={payloadData}
+                        setIsSend={setIsSend}
+                        setConfirmSend={setConfirmSend}
+                        setQueryCount={setQueryCount}
+                        setIsSendingLoading={setIsSendingLoading}
+                        isSendingLoading={isSendingLoading}
+                        setIsSuccessSendingEmail={setIsSuccessSendingEmail}
+                        setQueryStatus={setQueryStatus}
+                        resetForm={resetForm}
+                        msg={`Are you sure you want to send this
+                email?`}
+                        mysqlEndpoint={`${devApiVersion}/sending-email`}
+                        queryKey={`sending-email`}
+                      />
+                    )}
                   </Form>
                 );
               }}
@@ -205,6 +239,23 @@ const ContactUsForm = () => {
           </div>
         </div>
       </ModalWrapperCenter>
+
+      {confirmSend && (
+        <ModalSendingEmailStatus
+          recipientList={recipientList}
+          queryCount={queryCount}
+        />
+      )}
+      {isSuccessSendingEmail && (
+        <ModalSentEmailSummary
+          queryCount={queryCount}
+          recipientList={recipientList}
+          setIsSuccessSendingEmail={setIsSuccessSendingEmail}
+          setQueryCount={setQueryCount}
+          queryStatus={queryStatus}
+          message={"The email has been sent successfully."}
+        />
+      )}
     </>
   );
 };

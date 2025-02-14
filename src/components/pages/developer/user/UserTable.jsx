@@ -27,25 +27,33 @@ import ModalSentEmailSummary from "./modal/ModalSentEmailSummary";
 import ModalSuspend from "./modal/ModalSuspend";
 import ModalAddUser from "./modal/ModalAddUser";
 import ModalWrapperCenter from "@/components/partials/modal/ModalWrapperCenter";
+import ModalError from "@/components/partials/modal/ModalError";
+import ModalSuccess from "@/components/partials/modal/ModalSuccess";
+import ModalSend from "./modal/ModalSend";
 
-const UserTable = ({ setIsOpenUserList }) => {
+const UserTable = ({
+  setIsOpenUserList,
+  setItemEdit,
+  itemEdit,
+  setEmailCount,
+  setRecipientList,
+  recipientList,
+}) => {
   const { store, dispatch } = React.useContext(StoreContext);
-  const [animate, setAnimate] = React.useState("opacity-0");
   const [id, setIsId] = React.useState("");
   const [isData, setIsData] = React.useState("");
-  const [itemEdit, setItemEdit] = React.useState(null);
   const [isArchiving, setIsArchiving] = React.useState(false);
   const [isReset, setIsReset] = React.useState(false);
   const [filterData, setFilterData] = React.useState(false);
 
   const [isSendingLoading, setIsSendingLoading] = React.useState(false);
   const [queryCount, setQueryCount] = React.useState(0);
-  const [emailCount, setEmailCount] = React.useState(0);
   const [confirmSend, setConfirmSend] = React.useState(false);
-  const [recipientList, setRecipientList] = React.useState([]);
   const [isSuccessSendingEmail, setIsSuccessSendingEmail] =
     React.useState(false);
   const [queryStatus, setQueryStatus] = React.useState(null);
+  const [isSend, setIsSend] = React.useState(false);
+  const [payloadData, setPayloadData] = React.useState(null); // Store form values
 
   const [onSearch, setOnSearch] = React.useState(false);
   const [page, setPage] = React.useState(1);
@@ -85,21 +93,7 @@ const UserTable = ({ setIsOpenUserList }) => {
     refetchOnWindowFocus: false,
   });
 
-  const handleClose = () => {
-    // set animation
-    setAnimate("opacity-0");
-    // clear the modal
-    setTimeout(() => {
-      // dispatch(setIsSearch(false));
-      setIsOpenUserList(false);
-    }, 200);
-  };
-
-  const handleAdd = () => {
-    setItemEdit(null);
-    dispatch(setIsAdd({ modal: true, modalCode: "user" }));
-    console.log("Open", setIsAdd({ modal: true, modalCode: "user" }));
-  };
+  
 
   const handleEdit = (item) => {
     setItemEdit(item);
@@ -151,19 +145,12 @@ const UserTable = ({ setIsOpenUserList }) => {
     }
   }, [inView]);
 
-  React.useEffect(() => {
-    setAnimate("");
-  }, []);
+ 
 
   return (
     <>
-      <ModalWrapperCenter
-        className={`relative transition-all ease-in-out transform duration-200 md:max-h-[700px] md:w-[1200px] h-[680px] w-[320px] bg-light ${animate} overflow-auto rounded-md`}
-        handleClose={handleClose}
-        opacity="opacity-50"
-      >
-        <section id="user" className=" p-4">
-          <div className="flex items-center justify-between gap-2 w-full">
+      <section id="user" className=" p-4">
+        {/* <div className="flex items-center justify-between gap-2 w-full">
             <div className="text-sm ">User</div>
             <div>
               <button
@@ -174,137 +161,136 @@ const UserTable = ({ setIsOpenUserList }) => {
                 <FaPlus /> Add
               </button>
             </div>
+          </div> */}
+        <div className="">
+          <div className="place-self-end">
+            <SearchBar
+              search={search}
+              dispatch={dispatch}
+              store={store}
+              result={result?.pages}
+              isFetching={isFetching}
+              setOnSearch={setOnSearch}
+              onSearch={onSearch}
+            />
           </div>
-          <div className="">
-            <div className="place-self-end">
-              <SearchBar
-                search={search}
-                dispatch={dispatch}
-                store={store}
-                result={result?.pages}
-                isFetching={isFetching}
-                setOnSearch={setOnSearch}
-                onSearch={onSearch}
+          <div className=" shadow-md rounded-md overflow-y-auto min-h-full md:min-h-[calc(70dvh)] lg:max-h-[calc(90dvh)] mb-10 lg:mb-0 lg:min-h-0 relative">
+            {isFetching && !isFetchingNextPage && status !== "pending" && (
+              <FetchingSpinner />
+            )}
+            <table>
+              <thead>
+                <tr className="text-[black]">
+                  <th className="pl-2 w-[1rem]">#</th>
+                  <th className=" w-[5rem]">Status</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th className="text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="relative">
+                {(status === "pending" ||
+                  result?.pages[0].data.length === 0) && (
+                  <tr className="text-center">
+                    <td colSpan="100%" rowSpan="0" className="p-10">
+                      {status === "pending" ? <TableLoading /> : <NoData />}
+                    </td>
+                  </tr>
+                )}
+
+                {error && (
+                  <tr className="text-center ">
+                    <td colSpan="100%" className="p-10">
+                      <ServerError />
+                    </td>
+                  </tr>
+                )}
+
+                {result?.pages.map((page, key) => (
+                  <React.Fragment key={key}>
+                    {page?.data.map((item, key) => {
+                      return (
+                        <tr key={key} className="text-[14px]">
+                          <td className="pl-2 ">{counter++}.</td>
+                          <td>
+                            {item.user_is_active === 1 ? (
+                              <Status text="Active" />
+                            ) : (
+                              <Status text="Inactive" />
+                            )}
+                          </td>
+                          <td className="">
+                            {item.user_last_name}, {item.user_first_name}
+                          </td>
+                          <td className="">{item.user_email}</td>
+                          <td className="">{item.role_name}</td>
+                          <td className="flex items-center gap-3 justify-end mt-2 lg:mt-0 mr-2">
+                            {item.user_is_active ? (
+                              <>
+                                <button
+                                  className="tooltip-action-table"
+                                  data-tooltip="Edit"
+                                  onClick={() => handleEdit(item)}
+                                >
+                                  <FaEdit className="text-gray-600 text-[16px]" />
+                                </button>
+                                <button
+                                  type="button"
+                                  className="btn-action-table tooltip-action-table"
+                                  data-tooltip="Reset"
+                                  onClick={() => handleReset(item)}
+                                >
+                                  <FaKey className="text-gray-600 text-[14px]" />
+                                </button>
+                                <button
+                                  className="tooltip-action-table"
+                                  data-tooltip="Suspend"
+                                  onClick={() => handleArchive(item)}
+                                >
+                                  <FaUserAltSlash className=" text-gray-600 text-[15px]" />
+                                </button>
+                              </>
+                            ) : (
+                              <>
+                                <button
+                                  className="tooltip-action-table"
+                                  data-tooltip="Restore"
+                                  onClick={() => handleRestore(item)}
+                                >
+                                  <MdRestore className="text-gray-600 text-[18px]" />
+                                </button>
+                                <button
+                                  className="tooltip-action-table"
+                                  data-tooltip="Delete"
+                                  onClick={() => handleDelete(item)}
+                                >
+                                  <MdDelete className="text-gray-600 text-[18px]" />
+                                </button>
+                              </>
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </React.Fragment>
+                ))}
+              </tbody>
+            </table>
+            <div className="place-self-center">
+              <LoadMore
+                fetchNextPage={fetchNextPage}
+                isFetchingNextPage={isFetchingNextPage}
+                hasNextPage={hasNextPage}
+                result={result?.pages[0]}
+                setPage={setPage}
+                page={page}
+                refView={ref}
               />
             </div>
-            <div className=" shadow-md rounded-md overflow-y-auto min-h-full md:min-h-[calc(70dvh)] lg:max-h-[calc(90dvh)] mb-10 lg:mb-0 lg:min-h-0 relative">
-              {isFetching && !isFetchingNextPage && status !== "pending" && (
-                <FetchingSpinner />
-              )}
-              <table>
-                <thead>
-                  <tr className="text-[black]">
-                    <th className="pl-2 w-[1rem]">#</th>
-                    <th className=" w-[5rem]">Status</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th className="text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="relative">
-                  {(status === "pending" ||
-                    result?.pages[0].data.length === 0) && (
-                    <tr className="text-center">
-                      <td colSpan="100%" rowSpan="0" className="p-10">
-                        {status === "pending" ? <TableLoading /> : <NoData />}
-                      </td>
-                    </tr>
-                  )}
-
-                  {error && (
-                    <tr className="text-center ">
-                      <td colSpan="100%" className="p-10">
-                        <ServerError />
-                      </td>
-                    </tr>
-                  )}
-
-                  {result?.pages.map((page, key) => (
-                    <React.Fragment key={key}>
-                      {page?.data.map((item, key) => {
-                        return (
-                          <tr key={key} className="text-[14px]">
-                            <td className="pl-2 ">{counter++}.</td>
-                            <td>
-                              {item.user_is_active === 1 ? (
-                                <Status text="Active" />
-                              ) : (
-                                <Status text="Inactive" />
-                              )}
-                            </td>
-                            <td className="">
-                              {item.user_last_name}, {item.user_first_name}
-                            </td>
-                            <td className="">{item.user_email}</td>
-                            <td className="">{item.role_name}</td>
-                            <td className="flex items-center gap-3 justify-end mt-2 lg:mt-0 mr-2">
-                              {item.user_is_active ? (
-                                <>
-                                  <button
-                                    className="tooltip-action-table"
-                                    data-tooltip="Edit"
-                                    onClick={() => handleEdit(item)}
-                                  >
-                                    <FaEdit className="text-gray-600 text-[16px]" />
-                                  </button>
-                                  <button
-                                    type="button"
-                                    className="btn-action-table tooltip-action-table"
-                                    data-tooltip="Reset"
-                                    onClick={() => handleReset(item)}
-                                  >
-                                    <FaKey className="text-gray-600 text-[14px]" />
-                                  </button>
-                                  <button
-                                    className="tooltip-action-table"
-                                    data-tooltip="Suspend"
-                                    onClick={() => handleArchive(item)}
-                                  >
-                                    <FaUserAltSlash className=" text-gray-600 text-[15px]" />
-                                  </button>
-                                </>
-                              ) : (
-                                <>
-                                  <button
-                                    className="tooltip-action-table"
-                                    data-tooltip="Restore"
-                                    onClick={() => handleRestore(item)}
-                                  >
-                                    <MdRestore className="text-gray-600 text-[18px]" />
-                                  </button>
-                                  <button
-                                    className="tooltip-action-table"
-                                    data-tooltip="Delete"
-                                    onClick={() => handleDelete(item)}
-                                  >
-                                    <MdDelete className="text-gray-600 text-[18px]" />
-                                  </button>
-                                </>
-                              )}
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </React.Fragment>
-                  ))}
-                </tbody>
-              </table>
-              <div className="place-self-center">
-                <LoadMore
-                  fetchNextPage={fetchNextPage}
-                  isFetchingNextPage={isFetchingNextPage}
-                  hasNextPage={hasNextPage}
-                  result={result?.pages[0]}
-                  setPage={setPage}
-                  page={page}
-                  refView={ref}
-                />
-              </div>
-            </div>
           </div>
-        </section>
-      </ModalWrapperCenter>
+        </div>
+      </section>
 
       {store.isDelete.modal && store.isDelete.modalCode === "user" && (
         <ModalDelete
@@ -350,6 +336,7 @@ const UserTable = ({ setIsOpenUserList }) => {
           setQueryStatus={setQueryStatus}
         />
       )}
+
       {confirmSend && (
         <ModalSendingEmailStatus
           recipientList={recipientList}
@@ -367,10 +354,6 @@ const UserTable = ({ setIsOpenUserList }) => {
             "The email has been sent successfully. Please check your inbox for your password reset instructions."
           }
         />
-      )}
-
-      {store.isAdd?.modal && store.isAdd?.modalCode === "user" && (
-        <ModalAddUser itemEdit={itemEdit} />
       )}
     </>
   );

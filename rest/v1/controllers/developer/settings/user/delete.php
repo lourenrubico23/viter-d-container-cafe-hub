@@ -9,8 +9,7 @@ if (array_key_exists("userid", $_GET)) {
     $user->user_aid = $_GET['userid'];
 
     checkId($user->user_aid);
-    // validation
-    isAssociated($user);
+
     // delete
     $query = checkDelete($user);
     returnSuccess($user, "User", $query);

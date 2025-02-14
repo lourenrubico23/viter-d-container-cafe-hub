@@ -1,12 +1,12 @@
 import { queryData } from "@/components/helpers/queryData";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
-import { setError, setMessage } from "@/store/StoreAction";
+import { setError, setIsAdd, setMessage } from "@/store/StoreAction";
 import { StoreContext } from "@/store/StoreContext";
 import { useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { IoIosSend } from "react-icons/io";
 
-const ModalSend = ({
+const ModalSendForm = ({
   recipientList,
   setIsSend,
   setConfirmSend,
@@ -19,6 +19,7 @@ const ModalSend = ({
   msg,
   mysqlEndpoint,
   queryKey,
+  resetForm,
 }) => {
   const { dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
@@ -34,15 +35,15 @@ const ModalSend = ({
     // disabled all input field and button
     setIsSendingLoading(true);
 
-    const queryCreateOtherUser = await queryData(
+    const queryCreateContact = await queryData(
       mysqlEndpoint,
       "post",
       payloadData
     );
 
-    console.log("Query: ", queryCreateOtherUser);
+    console.log("Query: ", queryCreateContact);
 
-    if (queryCreateOtherUser?.success) {
+    if (queryCreateContact?.success) {
       // loop through the list of recipient email
 
       // query key
@@ -50,15 +51,16 @@ const ModalSend = ({
 
       for (let i = 0; i <= recipientList.length; i++) {
         try {
-          if (queryCreateOtherUser?.success) {
-            setQueryStatus(queryCreateOtherUser);
+          if (queryCreateContact?.success) {
+            setQueryStatus(queryCreateContact);
             setQueryCount(i); // Update the counter *after* a successful query.
+            resetForm();
           } else {
             // Handle failure immediately
             setConfirmSend(false);
             setIsSendingLoading(false);
             setIsSuccessSendingEmail(true);
-            setQueryStatus(queryCreateOtherUser); // Important to set the status even on failure
+            setQueryStatus(queryCreateContact); // Important to set the status even on failure
             return; // Exit the loop on the first failure.  No point in continuing.
           }
 
@@ -87,7 +89,7 @@ const ModalSend = ({
       }
     } else {
       dispatch(setError(true));
-      dispatch(setMessage(queryCreateOtherUser?.error));
+      dispatch(setMessage(queryCreateContact?.error));
       setConfirmSend(false);
       setIsSendingLoading(false);
       setIsSuccessSendingEmail(true);
@@ -102,7 +104,7 @@ const ModalSend = ({
 
   return (
     <>
-      <div className="bg-black/50 overflow-y-auto overflow-x-hidden fixed top-0 right-0 bottom-0 left-0 z-[99] flex justify-center items-center w-full md:inset-0 max-h-full">
+      <div className="bg-dark/50 overflow-y-auto overflow-x-hidden fixed top-0 right-0 bottom-0 left-0 z-[99] flex justify-center items-center w-full md:inset-0 max-h-full">
         <div className="relative p-4 w-full max-w-md max-h-full">
           <div className="relative bg-white rounded-lg shadow">
             <button
@@ -156,4 +158,4 @@ const ModalSend = ({
   );
 };
 
-export default ModalSend;
+export default ModalSendForm;

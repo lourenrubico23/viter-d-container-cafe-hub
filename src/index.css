@@ -220,6 +220,11 @@
   .input-wrapper {
     @apply mb-2 my-[20px] relative flex flex-col gap-2;
   }
+  /* MAKE LAST BACKDROP TO SHOW BG OVERLAY */
+  .modal__wrapper,
+  .backdrop:last-of-type {
+    @apply last-of-type:bg-black/30;
+  }
 }
 
 @layer utilities {

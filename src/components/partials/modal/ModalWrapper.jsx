@@ -1,8 +1,15 @@
 import React from "react";
 
-const ModalWrapper = ({ children, className, handleClose }) => {
+const ModalWrapper = ({
+  children,
+  className,
+  handleClose,
+  zIndex = "z-[999]",
+}) => {
   return (
-    <div className="fixed top-0 left-0 h-full w-full flex justify-end z-50">
+    <div
+      className={`modal__wrapper fixed top-0 left-0 h-full w-full flex justify-end ${zIndex} `}
+    >
       <div
         className={`backdrop bg-[black] opacity-30 h-full w-full absolute top-0 left-0 z-[-1]`}
         onClick={handleClose}

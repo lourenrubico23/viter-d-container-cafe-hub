@@ -16,6 +16,7 @@ import RoleTable from "@/components/pages/developer/role/RoleTable";
 import { IoChevronDownSharp } from "react-icons/io5";
 import ReceiverTable from "@/components/pages/developer/notification/receiver/ReceiverTable";
 import LogTable from "@/components/pages/developer/notification/log/LogTable";
+import User from "@/components/pages/developer/user/User";
 
 const DashboardNavigation = ({ menu, submenu }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -198,7 +199,7 @@ const DashboardNavigation = ({ menu, submenu }) => {
 
   return (
     <>
-      <div className="theNav bg-[#f5f5f3] w-[211px] h-screen fixed top-0 p-4 z-50  border-customGray flex flex-col justify-between">
+      <div className="theNav bg-[#f5f5f3] w-[211px] h-screen fixed top-0 pl-4 z-50  border-customGray flex flex-col justify-between">
         <div className="theLogo mt-2 mb-14">
           <img
             src={`${devBaseImgUrl}/d-container-logo.webp`}
@@ -208,7 +209,7 @@ const DashboardNavigation = ({ menu, submenu }) => {
         </div>
         <div className="flex flex-col justify-between h-full overflow-y-auto overflow-x-hidden">
           <nav>
-            <ul className="flex-col [&>li]:text-left [&>li]:text-[16px] font-semibold [&>li]:mb-[15px]">
+            <ul className="flex-col [&>li]:text-left [&>li]:text-[16px] font-semibold [&>li]:mb-[15px] ">
               <li
                 className={
                   activeSection === "header"
@@ -298,7 +299,7 @@ const DashboardNavigation = ({ menu, submenu }) => {
                 }`}
                 onClick={handleUser}
               >
-                <div className="flex items-center justify-between w-full">
+                <div className="flex items-center justify-between w-full pr-1">
                   <a className="cursor-pointer">User</a>
                   <IoChevronDownSharp
                     className={`transition-transform duration-300 ${
@@ -346,7 +347,7 @@ const DashboardNavigation = ({ menu, submenu }) => {
                 }`}
                 onClick={handleNotifOpen}
               >
-                <div className="flex items-center justify-between w-full">
+                <div className="flex items-center justify-between w-full pr-1">
                   <a className="cursor-pointer">Notification</a>
                   <IoChevronDownSharp
                     className={`transition-transform duration-300 ${
@@ -446,7 +447,7 @@ const DashboardNavigation = ({ menu, submenu }) => {
       )}
       {(isLoading || store.isAccountUpdated) && <ScreenSpinner />}
 
-      {isOpenUserList && <UserTable setIsOpenUserList={setIsOpenUserList} />}
+      {isOpenUserList && <User setIsOpenUserList={setIsOpenUserList} />}
 
       {isOpenRole && <RoleTable setIsOpenRole={setIsOpenRole} />}
 

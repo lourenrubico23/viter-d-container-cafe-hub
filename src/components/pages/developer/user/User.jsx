@@ -11,14 +11,28 @@ import { setIsAdd } from "@/store/StoreAction";
 import { StoreContext } from "@/store/StoreContext";
 import React from "react";
 import UserTable from "./UserTable";
+import ModalAddUser from "./modal/ModalAddUser";
+import ModalSend from "./modal/ModalSend";
+import ModalSendingEmailStatus from "./modal/ModalSendingEmailStatus";
+import ModalSentEmailSummary from "./modal/ModalSentEmailSummary";
+import { FaPlus } from "react-icons/fa";
+import ModalWrapperCenter from "@/components/partials/modal/ModalWrapperCenter";
 
-const User = () => {
+const User = ({ setIsOpenUserList }) => {
   const { store, dispatch } = React.useContext(StoreContext);
+  const [animate, setAnimate] = React.useState("opacity-0");
 
-  const handleAdd = () => {
-    dispatch(setIsAdd(true));
-    setItemEdit(null);
-  };
+  const [itemEdit, setItemEdit] = React.useState(null);
+  const [isSend, setIsSend] = React.useState(false);
+  const [isSendingLoading, setIsSendingLoading] = React.useState(false);
+  const [queryCount, setQueryCount] = React.useState(0);
+  const [emailCount, setEmailCount] = React.useState(0);
+  const [confirmSend, setConfirmSend] = React.useState(false);
+  const [recipientList, setRecipientList] = React.useState([]);
+  const [isSuccessSendingEmail, setIsSuccessSendingEmail] =
+    React.useState(false);
+  const [queryStatus, setQueryStatus] = React.useState(null);
+  const [payloadData, setPayloadData] = React.useState(null); // Store form values
 
   const {
     isFetching,
@@ -30,13 +44,22 @@ const User = () => {
     "colors" // key
   );
 
-  // to change the color when submitted
-  // document
-  //   .querySelector(":root")
-  //   .style.setProperty(
-  //     "--primary-color",
-  //     hexToRgb(colorsData?.data[0].colors_primary)
-  //   );
+  const handleAdd = () => {
+    setItemEdit(null);
+    dispatch(setIsAdd({ modal: true, modalCode: "user" }));
+    console.log("Open", setIsAdd({ modal: true, modalCode: "user" }));
+  };
+
+  const handleClose = () => {
+    // set animation
+    setAnimate("opacity-0");
+    // clear the modal
+    setTimeout(() => {
+      // dispatch(setIsSearch(false));
+      setIsOpenUserList(false);
+    }, 200);
+  };
+
   document
     .querySelector(":root")
     .style.setProperty(
@@ -67,23 +90,92 @@ const User = () => {
       "--dark-color",
       hexToRgb(colorsData?.data[0]?.colors_dark || "#000000")
     );
+
+  React.useEffect(() => {
+    setAnimate("");
+  }, []);
   return (
     <>
-      <div className=" bg-[#f5f5f3] ">
-        <DashboardNavigation />
-        <div className="main ml-[220px] w-[calc(100%_-_230px)] z-10">
-          <DashboardUpperNav menu="dashboard" />
-          <div className=" w-[calc(100%_-_10px)] pt-[70px] relative">
-            <div className="headerCover fixed top-0 left-[200px] w-full h-[76px] bg-dashPrimary z-[9]"></div>
-            <div className="addShadow bg-[#f5f5f3] h-screen ">
-              <UserTable />
+      <ModalWrapperCenter
+        className={`relative transition-all ease-in-out transform duration-200 md:max-h-[700px] md:w-[1200px] h-[680px] w-[320px] bg-light ${animate} overflow-auto rounded-md`}
+        handleClose={handleClose}
+        opacity="opacity-50"
+      >
+        <div className="mx-5 pt-4">
+          <div className="flex items-center justify-between gap-2 w-full">
+            <div className="text-sm ">User</div>
+            <div>
+              <button
+                type="button"
+                className="flex items-center gap-2 hover:text-primary underline"
+                onClick={handleAdd}
+              >
+                <FaPlus /> Add
+              </button>
             </div>
           </div>
+          <div className="pb-4">
+            <UserTable
+              setIsOpenUserList={setIsOpenUserList}
+              setItemEdit={setItemEdit}
+              itemEdit={itemEdit}
+              setEmailCount={setEmailCount}
+              setRecipientList={setRecipientList}
+              recipientList={recipientList}
+            />
+          </div>
         </div>
-      </div>
+      </ModalWrapperCenter>
 
       {store.error && <ModalError />}
       {store.success && <ModalSuccess />}
+
+      {/* {console.log("Modal Send Open: ", isSend)} */}
+      {!itemEdit && isSend && (
+        <ModalSend
+          recipientList={recipientList}
+          payloadData={payloadData}
+          setIsSend={setIsSend}
+          setConfirmSend={setConfirmSend}
+          setQueryCount={setQueryCount}
+          setIsSendingLoading={setIsSendingLoading}
+          isSendingLoading={isSendingLoading}
+          setIsSuccessSendingEmail={setIsSuccessSendingEmail}
+          setQueryStatus={setQueryStatus}
+          msg={`Are you sure you want to add this user and send a validation
+                email?`}
+          mysqlEndpoint={`${devApiVersion}/user`}
+          queryKey={`user`}
+        />
+      )}
+    
+        {confirmSend && (
+          <ModalSendingEmailStatus
+            recipientList={recipientList}
+            queryCount={queryCount}
+          />
+        )}
+        {isSuccessSendingEmail && (
+          <ModalSentEmailSummary
+            queryCount={queryCount}
+            recipientList={recipientList}
+            setIsSuccessSendingEmail={setIsSuccessSendingEmail}
+            setQueryCount={setQueryCount}
+            queryStatus={queryStatus}
+            message={"The email has been sent successfully!"}
+          />
+        )}
+ 
+
+      {store.isAdd?.modal && store.isAdd?.modalCode === "user" && (
+        <ModalAddUser
+          itemEdit={itemEdit}
+          setIsSend={setIsSend}
+          setPayloadData={setPayloadData}
+          setEmailCount={setEmailCount}
+          setRecipientList={setRecipientList}
+        />
+      )}
     </>
   );
 };

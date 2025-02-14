@@ -11,7 +11,7 @@ function verifyRecaptcha($res)
 
     $post_data =
         [
-            'secret' => '', //<--- your reCaptcha secret key PRODUCTION
+            'secret' => '6LeUuBgqAAAAAOs2u2mDWvs9v5uCx-5V3bI7czOc', //<--- your reCaptcha secret key PRODUCTION
             // 'secret' => '', //<--- your reCaptcha secret key TEST
             'response' => $res
         ];
