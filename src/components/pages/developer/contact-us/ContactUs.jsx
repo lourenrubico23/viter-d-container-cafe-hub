@@ -6,6 +6,8 @@ import ModalAddContactUs from "./ModalAddContactUs";
 import useQueryData from "@/components/custom-hooks/useQueryData";
 
 const ContactUs = () => {
+  const { store } = React.useContext(StoreContext);
+
   const [itemEdit, setItemEdit] = React.useState("");
   const [isform, setIsForm] = React.useState(false);
   const [isContact, setIsContact] = React.useState(false);
@@ -29,9 +31,17 @@ const ContactUs = () => {
     setItemEdit("contactUsUpdate");
   };
 
+  const isSectionHidden = (id) =>
+    Array.isArray(store.hiddenSections) && store.hiddenSections.includes(id);
+
   return (
     <>
-      <section id="contactUs" className="bg-light">
+      <section
+        id="contactUs"
+        className={`${
+          isSectionHidden("contactUs") ? "hidden" : "block"
+        } bg-light `}
+      >
         <div className="h-[437px] bg-light">
           <a
             className="absolute cursor-pointer tooltip-header z-[1] right-20 mt-10"

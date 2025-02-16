@@ -5,6 +5,7 @@ const initVal = {
   error: false,
   success: false,
   isShow: false,
+  hiddenSections: [],
   isAdd: { modal: false, code: "" },
   isArchive: { modal: false, code: "" },
   isRestore: { modal: false, code: "" },

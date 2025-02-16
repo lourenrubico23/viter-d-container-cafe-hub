@@ -49,9 +49,15 @@ const ReachUs = () => {
     setItemData({ modalCode: "reach-us" });
   };
 
+  const isSectionHidden = (id) =>
+    Array.isArray(store.hiddenSections) && store.hiddenSections.includes(id);
+
   return (
     <>
-      <section id="reachUs">
+      <section
+        id="reachUs"
+        className={`${isSectionHidden("reachUs") ? "hidden" : "block"} `}
+      >
         <div className="bg-light overflow-hidden">
           <div className="container flex flex-col lg:grid lg:grid-cols-[_1fr_1.5fr] relative gap-7 py-[80px] ">
             <div className="address flex flex-col gap-16 lg:my-32">

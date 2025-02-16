@@ -4,7 +4,6 @@ import {
   googleHDViewLink,
 } from "@/components/helpers/functions-general";
 import { GrLocation } from "react-icons/gr";
-
 import useQueryData from "@/components/custom-hooks/useQueryData";
 import Navigation from "./navigation/Navigation";
 import React from "react";
@@ -13,8 +12,10 @@ import { FaRegImages } from "react-icons/fa";
 import ModalAddBanner from "./ModalAddBanner";
 import { IoImageOutline } from "react-icons/io5";
 import LoadImages from "@/components/partials/LoadImages";
+import { StoreContext } from "@/store/StoreContext";
 
 const Header = () => {
+  const { store } = React.useContext(StoreContext);
   const [itemEdit, setItemEdit] = React.useState("");
   const [isBanner, setIsBanner] = React.useState(false);
 
@@ -48,11 +49,18 @@ const Header = () => {
     headerData?.data?.[0]?.header_banner_img
   );
 
+  const isSectionHidden = (id) =>
+    Array.isArray(store.hiddenSections) && store.hiddenSections.includes(id);
+
+
+
   return (
     <>
       <section
         id="header"
-        className="banner relative flex items-center place-content-center min-h-screen lg:min-h-[800px]"
+        className={`${
+          isSectionHidden("header") ? "hidden" : "block"
+        }  banner relative flex items-center place-content-center min-h-screen lg:min-h-[800px]`}
       >
         <div className="">
           <a

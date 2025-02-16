@@ -16,6 +16,12 @@ export const setSuccess = (val) => {
     payload: val,
   };
 };
+export const setHiddenSections = (val) => {
+  return {
+    type: "SET_HIDDEN_SECTIONS",
+    payload: val,
+  };
+};
 export const setMessage = (val) => {
   return {
     type: "MESSAGE",

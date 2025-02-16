@@ -15,6 +15,11 @@ export const StoreReducer = (state, action) => {
         ...state,
         success: action.payload,
       };
+    case "SET_HIDDEN_SECTIONS":
+      return {
+        ...state,
+        hiddenSections: action.payload,
+      };
     case "MESSAGE":
       return {
         ...state,

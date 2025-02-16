@@ -1,18 +1,14 @@
+import useQueryData from "@/components/custom-hooks/useQueryData";
 import {
   devApiVersion,
   hexToRgb,
-} from "@/components/helpers/functions-general.jsx";
-import DashboardNavigation from "@/components/partials/dashboard/DashboardNavigation";
+} from "@/components/helpers/functions-general";
 import DashboardUpperNav from "@/components/partials/dashboard/DashboardUpperNav";
-import React from "react";
-
-import RoleTable from "./RoleTable";
 import { StoreContext } from "@/store/StoreContext";
-import ModalSuccess from "@/components/partials/modal/ModalSuccess";
-import ModalError from "@/components/partials/modal/ModalError";
-import useQueryData from "@/components/custom-hooks/useQueryData";
+import React from "react";
+import LogTable from "./LogTable";
 
-const Role = () => {
+const Log = () => {
   const { store, dispatch } = React.useContext(StoreContext);
 
   const {
@@ -55,9 +51,10 @@ const Role = () => {
       "--dark-color",
       hexToRgb(colorsData?.data[0]?.colors_dark || "#000000")
     );
+
   return (
     <>
-      <section id="role">
+      <section id="log">
         <div className=" bg-[#f5f5f3] ">
           <div className="main ml-[220px] w-[calc(100%_-_230px)] z-10">
             <DashboardUpperNav menu="dashboard" />
@@ -65,18 +62,15 @@ const Role = () => {
               <div className="headerCover fixed top-0 left-[200px] w-full h-[60px]  bg-dashPrimary z-[9]"></div>
               <div className="addShadowDash bg-[#f5f5f3] h-screen">
                 <div className="outer-wrapper">
-                  <RoleTable />
+                  <LogTable />
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-
-      {store.success && <ModalSuccess />}
-      {store.error && <ModalError />}
     </>
   );
 };
 
-export default Role;
+export default Log;

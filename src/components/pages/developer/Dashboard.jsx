@@ -11,8 +11,6 @@ import Header from "./header/Header";
 import ReachUs from "./reach-us/ReachUs";
 import Services from "./services/Services";
 import Testimonial from "./testimonial/Testimonial";
-import UserTable from "./user/UserTable";
-import RoleTable from "./role/RoleTable";
 
 const Dashboard = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -37,8 +35,6 @@ const Dashboard = () => {
                   <Footer />
                 </div>
               </div>
-              {/* <UserTable />
-              <RoleTable /> */}
             </div>
           </div>
         </div>

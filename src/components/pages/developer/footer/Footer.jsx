@@ -9,8 +9,11 @@ import { HiPencil } from "react-icons/hi";
 import { IoImageOutline } from "react-icons/io5";
 import ModalAddCopyRight from "./ModalAddCopyright";
 import LoadImages from "@/components/partials/LoadImages";
+import { StoreContext } from "@/store/StoreContext";
 
 const Footer = () => {
+  const { store, dispatch } = React.useContext(StoreContext);
+
   const [activeSection, setActiveSection] = React.useState("#header");
   const [itemEdit, setItemEdit] = React.useState("");
   const [isCopyright, setIsCopyright] = React.useState(false);
@@ -54,9 +57,15 @@ const Footer = () => {
     headerData?.data?.[0]?.header_logo_img
   );
 
+  const isSectionHidden = (id) =>
+    Array.isArray(store.hiddenSections) && store.hiddenSections.includes(id);
+
   return (
     <>
-      <section id="footer" className="mb-16">
+      <section
+        id="footer"
+        className={`${isSectionHidden("footer") ? "hidden" : "block"} mb-16 `}
+      >
         <div className="bg-secondary">
           <div className="container flex flex-col md:flex md:flex-row items-center justify-between py-[76px] gap-5">
             {headerData?.data?.length > 0 &&

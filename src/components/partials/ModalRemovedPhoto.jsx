@@ -33,7 +33,7 @@ const ModalRemovedPhoto = ({
   return (
     <>
       <div
-        className={`modal fixed top-0 right-0 bottom-0 left-0 flex items-center justify-center bg-dark/50 z-[60] animate-fadeIn ${show}`}
+        className={`modal fixed top-0 right-0 bottom-0 left-0 flex items-center justify-center bg-black/50 z-[999] animate-fadeIn ${show}`}
       >
         <div className="p-1 w-[350px] animate-slideUp">
           <div className="bg-white p-6 pt-10 text-center rounded-lg">

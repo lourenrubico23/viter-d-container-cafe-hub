@@ -106,25 +106,20 @@ const RoleTable = ({ setIsOpenRole }) => {
 
   return (
     <>
-      <ModalWrapperCenter
-        className={`relative transition-all ease-in-out transform duration-200 md:max-h-[700px] md:w-[1200px] h-[680px] w-[320px] bg-light ${animate} overflow-auto rounded-md`}
-        handleClose={handleClose}
-        opacity="opacity-50"
-      >
-        <section id="role" className="p-4 ">
-          <div className="flex items-center justify-between gap-2 w-full pb-4">
-            <div className="text-sm ">Role</div>
-            <div>
-              <button
-                type="button"
-                className="flex items-center gap-2 hover:text-primary underline"
-                onClick={() => handleAdd()}
-              >
-                <FaPlus /> Add
-              </button>
-            </div>
+      <section id="role" className="p-4 ">
+        <div className="flex items-center justify-between gap-2 w-full pb-4">
+          <div className="text-sm ">Role</div>
+          <div>
+            <button
+              type="button"
+              className="flex items-center gap-2 hover:text-primary underline"
+              onClick={() => handleAdd()}
+            >
+              <FaPlus /> Add
+            </button>
           </div>
-          {/* <div>
+        </div>
+        {/* <div>
           <div className="flex flex-col md:flex-row justify-between md:items-end gap-4 mb-6">
             <div className="relative flex flex-col gap-1 w-[8rem]">
               <label htmlFor="status" className="text-xs text-textNav">
@@ -145,107 +140,106 @@ const RoleTable = ({ setIsOpenRole }) => {
             <div className=""></div>
           </div>
         </div> */}
-          <div className="bg-white overflow-auto max-h-[calc(100dvh-350px)] md:max-h-[calc(100dvh-340px)] lg:max-h-[calc(100dvh-350px)]">
-            <div className="relative w-full rounded-md overflow-auto">
-              {isFetching && !isLoading && <FetchingSpinner />}
-              <table>
-                <thead className="sticky top-0 bg-white z-10">
+        <div className="shadow-md rounded-md overflow-y-auto min-h-full md:min-h-[calc(70dvh)] lg:max-h-[calc(90dvh)] mb-10 lg:mb-0 lg:min-h-0 relative">
+          <div className="relative w-full rounded-md overflow-auto">
+            {isFetching && !isLoading && <FetchingSpinner />}
+            <table>
+              <thead >
+                <tr>
+                  <th className="w-[3rem] text-left pl-3 px-6">#</th>
+                  <th className="w-[7rem] text-left px-2">Status</th>
+                  <th className="min-w-[10rem] text-left px-6">Role</th>
+                  <th className="w-full text-left px-6">Description</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody className="relative">
+                {(isLoading || roles?.count === 0) && (
                   <tr>
-                    <th className="w-[3rem] text-left pl-3 px-6">#</th>
-                    <th className="w-[7rem] text-left px-2">Status</th>
-                    <th className="min-w-[10rem] text-left px-6">Role</th>
-                    <th className="w-full text-left px-6">Description</th>
-                    <th></th>
+                    <td colSpan="100%" className="p-10">
+                      <div className="h-full w-full">
+                        {isLoading ? (
+                          <TableLoading cols={2} count={20} />
+                        ) : (
+                          <NoData />
+                        )}
+                      </div>
+                    </td>
                   </tr>
-                </thead>
-                <tbody className="relative">
-                  {(isLoading || roles?.count === 0) && (
-                    <tr>
-                      <td colSpan="100%" className="p-10">
-                        <div className="h-full w-full">
-                          {isLoading ? (
-                            <TableLoading cols={2} count={20} />
+                )}
+                {error && (
+                  <tr>
+                    <td colSpan="100%" className="p-10">
+                      <div className="h-full w-full">
+                        <ServerError />
+                      </div>
+                    </td>
+                  </tr>
+                )}
+                {roles?.data.map((item, key) => {
+                  return (
+                    <tr
+                      key={key}
+                      className="cursor-pointer group relative hover:bg-gray-100"
+                    >
+                      <td className="pl-3 px-6">{count++}.</td>
+                      <td className="px-2">
+                        <Status
+                          text={
+                            item.role_is_active == 1 ? "Active" : "Inactive"
+                          }
+                        />
+                      </td>
+                      <td className="px-6">{item.role_name}</td>
+                      <td className="px-6">{item.role_description}</td>
+                      <td className="flex items-center gap-3 justify-end mt-2 lg:mt-0 mr-2">
+                        <ul className="gap-4 justify-center pl-4 flex group-hover:bg-gray-100">
+                          {item.role_is_active == 0 ? (
+                            <>
+                              <li
+                                className="tooltip-action-table"
+                                data-tooltip="Restore"
+                                onClick={() => handleRestore(item)}
+                              >
+                                <MdRestore className="text-gray-600 text-[18px]" />
+                              </li>
+                              <li
+                                className="tooltip-action-table"
+                                data-tooltip="Delete"
+                                onClick={() => handleDelete(item)}
+                              >
+                                <MdDelete className="text-gray-600 text-[18px]" />
+                              </li>
+                            </>
                           ) : (
-                            <NoData />
+                            <>
+                              <li
+                                className="tooltip-action-table"
+                                data-tooltip="Edit"
+                                onClick={() => handleItemEdit(item)}
+                              >
+                                <FaEdit className="text-gray-600 text-[16px]" />
+                              </li>
+                              <li
+                                className="tooltip-action-table"
+                                data-tooltip="Archive"
+                                onClick={() => handleArchive(item)}
+                              >
+                                <FaArchive className=" text-gray-600 text-[14px]" />
+                              </li>
+                            </>
                           )}
-                        </div>
+                        </ul>
                       </td>
                     </tr>
-                  )}
-                  {error && (
-                    <tr>
-                      <td colSpan="100%" className="p-10">
-                        <div className="h-full w-full">
-                          <ServerError />
-                        </div>
-                      </td>
-                    </tr>
-                  )}
-                  {roles?.data.map((item, key) => {
-                    return (
-                      <tr
-                        key={key}
-                        className="cursor-pointer group relative hover:bg-gray-100"
-                      >
-                        <td className="pl-3 px-6">{count++}.</td>
-                        <td className="px-2">
-                          <Status
-                            text={
-                              item.role_is_active == 1 ? "Active" : "Inactive"
-                            }
-                          />
-                        </td>
-                        <td className="px-6">{item.role_name}</td>
-                        <td className="px-6">{item.role_description}</td>
-                        <td className="flex items-center gap-3 justify-end mt-2 lg:mt-0 mr-2">
-                          <ul className="gap-4 justify-center pl-4 flex group-hover:bg-gray-100">
-                            {item.role_is_active == 0 ? (
-                              <>
-                                <li
-                                  className="tooltip-action-table"
-                                  data-tooltip="Restore"
-                                  onClick={() => handleRestore(item)}
-                                >
-                                  <MdRestore className="text-gray-600 text-[18px]" />
-                                </li>
-                                <li
-                                  className="tooltip-action-table"
-                                  data-tooltip="Delete"
-                                  onClick={() => handleDelete(item)}
-                                >
-                                  <MdDelete className="text-gray-600 text-[18px]" />
-                                </li>
-                              </>
-                            ) : (
-                              <>
-                                <li
-                                  className="tooltip-action-table"
-                                  data-tooltip="Edit"
-                                  onClick={() => handleItemEdit(item)}
-                                >
-                                  <FaEdit className="text-gray-600 text-[16px]" />
-                                </li>
-                                <li
-                                  className="tooltip-action-table"
-                                  data-tooltip="Archive"
-                                  onClick={() => handleArchive(item)}
-                                >
-                                  <FaArchive className=" text-gray-600 text-[14px]" />
-                                </li>
-                              </>
-                            )}
-                          </ul>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-              <div className="loadmore flex justify-center flex-col items-center"></div>
-            </div>
+                  );
+                })}
+              </tbody>
+            </table>
+            <div className="loadmore flex justify-center flex-col items-center"></div>
           </div>
-        </section>
-      </ModalWrapperCenter>
+        </div>
+      </section>
 
       {store.isArchive && store.isArchive?.modalCode === "role" && (
         <ModalArchive

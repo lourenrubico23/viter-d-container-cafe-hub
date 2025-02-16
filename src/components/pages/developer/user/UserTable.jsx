@@ -32,7 +32,7 @@ import ModalSuccess from "@/components/partials/modal/ModalSuccess";
 import ModalSend from "./modal/ModalSend";
 
 const UserTable = ({
-  setIsOpenUserList,
+ 
   setItemEdit,
   itemEdit,
   setEmailCount,
@@ -93,8 +93,6 @@ const UserTable = ({
     refetchOnWindowFocus: false,
   });
 
-  
-
   const handleEdit = (item) => {
     setItemEdit(item);
     dispatch(setIsAdd({ modal: true, modalCode: "user" }));
@@ -145,23 +143,9 @@ const UserTable = ({
     }
   }, [inView]);
 
- 
-
   return (
     <>
-      <section id="user" className=" p-4">
-        {/* <div className="flex items-center justify-between gap-2 w-full">
-            <div className="text-sm ">User</div>
-            <div>
-              <button
-                type="button"
-                className="flex items-center gap-2 hover:text-primary underline"
-                onClick={() => handleAdd()}
-              >
-                <FaPlus /> Add
-              </button>
-            </div>
-          </div> */}
+      <section id="user" className="">
         <div className="">
           <div className="place-self-end">
             <SearchBar

@@ -13,8 +13,11 @@ import ModalAddTestimonialB from "./ModalAddTestimonialB";
 import ModalAddTestimonialC from "./ModalAddTestimonialC";
 import { IoImageOutline } from "react-icons/io5";
 import LoadImages from "@/components/partials/LoadImages";
+import { StoreContext } from "@/store/StoreContext";
 
 const Testimonial = () => {
+  const { store } = React.useContext(StoreContext);
+
   const [itemEdit, setItemEdit] = React.useState("");
   const [isTitle, setIsTitle] = React.useState(false);
   const [isTestimonialA, setIsTestimonialA] = React.useState(false);
@@ -63,9 +66,17 @@ const Testimonial = () => {
     testimonialData?.data?.[0]?.testimonial_client_img_c
   );
 
+  const isSectionHidden = (id) =>
+    Array.isArray(store.hiddenSections) && store.hiddenSections.includes(id);
+
   return (
     <>
-      <section id="testimonial" className="bg-white">
+      <section
+        id="testimonial"
+        className={`${
+          isSectionHidden("testimonial") ? "hidden" : "block"
+        } bg-white `}
+      >
         <div
           className="feedback_wrapper py-12 md:py-32 md:pb-28 "
           id="testimonials"

@@ -18,7 +18,7 @@ import ModalSentEmailSummary from "./modal/ModalSentEmailSummary";
 import { FaPlus } from "react-icons/fa";
 import ModalWrapperCenter from "@/components/partials/modal/ModalWrapperCenter";
 
-const User = ({ setIsOpenUserList }) => {
+const User = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [animate, setAnimate] = React.useState("opacity-0");
 
@@ -48,16 +48,6 @@ const User = ({ setIsOpenUserList }) => {
     setItemEdit(null);
     dispatch(setIsAdd({ modal: true, modalCode: "user" }));
     console.log("Open", setIsAdd({ modal: true, modalCode: "user" }));
-  };
-
-  const handleClose = () => {
-    // set animation
-    setAnimate("opacity-0");
-    // clear the modal
-    setTimeout(() => {
-      // dispatch(setIsSearch(false));
-      setIsOpenUserList(false);
-    }, 200);
   };
 
   document
@@ -96,36 +86,43 @@ const User = ({ setIsOpenUserList }) => {
   }, []);
   return (
     <>
-      <ModalWrapperCenter
-        className={`relative transition-all ease-in-out transform duration-200 md:max-h-[700px] md:w-[1200px] h-[680px] w-[320px] bg-light ${animate} overflow-auto rounded-md`}
-        handleClose={handleClose}
-        opacity="opacity-50"
-      >
-        <div className="mx-5 pt-4">
-          <div className="flex items-center justify-between gap-2 w-full">
-            <div className="text-sm ">User</div>
-            <div>
-              <button
-                type="button"
-                className="flex items-center gap-2 hover:text-primary underline"
-                onClick={handleAdd}
-              >
-                <FaPlus /> Add
-              </button>
+      <section id="userList">
+        <div className=" bg-[#f5f5f3] ">
+          <div className="main ml-[220px] w-[calc(100%_-_230px)] z-10">
+            <DashboardUpperNav menu="dashboard" />
+            <div className=" w-[calc(100%_-_10px)] relative">
+              <div className="headerCover fixed top-0 left-[200px] w-full h-[60px]  bg-dashPrimary z-[9]"></div>
+              <div className="addShadowDash bg-[#f5f5f3] ">
+                <div className="outer-wrapper">
+                  <div className="mx-5 pt-4 h-[100dvh]">
+                    <div className="flex items-center justify-between gap-2 w-full  pt-[65px]">
+                      <div className="text-sm ">User</div>
+                      <div>
+                        <button
+                          type="button"
+                          className="flex items-center gap-2 hover:text-primary underline"
+                          onClick={handleAdd}
+                        >
+                          <FaPlus /> Add
+                        </button>
+                      </div>
+                    </div>
+                    <div className="pb-4">
+                      <UserTable
+                        setItemEdit={setItemEdit}
+                        itemEdit={itemEdit}
+                        setEmailCount={setEmailCount}
+                        setRecipientList={setRecipientList}
+                        recipientList={recipientList}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="pb-4">
-            <UserTable
-              setIsOpenUserList={setIsOpenUserList}
-              setItemEdit={setItemEdit}
-              itemEdit={itemEdit}
-              setEmailCount={setEmailCount}
-              setRecipientList={setRecipientList}
-              recipientList={recipientList}
-            />
-          </div>
         </div>
-      </ModalWrapperCenter>
+      </section>
 
       {store.error && <ModalError />}
       {store.success && <ModalSuccess />}
@@ -148,24 +145,23 @@ const User = ({ setIsOpenUserList }) => {
           queryKey={`user`}
         />
       )}
-    
-        {confirmSend && (
-          <ModalSendingEmailStatus
-            recipientList={recipientList}
-            queryCount={queryCount}
-          />
-        )}
-        {isSuccessSendingEmail && (
-          <ModalSentEmailSummary
-            queryCount={queryCount}
-            recipientList={recipientList}
-            setIsSuccessSendingEmail={setIsSuccessSendingEmail}
-            setQueryCount={setQueryCount}
-            queryStatus={queryStatus}
-            message={"The email has been sent successfully!"}
-          />
-        )}
- 
+
+      {confirmSend && (
+        <ModalSendingEmailStatus
+          recipientList={recipientList}
+          queryCount={queryCount}
+        />
+      )}
+      {isSuccessSendingEmail && (
+        <ModalSentEmailSummary
+          queryCount={queryCount}
+          recipientList={recipientList}
+          setIsSuccessSendingEmail={setIsSuccessSendingEmail}
+          setQueryCount={setQueryCount}
+          queryStatus={queryStatus}
+          message={"The email has been sent successfully!"}
+        />
+      )}
 
       {store.isAdd?.modal && store.isAdd?.modalCode === "user" && (
         <ModalAddUser

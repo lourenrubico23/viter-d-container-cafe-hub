@@ -196,28 +196,69 @@ function checkToUploadGoogleDrive($files, $oldFiles)
     return $result;
 }
 
+// function checkDeleteGoogleDriveApiFiles($files, $pendingDeleteFile = [])
+// {
+//     $value = $files;
+//     if (count($pendingDeleteFile) > 0) {
+//         $jsonDecodeFiles = is_string($files) ? json_decode($files) : $files;  // DECODE ARRAY FILES
+//         $storeData = $jsonDecodeFiles; // STORE NEW DATA 
+//         $filterFileId = array_map(fn($value) => $value->id, $storeData); // FILTER ALL GOOGLE ID
+//         $resultIds = []; // STORE GOOGLE IDS
+//         // LOOP TO STORE TO DELETE ID
+//         for ($i = 0; $i < count($pendingDeleteFile); $i++) {
+//             $decodeItem = json_decode($pendingDeleteFile[$i]); // DECODE ID 
+//             $googleIds = is_object($decodeItem) ? $decodeItem->id : $decodeItem[0]->id; // GET ID
+//             array_push($resultIds, $googleIds); // PUSH TO ARRAY GOOGLE ALL ID
+//             deleteGoogleFileByFileId($googleIds); // DELETE FILE IN GOOGLE API
+//         }
+//         // LOOP REMAINING FILE TO REMOVED
+//         for ($i = 0; $i < count($resultIds); $i++) {
+//             $indexToDelete = array_search($resultIds[$i], $filterFileId); // SEARCH AND GET INDEX BY ID
+//             unset($storeData[$indexToDelete]);
+//         }
+//         $result = array_values($storeData); // RE INDEX ARRAY TO REMOVED ARRAY KEY
+//         $value = json_encode($result); // JSON ENCODE ARRAY
+//     }
+//     return $value;
+// }
+
 function checkDeleteGoogleDriveApiFiles($files, $pendingDeleteFile = [])
 {
     $value = $files;
-    if (count($pendingDeleteFile) > 0) {
-        $jsonDecodeFiles = is_string($files) ? json_decode($files) : $files;  // DECODE ARRAY FILES
-        $storeData = $jsonDecodeFiles; // STORE NEW DATA 
-        $filterFileId = array_map(fn($value) => $value->id, $storeData); // FILTER ALL GOOGLE ID
-        $resultIds = []; // STORE GOOGLE IDS
-        // LOOP TO STORE TO DELETE ID
-        for ($i = 0; $i < count($pendingDeleteFile); $i++) {
-            $decodeItem = json_decode($pendingDeleteFile[$i]); // DECODE ID 
-            $googleIds = is_object($decodeItem) ? $decodeItem->id : $decodeItem[0]->id; // GET ID
-            array_push($resultIds, $googleIds); // PUSH TO ARRAY GOOGLE ALL ID
-            deleteGoogleFileByFileId($googleIds); // DELETE FILE IN GOOGLE API
+
+    if (!empty($pendingDeleteFile)) {
+        $jsonDecodeFiles = is_string($files) ? json_decode($files) : $files; // Decode files if needed
+        $storeData = is_array($jsonDecodeFiles) ? $jsonDecodeFiles : []; // Ensure it's an array
+
+        if (!empty($storeData)) { // Ensure there are files to process
+            $filterFileId = array_map(fn($value) => $value->id, $storeData); // Extract Google IDs
+            $resultIds = []; // Store Google IDs to delete
+
+            // Loop through pending delete files
+            foreach ($pendingDeleteFile as $deleteItem) {
+                $decodeItem = json_decode($deleteItem); // Decode item
+                $googleIds = is_object($decodeItem) ? $decodeItem->id : $decodeItem[0]->id; // Get ID
+                array_push($resultIds, $googleIds); // Store the Google ID
+                deleteGoogleFileByFileId($googleIds); // Delete file from Google API
+            }
+
+            // Remove deleted files from the list
+            foreach ($resultIds as $id) {
+                $indexToDelete = array_search($id, $filterFileId); // Find index
+                if ($indexToDelete !== false) {
+                    unset($storeData[$indexToDelete]); // Remove file entry
+                }
+            }
         }
-        // LOOP REMAINING FILE TO REMOVED
-        for ($i = 0; $i < count($resultIds); $i++) {
-            $indexToDelete = array_search($resultIds[$i], $filterFileId); // SEARCH AND GET INDEX BY ID
-            unset($storeData[$indexToDelete]);
+
+        // Handle empty case properly
+        if (empty($storeData)) {
+            $value = null; // Store NULL instead of '[]'
+        } else {
+            $result = array_values($storeData); // Reindex the array
+            $value = json_encode($result); // Encode back to JSON
         }
-        $result = array_values($storeData); // RE INDEX ARRAY TO REMOVED ARRAY KEY
-        $value = json_encode($result); // JSON ENCODE ARRAY
     }
+
     return $value;
 }

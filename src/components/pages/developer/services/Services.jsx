@@ -20,8 +20,10 @@ import ModalAddSalonServices from "./ModalAddSalonServices";
 import ModalAddCoffeeButton from "./ModalAddCoffeeButton";
 import ModalAddSalonButton from "./ModalAddSalonButton";
 import LoadImages from "@/components/partials/LoadImages";
+import { StoreContext } from "@/store/StoreContext";
 
 const Services = () => {
+  const { store } = React.useContext(StoreContext);
   const [itemEdit, setItemEdit] = React.useState("");
   const [isCoffee, setIsCoffee] = React.useState(false);
   const [isSalon, setIsSalon] = React.useState(false);
@@ -143,11 +145,17 @@ const Services = () => {
       servicesData?.data?.[0]?.services_salon_gallery
     ) || [];
 
+  const isSectionHidden = (id) =>
+    Array.isArray(store.hiddenSections) && store.hiddenSections.includes(id);
+
   return (
     <>
       <div className="text-accent bg-white">
         <div className="discover_wrapper">
-          <section id="coffee">
+          <section
+            id="coffee"
+            className={`${isSectionHidden("coffee") ? "hidden" : "block"}  `}
+          >
             <div className=" lg:flex lg:flex-row-reverse lg:relative md:w-[100%] ">
               <div className="container">
                 <div className="lg:grid lg:grid-cols-2 ">
@@ -324,42 +332,49 @@ const Services = () => {
                 )}
               </div>
             </div>
-          </section>
-          <a
-            className="absolute cursor-pointer tooltip-header z-[1] left-0 m-2"
-            data-tooltip="Upload Images"
-            onClick={handleAddCoffeeGallery}
-          >
-            <FaRegImages className=" bg-[#C7AC27] text-black rounded-full w-[25px] h-[25px] p-1 border-[1px]" />
-          </a>
 
-          <div className=" lg:right-0 lg:top-0 h-full my-8 lg:my-8 lg:mb-8 lg:w-full block overflow-hidden">
-            <Slider {...settings}>
-              {coffeeGallery.length > 0
-                ? coffeeGallery.map((image, index) => (
-                    <div key={index} className="w-48 h-48 md:w-80 md:h-64 px-2">
-                      <LoadImages
-                        url={`${googleHDViewLink}${image?.id}`}
-                        alt={`Service ${index + 1}`}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  ))
-                : Array.from({ length: settings.slidesToShow || 1 }).map(
-                    (_, index) => (
+            <a
+              className="absolute cursor-pointer tooltip-header z-[1] left-0 m-2"
+              data-tooltip="Upload Images"
+              onClick={handleAddCoffeeGallery}
+            >
+              <FaRegImages className=" bg-[#C7AC27] text-black rounded-full w-[25px] h-[25px] p-1 border-[1px]" />
+            </a>
+
+            <div className=" lg:right-0 lg:top-0 h-full my-8 lg:my-8 lg:mb-8 lg:w-full block overflow-hidden">
+              <Slider {...settings}>
+                {coffeeGallery.length > 0
+                  ? coffeeGallery.map((image, index) => (
                       <div
                         key={index}
-                        className="w-48 h-48 md:w-80 md:h-64 px-2 flex items-center justify-center bg-gray-100"
+                        className="w-48 h-48 md:w-80 md:h-64 px-2"
                       >
-                        <IoImageOutline className="w-16 h-16 text-gray-500" />
+                        <LoadImages
+                          url={`${googleHDViewLink}${image?.id}`}
+                          alt={`Service ${index + 1}`}
+                          className="w-full h-full object-cover"
+                        />
                       </div>
-                    )
-                  )}
-            </Slider>
-          </div>
+                    ))
+                  : Array.from({ length: settings.slidesToShow || 1 }).map(
+                      (_, index) => (
+                        <div
+                          key={index}
+                          className="w-48 h-48 md:w-80 md:h-64 px-2 flex items-center justify-center bg-gray-100"
+                        >
+                          <IoImageOutline className="w-16 h-16 text-gray-500" />
+                        </div>
+                      )
+                    )}
+              </Slider>
+            </div>
+          </section>
         </div>
 
-        <section id="spaSalon">
+        <section
+          id="spaSalon"
+          className={`${isSectionHidden("spaSalon") ? "hidden" : "block"}  `}
+        >
           <div className="discover_wrapper lg:flex lg:flex-row-reverse lg:relative md:w-[100%]">
             <div className="lg:absolute lg:right-0 lg:top-0 h-full lg:w-[50%] block ">
               <a

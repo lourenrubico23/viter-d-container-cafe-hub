@@ -5,26 +5,29 @@ import {
   devNavUrl,
   hexToRgb,
 } from "@/components/helpers/functions-general";
-import { setIsAccountUpdated, setIsAdd } from "@/store/StoreAction";
+
+import ModalChangePassword from "@/components/pages/developer/account/modal/ModalChangePassword";
+import LogTable from "@/components/pages/developer/notification/log/LogTable";
+import ReceiverTable from "@/components/pages/developer/notification/receiver/ReceiverTable";
+import RoleTable from "@/components/pages/developer/role/RoleTable";
+import User from "@/components/pages/developer/user/User";
 import { StoreContext } from "@/store/StoreContext";
 import React from "react";
-import { Link } from "react-router-dom";
-import ScreenSpinner from "../spinners/ScreenSpinner";
-import ModalChangePassword from "@/components/pages/developer/account/modal/ModalChangePassword";
-import UserTable from "@/components/pages/developer/user/UserTable";
-import RoleTable from "@/components/pages/developer/role/RoleTable";
 import { IoChevronDownSharp } from "react-icons/io5";
-import ReceiverTable from "@/components/pages/developer/notification/receiver/ReceiverTable";
-import LogTable from "@/components/pages/developer/notification/log/LogTable";
-import User from "@/components/pages/developer/user/User";
+import ScreenSpinner from "../spinners/ScreenSpinner";
+import Header from "@/components/pages/developer/header/Header";
+import Role from "@/components/pages/developer/role/Role";
+import { setHiddenSections } from "@/store/StoreAction";
+import Log from "@/components/pages/developer/notification/log/Log";
+import Receiver from "@/components/pages/developer/notification/receiver/Receiver";
 
 const DashboardNavigation = ({ menu, submenu }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const ref = React.useRef();
   const [isOpen, setIsOpen] = React.useState(false);
   const [isLoading, setLoading] = React.useState(false);
-  const [activeSection, setActiveSection] = React.useState("#header");
   const [isChangePassword, setIsChangePassword] = React.useState(false);
+  const [activeSection, setActiveSection] = React.useState("#header");
 
   const [isOpenUser, setIsOpenUser] = React.useState(false);
   const [isOpenUserList, setIsOpenUserList] = React.useState(false);
@@ -32,6 +35,7 @@ const DashboardNavigation = ({ menu, submenu }) => {
   const [isNotifOpen, setIsNotifOpen] = React.useState(false);
   const [isReceiver, setIsReceiver] = React.useState(false);
   const [isLog, setIsLog] = React.useState(false);
+  // const [hiddenSections, setHiddenSections] = React.useState([]);
 
   const isRoleDeveloper = store.credentials.data.role_is_developer == 1;
   const userId = isRoleDeveloper
@@ -99,9 +103,6 @@ const DashboardNavigation = ({ menu, submenu }) => {
       hexToRgb(colorsData?.data[0]?.colors_dark || "#000000")
     );
 
-  console.log(activeSection);
-  // const sections = useRef([]);
-
   React.useEffect(() => {
     // section IDs to track
     const sectionIds = [
@@ -113,7 +114,7 @@ const DashboardNavigation = ({ menu, submenu }) => {
       "testimonial",
       "reachUs",
       "footer",
-      "user",
+      "userList",
       "role",
     ];
 
@@ -149,33 +150,112 @@ const DashboardNavigation = ({ menu, submenu }) => {
   }, []);
 
   const scrollToSection = (id) => {
-    const section = document.getElementById(id);
-    if (section) {
-      section.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-      });
-    }
-  };
+    dispatch(
+      setHiddenSections((prevHiddenSections) => {
+        const updatedSections = prevHiddenSections.filter(
+          (section) => section !== id
+        );
+        console.log("Updated Hidden Sections:", updatedSections); // Debugging
+        return updatedSections;
+      })
+    );
 
+    // Close User List when navigating to another section
+    if (id !== "userList") {
+      setIsOpenUserList(false);
+      setIsOpenRole(false);
+      setIsReceiver(false);
+      setIsLog(false);
+    }
+
+    setTimeout(() => {
+      const section = document.getElementById(id);
+      if (section) {
+        section.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+        });
+      }
+    }, 50);
+  };
   const handleOpen = () => {
     setIsOpen(!isOpen);
   };
 
   const handleUserList = () => {
+    setActiveSection("userList");
     setIsOpenUserList(true);
+
+    // Hide the specified sections
+    dispatch(
+      setHiddenSections([
+        "header",
+        "about",
+        "coffee",
+        "spaSalon",
+        "contactUs",
+        "testimonial",
+        "reachUs",
+        "footer",
+      ])
+    );
   };
 
   const handleRole = () => {
+    setActiveSection("role");
     setIsOpenRole(true);
+
+    // Hide the specified sections
+    dispatch(
+      setHiddenSections([
+        "header",
+        "about",
+        "coffee",
+        "spaSalon",
+        "contactUs",
+        "testimonial",
+        "reachUs",
+        "footer",
+      ])
+    );
   };
 
   const handleReceiver = () => {
+    setActiveSection("receiver");
     setIsReceiver(true);
+
+    // Hide the specified sections
+    dispatch(
+      setHiddenSections([
+        "header",
+        "about",
+        "coffee",
+        "spaSalon",
+        "contactUs",
+        "testimonial",
+        "reachUs",
+        "footer",
+      ])
+    );
   };
 
   const handleLog = () => {
+    setActiveSection("log");
     setIsLog(true);
+
+    // Hide the specified sections
+    dispatch(
+      setHiddenSections([
+        "header",
+        "about",
+        "coffee",
+        "spaSalon",
+        "contactUs",
+        "testimonial",
+        "reachUs",
+        "footer",
+      ])
+    );
   };
 
   const handleNotifOpen = () => {
@@ -314,13 +394,11 @@ const DashboardNavigation = ({ menu, submenu }) => {
                 } submenu ml-5`}
               >
                 <li
-                  className={` flex justify-between items-center p-1 !mb-0.5
-                ${
-                  activeSection === "user"
-                    ? "text-black underline underline-offset-4"
-                    : "text-black/60 hover:text-secondary"
-                }
-              `}
+                  className={`flex justify-between items-center p-1 !mb-0.5 ${
+                    activeSection === "userList"
+                      ? "text-black underline underline-offset-4"
+                      : "text-black/60 hover:text-secondary"
+                  }`}
                   onClick={handleUserList}
                 >
                   <a className="cursor-pointer">User List</a>
@@ -447,13 +525,13 @@ const DashboardNavigation = ({ menu, submenu }) => {
       )}
       {(isLoading || store.isAccountUpdated) && <ScreenSpinner />}
 
-      {isOpenUserList && <User setIsOpenUserList={setIsOpenUserList} />}
+      {isOpenUserList && activeSection === "userList" && <User />}
 
-      {isOpenRole && <RoleTable setIsOpenRole={setIsOpenRole} />}
+      {isOpenRole && activeSection === "role" && <Role />}
 
-      {isReceiver && <ReceiverTable setIsReceiver={setIsReceiver} />}
+      {isReceiver && activeSection === "receiver" && <Receiver />}
 
-      {isLog && <LogTable setIsLog={setIsLog} />}
+      {isLog && activeSection === "log" && <Log />}
     </>
   );
 };

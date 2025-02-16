@@ -9,8 +9,10 @@ import { FaRegImages } from "react-icons/fa";
 import ModalAddAbout from "./ModalAddAbout";
 import { IoImageOutline } from "react-icons/io5";
 import LoadImages from "@/components/partials/LoadImages";
+import { StoreContext } from "@/store/StoreContext";
 
 const About = () => {
+  const { store } = React.useContext(StoreContext);
   const [itemEdit, setItemEdit] = React.useState("");
   const [isAbout, setIsAbout] = React.useState(false);
 
@@ -31,9 +33,15 @@ const About = () => {
 
   const logo = getConvertStringToJSONparseData(aboutData?.data?.[0]?.about_img);
 
+  const isSectionHidden = (id) =>
+    Array.isArray(store.hiddenSections) && store.hiddenSections.includes(id);
+
   return (
     <>
-      <section id="about">
+      <section
+        id="about"
+        className={`${isSectionHidden("about") ? "hidden" : "block"}  `}
+      >
         <div className="h-[498px] bg-light  ">
           <div className="flex flex-col gap-16 items-center py-[75px]">
             <a

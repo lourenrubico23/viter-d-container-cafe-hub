@@ -19,7 +19,7 @@ import { MdDelete } from "react-icons/md";
 import { useInView } from "react-intersection-observer";
 import ModalAddReceiver from "./ModalAddReceiver";
 
-const ReceiverTable = ({ setIsReceiver }) => {
+const ReceiverTable = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [animate, setAnimate] = React.useState("opacity-0");
   const [itemEdit, setItemEdit] = React.useState(null);
@@ -60,15 +60,7 @@ const ReceiverTable = ({ setIsReceiver }) => {
 
   let counter = 1;
 
-  const handleClose = () => {
-    // set animation
-    setAnimate("opacity-0");
-    // clear the modal
-    setTimeout(() => {
-      // dispatch(setIsSearch(false));
-      setIsReceiver(false);
-    }, 200);
-  };
+
 
   const handleAdd = () => {
     setItemEdit(null);
@@ -100,11 +92,7 @@ const ReceiverTable = ({ setIsReceiver }) => {
 
   return (
     <>
-      <ModalWrapperCenter
-        className={`relative transition-all ease-in-out transform duration-200 md:max-h-[700px] md:w-[1200px] h-[680px] w-[320px] bg-light ${animate} overflow-auto rounded-md`}
-        handleClose={handleClose}
-        opacity="opacity-50"
-      >
+    
         <section className=" p-4">
           <div className="flex items-center justify-between gap-2 w-full">
             <div className="text-sm ">Receiver</div>
@@ -211,7 +199,7 @@ const ReceiverTable = ({ setIsReceiver }) => {
             </div>
           </div>
         </section>
-      </ModalWrapperCenter>
+  
 
       {store.isDelete.modal && store.isDelete.modalCode === "receiver" && (
         <ModalDelete
