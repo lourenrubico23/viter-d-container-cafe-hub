@@ -1,4 +1,3 @@
-import ContactUsForm from "@/components/partials/form/ContactUsForm";
 import { setIsAdd } from "@/store/StoreAction";
 import { StoreContext } from "@/store/StoreContext";
 import React from "react";
@@ -12,16 +11,17 @@ import useQueryData from "@/components/custom-hooks/useQueryData";
 import { IoImageOutline } from "react-icons/io5";
 import { CiMap } from "react-icons/ci";
 import { getGoogleMapEmbededUrl } from "@/components/helpers/functions-general";
+import ContactUsForm from "../contact-us/ContactUsForm";
 
 const ReachUs = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [itemEdit, setItemEdit] = React.useState("");
   const [isReachUs, setIsReachUs] = React.useState(false);
-  const [itemData, setItemData] = React.useState(null);
+  const [isform, setIsForm] = React.useState(false);
 
-  // const handleClick = () => {
-  //   dispatch(setIsAdd(true));
-  // };
+  const handleClick = () => {
+    setIsForm(true);
+  };
 
   const {
     isFetchingReachUs,
@@ -43,10 +43,19 @@ const ReachUs = () => {
     "services" // key
   );
 
+  const {
+    isFetchingContact,
+    errorContact,
+    data: contactUsData,
+  } = useQueryData(
+    "/v1/contactUs", // endpoint
+    "get", // method
+    "contactUs" // key
+  );
+
   const handleAddReachUs = () => {
     setIsReachUs(true);
     setItemEdit("reachUsUpdate");
-    setItemData({ modalCode: "reach-us" });
   };
 
   const isSectionHidden = (id) =>
@@ -114,7 +123,7 @@ const ReachUs = () => {
               </ul>
               <button
                 className="btn text-light text-[16px] font-rubikRegular flex items-center gap-2 max-w-[155px] h-[54px] "
-                // onClick={handleClick}
+                onClick={handleClick}
               >
                 {reachUsData?.data?.length > 0 &&
                 reachUsData.data[0]?.reach_us_button
@@ -170,7 +179,15 @@ const ReachUs = () => {
         </div>
       </section>
 
-      {store.isAdd && itemData?.modalCode === "reach-us" && <ContactUsForm />}
+      {isform && (
+        <ContactUsForm
+          setIsForm={setIsForm}
+          setItemEdit={setItemEdit}
+          itemEdit={itemEdit}
+          contactUsData={contactUsData}
+        />
+      )}
+
       {isReachUs && (
         <ModalAddReachUs
           itemEdit={itemEdit}

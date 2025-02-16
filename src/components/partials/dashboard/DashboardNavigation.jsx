@@ -373,7 +373,7 @@ const DashboardNavigation = ({ menu, submenu }) => {
 
               <li
                 className={`flex justify-between items-center ${
-                  isOpenUser
+                  activeSection === "userList" || activeSection === "role"
                     ? "text-black underline underline-offset-4"
                     : "text-black/60 hover:text-secondary"
                 }`}
@@ -396,7 +396,7 @@ const DashboardNavigation = ({ menu, submenu }) => {
                 <li
                   className={`flex justify-between items-center p-1 !mb-0.5 ${
                     activeSection === "userList"
-                      ? "text-black underline underline-offset-4"
+                      ? "text-black "
                       : "text-black/60 hover:text-secondary"
                   }`}
                   onClick={handleUserList}
@@ -404,13 +404,11 @@ const DashboardNavigation = ({ menu, submenu }) => {
                   <a className="cursor-pointer">User List</a>
                 </li>
                 <li
-                  className={` flex justify-between items-center p-1 !mb-0.5
-                ${
-                  activeSection === "role"
-                    ? "text-black underline underline-offset-4"
-                    : "text-black/60 hover:text-secondary"
-                }
-              `}
+                  className={`flex justify-between items-center p-1 !mb-0.5 ${
+                    activeSection === "role"
+                      ? "text-black"
+                      : "text-black/60 hover:text-secondary"
+                  }`}
                   onClick={handleRole}
                 >
                   <a className="cursor-pointer">Role</a>
@@ -419,7 +417,7 @@ const DashboardNavigation = ({ menu, submenu }) => {
 
               <li
                 className={`flex justify-between items-center  ${
-                  isNotifOpen
+                  activeSection === "receiver" || activeSection === "log"
                     ? "text-black underline underline-offset-4"
                     : "text-black/60 hover:text-secondary"
                 }`}
@@ -446,7 +444,7 @@ const DashboardNavigation = ({ menu, submenu }) => {
                   className={` flex justify-between items-center p-1 !mb-0.5
                 ${
                   activeSection === "receiver"
-                    ? "text-black underline underline-offset-4"
+                    ? "text-black"
                     : "text-black/60 hover:text-secondary"
                 }
               `}
@@ -458,7 +456,7 @@ const DashboardNavigation = ({ menu, submenu }) => {
                   className={` flex justify-between items-center p-1 !mb-0.5
                 ${
                   activeSection === "log"
-                    ? "text-black underline underline-offset-4"
+                    ? "text-black "
                     : "text-black/60 hover:text-secondary"
                 }
               `}

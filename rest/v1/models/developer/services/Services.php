@@ -225,12 +225,12 @@ class Services
     {
         try {
             $sql = "insert into {$this->tblServices}";
-            $sql .= "(services_coffee_title, ";
+            $sql .= "(services_salon_title, ";
             $sql .= "services_salon_description_a, ";
             $sql .= "services_salon_description_b, ";
             $sql .= "services_contact, ";
             $sql .= "services_datetime ) values ( ";
-            $sql .= ":services_coffee_title, ";
+            $sql .= ":services_salon_title, ";
             $sql .= ":services_salon_description_a, ";
             $sql .= ":services_salon_description_b, ";
             $sql .= ":services_contact, ";
@@ -238,7 +238,7 @@ class Services
             $sql .= ":services_datetime )";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "services_coffee_title" => $this->services_coffee_title,
+                "services_salon_title" => $this->services_salon_title,
                 "services_salon_description_a" => $this->services_salon_description_a,
                 "services_salon_description_b" => $this->services_salon_description_b,
                 "services_contact" => $this->services_contact,
@@ -339,7 +339,7 @@ class Services
     {
         try {
             $sql = "update {$this->tblServices} set ";
-            $sql .= "services_salon_title = :services_salon_title, ";
+            $sql .= "services_coffee_title = :services_coffee_title, ";
             $sql .= "services_coffee_description = :services_coffee_description, ";
             $sql .= "services_product_a = :services_product_a, ";
             $sql .= "services_product_b = :services_product_b, ";
@@ -351,7 +351,7 @@ class Services
             $sql .= "where services_aid = :services_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "services_salon_title" => $this->services_salon_title,
+                "services_coffee_title" => $this->services_coffee_title,
                 "services_coffee_description" => $this->services_coffee_description,
                 "services_product_a" => $this->services_product_a,
                 "services_product_b" => $this->services_product_b,

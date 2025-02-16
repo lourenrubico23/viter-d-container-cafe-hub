@@ -35,9 +35,9 @@ const ModalSentEmailSummary = ({
 
           <h3 className="text-[12px] text-center">{message}</h3>
 
-          <span className="text-sm">
+          {/* <span className="text-sm">
             {sucessCount} of {totalCount}
-          </span>
+          </span> */}
           <button
             className="inline-block rounded-md w-full px-5 py-2 bg-primary text-white"
             onClick={() => handleClose()}

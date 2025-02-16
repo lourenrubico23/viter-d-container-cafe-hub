@@ -103,7 +103,7 @@ const ModalAddReachUs = ({ itemEdit, setIsReachUs, reachUsData }) => {
                     />
                   </div>
                   <div className="input-wrapper">
-                    <InputText
+                    <InputTextArea
                       label="Address"
                       type="text"
                       name="reach_us_address"
