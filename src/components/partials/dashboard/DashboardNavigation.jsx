@@ -263,18 +263,18 @@ const DashboardNavigation = ({ menu, submenu }) => {
               <li
                 className={
                   activeSection === "header"
-                    ? "text-black underline underline-offset-4"
-                    : "text-black/60 hover:text-secondary"
+                    ? "text-black underline underline-offset-4 cursor-pointer"
+                    : "text-black/60 hover:text-secondary cursor-pointer"
                 }
                 onClick={() => scrollToSection("header")}
               >
-                <a className="cursor-pointer">Header</a>
+                <a className="">Header</a>
               </li>
               <li
                 className={
                   activeSection === "about"
-                    ? "text-black underline underline-offset-4"
-                    : "text-black/60 hover:text-secondary"
+                    ? "text-black underline underline-offset-4 cursor-pointer"
+                    : "text-black/60 hover:text-secondary cursor-pointer"
                 }
                 onClick={() => scrollToSection("about")}
               >
@@ -283,8 +283,8 @@ const DashboardNavigation = ({ menu, submenu }) => {
               <li
                 className={
                   activeSection === "coffee"
-                    ? "text-black underline underline-offset-4"
-                    : "text-black/60 hover:text-secondary"
+                    ? "text-black underline underline-offset-4 cursor-pointer"
+                    : "text-black/60 hover:text-secondary cursor-pointer"
                 }
                 onClick={() => scrollToSection("coffee")}
               >
@@ -293,8 +293,8 @@ const DashboardNavigation = ({ menu, submenu }) => {
               <li
                 className={
                   activeSection === "spaSalon"
-                    ? "text-black underline underline-offset-4"
-                    : "text-black/60 hover:text-secondary"
+                    ? "text-black underline underline-offset-4 cursor-pointer"
+                    : "text-black/60 hover:text-secondary cursor-pointer"
                 }
                 onClick={() => scrollToSection("spaSalon")}
               >
@@ -303,8 +303,8 @@ const DashboardNavigation = ({ menu, submenu }) => {
               <li
                 className={
                   activeSection === "contactUs"
-                    ? "text-black underline underline-offset-4"
-                    : "text-black/60 hover:text-secondary"
+                    ? "text-black underline underline-offset-4 cursor-pointer"
+                    : "text-black/60 hover:text-secondary cursor-pointer"
                 }
                 onClick={() => scrollToSection("contactUs")}
               >
@@ -313,8 +313,8 @@ const DashboardNavigation = ({ menu, submenu }) => {
               <li
                 className={
                   activeSection === "testimonial"
-                    ? "text-black underline underline-offset-4"
-                    : "text-black/60 hover:text-secondary"
+                    ? "text-black underline underline-offset-4 cursor-pointer"
+                    : "text-black/60 hover:text-secondary cursor-pointer"
                 }
                 onClick={() => scrollToSection("testimonial")}
               >
@@ -323,8 +323,8 @@ const DashboardNavigation = ({ menu, submenu }) => {
               <li
                 className={
                   activeSection === "reachUs"
-                    ? "text-black underline underline-offset-4"
-                    : "text-black/60 hover:text-secondary"
+                    ? "text-black underline underline-offset-4 cursor-pointer"
+                    : "text-black/60 hover:text-secondary cursor-pointer"
                 }
                 onClick={() => scrollToSection("reachUs")}
               >
@@ -333,8 +333,8 @@ const DashboardNavigation = ({ menu, submenu }) => {
               <li
                 className={
                   activeSection === "footer"
-                    ? "text-black underline underline-offset-4"
-                    : "text-black/60 hover:text-secondary"
+                    ? "text-black underline underline-offset-4 cursor-pointer"
+                    : "text-black/60 hover:text-secondary cursor-pointer"
                 }
                 onClick={() => scrollToSection("footer")}
               >
@@ -344,8 +344,8 @@ const DashboardNavigation = ({ menu, submenu }) => {
               <li
                 className={
                   activeSection === "receiver"
-                    ? "text-black underline underline-offset-4"
-                    : "text-black/60 hover:text-secondary"
+                    ? "text-black underline underline-offset-4 cursor-pointer"
+                    : "text-black/60 hover:text-secondary cursor-pointer"
                 }
                 onClick={handleReceiver}
               >
@@ -375,24 +375,24 @@ const DashboardNavigation = ({ menu, submenu }) => {
                 } submenu ml-5`}
               >
                 <li
-                  className={`flex justify-between items-center p-1 !mb-0.5 ${
+                  className={`flex justify-between items-center p-1 !mb-0.5 cursor-pointer ${
                     activeSection === "userList"
                       ? "text-black "
                       : "text-black/60 hover:text-secondary"
                   }`}
                   onClick={handleUserList}
                 >
-                  <a className="cursor-pointer">User List</a>
+                  <a className="">User List</a>
                 </li>
                 <li
-                  className={`flex justify-between items-center p-1 !mb-0.5 ${
+                  className={`flex justify-between items-center p-1 !mb-0.5 cursor-pointer ${
                     activeSection === "role"
                       ? "text-black"
                       : "text-black/60 hover:text-secondary"
                   }`}
                   onClick={handleRole}
                 >
-                  <a className="cursor-pointer">Role</a>
+                  <a className="">Role</a>
                 </li>
               </ul>
             </ul>
@@ -407,7 +407,7 @@ const DashboardNavigation = ({ menu, submenu }) => {
             {/* <span className="w-[40px] h-[40px]">
               <img src={`${devBaseImgUrl}/user.webp`} alt="" />
             </span> */}
-            <div className="bg-accent rounded-full w-10 h-10 flex items-center justify-center text-white text-sm font-semibold">
+            <div className="bg-accent rounded-full w-10 h-10 flex items-center justify-center text-white text-sm font-semibold cursor-pointer">
               {initials}
             </div>
             {isOpen && (
