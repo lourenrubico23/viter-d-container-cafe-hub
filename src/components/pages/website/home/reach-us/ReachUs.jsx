@@ -118,7 +118,7 @@ const ReachUs = () => {
               </div>
             </div>
             <div>
-              <div className="bg-accent py-4 block lg:hidden ">
+              <div className=" block lg:hidden ">
                 <div className="mapouter">
                   <div className="gmap_canvas place-items-center">
                     <iframe
