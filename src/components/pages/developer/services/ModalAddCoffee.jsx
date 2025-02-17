@@ -118,6 +118,7 @@ const ModalAddCoffee = ({ itemEdit, setIsCoffee, servicesData }) => {
                       label="Description"
                       type="text"
                       name="services_coffee_description"
+                      className="h-[180px]"
                       disabled={mutation.isPending}
                     />
                   </div>

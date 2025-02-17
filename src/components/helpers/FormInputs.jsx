@@ -147,7 +147,7 @@ export const InputFileUpload = ({ label, ...props }) => {
     <>
       {label !== "" && typeof label !== "undefined" && (
         <label
-          className="text-xs text-textNav -top-5 absolute"
+          className="text-xs text-textNav -top-4 absolute"
           htmlFor={props.id || props.name}
         >
           {/* {required && <span className='text-alert'>*</span>} */}

@@ -52,8 +52,6 @@ const Header = () => {
   const isSectionHidden = (id) =>
     Array.isArray(store.hiddenSections) && store.hiddenSections.includes(id);
 
-
-
   return (
     <>
       <section
@@ -63,13 +61,6 @@ const Header = () => {
         }  banner relative flex items-center place-content-center min-h-screen lg:min-h-[800px]`}
       >
         <div className="">
-          <a
-            className="absolute cursor-pointer tooltip-header z-[1]"
-            data-tooltip="Upload Contents"
-            onClick={handleAddBannerContents}
-          >
-            <FaRegImages className=" bg-[#C7AC27] rounded-full w-[25px] h-[25px] p-1 border-[1px]" />
-          </a>
           {headerData?.data?.length > 0 &&
           headerData.data[0]?.header_banner_img ? (
             <div className="logo-img w-[55px] lg:w-[98px] lg:h-[90px]">
@@ -83,7 +74,13 @@ const Header = () => {
               <IoImageOutline className="text-[400px] mx-auto text-gray-500" />
             </div>
           )}
-
+          <a
+            className="absolute cursor-pointer tooltip-header z-[1]"
+            data-tooltip="Upload Contents"
+            onClick={handleAddBannerContents}
+          >
+            <FaRegImages className=" bg-[#C7AC27] rounded-full w-[25px] h-[25px] p-1 border-[1px]" />
+          </a>
           <div className="container wrapper justify-center place-items-center py-10 ">
             <div className="text-center flex flex-col gap-14 justify-center items-center py-10 ">
               <h2 className="text-[clamp(25px,3vw,52px)] leading-[1.1]  text-light font-rubikBold text-center lg:max-w-[1064px]">

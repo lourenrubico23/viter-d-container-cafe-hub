@@ -33,8 +33,8 @@ const Services = () => {
   const [isSalonGallery, setIsSalonGallery] = React.useState(false);
   const [isCoffeeButton, setIsCoffeeButton] = React.useState(false);
   const [isSalonButton, setIsSalonButton] = React.useState(false);
-  const [isCoffeeMenu, setIsCoffeeMenu] = React.useState(false);
-  const [isSalonServices, setIsSalonServices] = React.useState(false);
+  // const [isCoffeeMenu, setIsCoffeeMenu] = React.useState(false);
+  // const [isSalonServices, setIsSalonServices] = React.useState(false);
 
   const settings = {
     dots: false,
@@ -109,11 +109,11 @@ const Services = () => {
     document.body.classList.toggle("overflow-hidden");
   };
 
-  const handleAddCoffeeMenu = () => {
-    setIsCoffeeMenu(true);
-    setItemEdit("coffeeMenuUpdate");
-    document.body.classList.toggle("overflow-hidden");
-  };
+  // const handleAddCoffeeMenu = () => {
+  //   setIsCoffeeMenu(true);
+  //   setItemEdit("coffeeMenuUpdate");
+  //   document.body.classList.toggle("overflow-hidden");
+  // };
 
   const handleAddSalonButton = () => {
     setIsSalonButton(true);
@@ -121,11 +121,11 @@ const Services = () => {
     document.body.classList.toggle("overflow-hidden");
   };
 
-  const handleAddSalonServices = () => {
-    setIsSalonServices(true);
-    setItemEdit("salonServicesUpdate");
-    document.body.classList.toggle("overflow-hidden");
-  };
+  // const handleAddSalonServices = () => {
+  //   setIsSalonServices(true);
+  //   setItemEdit("salonServicesUpdate");
+  //   document.body.classList.toggle("overflow-hidden");
+  // };
 
   const coffeeImage = getConvertStringToJSONparseData(
     servicesData?.data?.[0]?.services_coffee_img
@@ -173,14 +173,15 @@ const Services = () => {
                       servicesData.data[0]?.services_coffee_title
                         ? servicesData?.data[0].services_coffee_title
                         : "Lorem ipsum dolor sit"}
+                      <a
+                        className="absolute cursor-pointer tooltip-header z-[1] font-rubikRegular font-light ml-2"
+                        data-tooltip="Upload Contents"
+                        onClick={handleAddCoffee}
+                      >
+                        <HiPencil className=" bg-[#C7AC27] text-black rounded-full  w-[25px] h-[25px] p-[5px] border-[1px]" />
+                      </a>
                     </h2>
-                    <a
-                      className="absolute cursor-pointer tooltip-header z-[1] right-20"
-                      data-tooltip="Upload Contents"
-                      onClick={handleAddCoffee}
-                    >
-                      <HiPencil className=" bg-[#C7AC27] text-black rounded-full  w-[25px] h-[25px] p-[5px] border-[1px]" />
-                    </a>
+
                     <p className=" py-2 md:py-10 font-rubikRegular md:leading-6 text-[clamp(12px,4vw,16px)] text-black ">
                       {servicesData?.data?.length > 0 &&
                       servicesData.data[0]?.services_coffee_description
@@ -270,7 +271,7 @@ const Services = () => {
                         </p>
                         <a
                           className="absolute cursor-pointer tooltip-header z-[1] "
-                          data-tooltip="Upload Text"
+                          data-tooltip="Upload Contents"
                           onClick={handleAddCoffeeButton}
                         >
                           <HiPencil className=" bg-[#C7AC27] text-black rounded-full  w-[25px] h-[25px] p-[5px] border-[1px]" />
@@ -302,13 +303,13 @@ const Services = () => {
                               ? servicesData?.data[0].services_coffee_button_b
                               : "Text Here"}
                           </button>
-                          <a
+                          {/* <a
                             className="absolute cursor-pointer tooltip-header z-[1] ml-[470px]"
                             data-tooltip="Upload Menu"
                             onClick={handleAddCoffeeMenu}
                           >
                             <FaRegImages className=" bg-[#C7AC27] text-black rounded-full w-[25px] h-[25px] p-1 border-[1px]" />
-                          </a>
+                          </a> */}
                         </div>
                       </div>
                     </div>
@@ -334,14 +335,14 @@ const Services = () => {
             </div>
 
             <a
-              className="absolute cursor-pointer tooltip-header z-[1] left-0 m-2"
+              className="absolute cursor-pointer tooltip-header z-[1] left-0 m-3"
               data-tooltip="Upload Images"
               onClick={handleAddCoffeeGallery}
             >
               <FaRegImages className=" bg-[#C7AC27] text-black rounded-full w-[25px] h-[25px] p-1 border-[1px]" />
             </a>
 
-            <div className=" lg:right-0 lg:top-0 h-full my-8 lg:my-8 lg:mb-8 lg:w-full block overflow-hidden">
+            <div className=" lg:right-0 lg:top-0 h-full my-8 lg:my-14 lg:mb-8 lg:w-full block overflow-hidden">
               <Slider {...settings}>
                 {coffeeGallery.length > 0
                   ? coffeeGallery.map((image, index) => (
@@ -360,7 +361,7 @@ const Services = () => {
                       (_, index) => (
                         <div
                           key={index}
-                          className="w-48 h-48 md:w-80 md:h-64 px-2 flex items-center justify-center bg-gray-100"
+                          className="w-48 h-48 md:w-80 md:h-64 px-2 flex items-center justify-center bg-gray-100 place-content-center"
                         >
                           <IoImageOutline className="w-16 h-16 text-gray-500" />
                         </div>
@@ -407,14 +408,15 @@ const Services = () => {
                     servicesData.data[0]?.services_salon_title
                       ? servicesData?.data[0].services_salon_title
                       : "Lorem ipsum dolor sit"}
+                    <a
+                      className="absolute cursor-pointer tooltip-header z-[1] font-rubikRegular font-light ml-48 "
+                      data-tooltip="Upload Contents"
+                      onClick={handleAddSalon}
+                    >
+                      <HiPencil className=" bg-[#C7AC27] text-black rounded-full  w-[25px] h-[25px] p-[5px] border-[1px]" />
+                    </a>
                   </h2>
-                  <a
-                    className="absolute cursor-pointer tooltip-header z-[1] right-[60%] top-[120px] "
-                    data-tooltip="Upload Contents"
-                    onClick={handleAddSalon}
-                  >
-                    <HiPencil className=" bg-[#C7AC27] text-black rounded-full  w-[25px] h-[25px] p-[5px] border-[1px]" />
-                  </a>
+
                   <div className="flex flex-col gap-7">
                     <p className=" text-[16px] font-rubikRegular text-black">
                       {servicesData?.data?.length > 0 &&
@@ -435,7 +437,7 @@ const Services = () => {
                   <h3 className="text-[clamp(.5rem,4vw,18px)] py-1 lg:mt-10 lg:py-3 font-montserrat font-bold text-black">
                     Our Direct Line:
                   </h3>
-                  <h2 className="text-accent text-[clamp(1.2rem,4vw,48px)]">
+                  <h2 className="text-accent text-[clamp(1.2rem,4vw,48px)] mb-4">
                     {servicesData?.data?.length > 0 &&
                     servicesData.data[0]?.services_contact
                       ? servicesData?.data[0].services_contact
@@ -443,12 +445,12 @@ const Services = () => {
                   </h2>
                   <a
                     className="absolute cursor-pointer tooltip-header z-[1] mt-2 "
-                    data-tooltip="Upload Text"
+                    data-tooltip="Upload Contents"
                     onClick={handleAddSalonButton}
                   >
                     <HiPencil className=" bg-[#C7AC27] text-black rounded-full  w-[25px] h-[25px] p-[5px] border-[1px]" />
                   </a>
-                  <div className="flex gap-8 mt-12">
+                  <div className="flex gap-8 mt-16">
                     <a
                       className="btn text-light text-[16px] font-rubikRegular flex items-center text-center max-w-[224px] h-[54px] "
                       href={
@@ -473,48 +475,53 @@ const Services = () => {
                         ? servicesData?.data[0].services_salon_button_b
                         : "Text Here"}
                     </button>
-                    <a
+                    {/* <a
                       className="absolute cursor-pointer tooltip-header z-[1] ml-[470px]"
                       data-tooltip="Upload Services"
                       onClick={handleAddSalonServices}
                     >
                       <FaRegImages className=" bg-[#C7AC27] text-black rounded-full w-[25px] h-[25px] p-1 border-[1px]" />
-                    </a>
+                    </a> */}
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <a
-            className="absolute cursor-pointer tooltip-header z-[1] left-0 m-2"
-            data-tooltip="Upload Images"
-            onClick={handleAddSalonGallery}
-          >
-            <FaRegImages className=" bg-[#C7AC27] text-black rounded-full w-[25px] h-[25px] p-1 border-[1px]" />
-          </a>
-          <div className=" lg:right-0 lg:top-0 h-full my-8 lg:my-0 lg:mb-8 lg:w-full block overflow-hidden">
-            <Slider {...settings}>
-              {salonGallery.length > 0
-                ? salonGallery.map((image, index) => (
-                    <div key={index} className="w-48 h-48 md:w-80 md:h-64 px-2">
-                      <LoadImages
-                        url={`${googleHDViewLink}${image?.id}`}
-                        alt={`Service ${index + 1}`}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  ))
-                : Array.from({ length: settings.slidesToShow || 1 }).map(
-                    (_, index) => (
+          <div className="relative mt-3">
+            <a
+              className="absolute cursor-pointer tooltip-header z-[1] left-0 m-3 -top-14 "
+              data-tooltip="Upload Images"
+              onClick={handleAddSalonGallery}
+            >
+              <FaRegImages className=" bg-[#C7AC27] text-black rounded-full w-[25px] h-[25px] p-1 border-[1px]" />
+            </a>
+            <div className=" lg:right-0 lg:top-0 h-full my-8 lg:my-0 lg:mb-8 lg:w-full block overflow-hidden">
+              <Slider {...settings}>
+                {salonGallery.length > 0
+                  ? salonGallery.map((image, index) => (
                       <div
                         key={index}
-                        className="w-48 h-48 md:w-80 md:h-64 px-2 flex items-center justify-center bg-gray-100"
+                        className="w-48 h-48 md:w-80 md:h-64 px-2"
                       >
-                        <IoImageOutline className="w-16 h-16 text-gray-500" />
+                        <LoadImages
+                          url={`${googleHDViewLink}${image?.id}`}
+                          alt={`Service ${index + 1}`}
+                          className="w-full h-full object-cover"
+                        />
                       </div>
-                    )
-                  )}
-            </Slider>
+                    ))
+                  : Array.from({ length: settings.slidesToShow || 1 }).map(
+                      (_, index) => (
+                        <div
+                          key={index}
+                          className="w-48 h-48 md:w-80 md:h-64 px-2 flex items-center justify-center bg-gray-100 place-content-center"
+                        >
+                          <IoImageOutline className="w-16 h-16 text-gray-500" />
+                        </div>
+                      )
+                    )}
+              </Slider>
+            </div>
           </div>
         </section>
       </div>
@@ -567,21 +574,21 @@ const Services = () => {
         />
       )}
 
-      {isCoffeeMenu && (
+      {/* {isCoffeeMenu && (
         <ModalAddCoffeeMenu
           itemEdit={itemEdit}
           setIsCoffeeMenu={setIsCoffeeMenu}
           servicesData={servicesData}
         />
-      )}
+      )} */}
 
-      {isSalonServices && (
+      {/* {isSalonServices && (
         <ModalAddSalonServices
           itemEdit={itemEdit}
           setIsSalonServices={setIsSalonServices}
           servicesData={servicesData}
         />
-      )}
+      )} */}
 
       {isCoffeeButton && (
         <ModalAddCoffeeButton

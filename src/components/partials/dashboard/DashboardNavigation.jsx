@@ -7,19 +7,14 @@ import {
 } from "@/components/helpers/functions-general";
 
 import ModalChangePassword from "@/components/pages/developer/account/modal/ModalChangePassword";
-import LogTable from "@/components/pages/developer/notification/log/LogTable";
-import ReceiverTable from "@/components/pages/developer/notification/receiver/ReceiverTable";
-import RoleTable from "@/components/pages/developer/role/RoleTable";
+import Receiver from "@/components/pages/developer/notification/receiver/Receiver";
+import Role from "@/components/pages/developer/role/Role";
 import User from "@/components/pages/developer/user/User";
+import { setHiddenSections } from "@/store/StoreAction";
 import { StoreContext } from "@/store/StoreContext";
 import React from "react";
 import { IoChevronDownSharp } from "react-icons/io5";
 import ScreenSpinner from "../spinners/ScreenSpinner";
-import Header from "@/components/pages/developer/header/Header";
-import Role from "@/components/pages/developer/role/Role";
-import { setHiddenSections } from "@/store/StoreAction";
-import Log from "@/components/pages/developer/notification/log/Log";
-import Receiver from "@/components/pages/developer/notification/receiver/Receiver";
 
 const DashboardNavigation = ({ menu, submenu }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -34,7 +29,6 @@ const DashboardNavigation = ({ menu, submenu }) => {
   const [isOpenRole, setIsOpenRole] = React.useState(false);
   const [isNotifOpen, setIsNotifOpen] = React.useState(false);
   const [isReceiver, setIsReceiver] = React.useState(false);
-  const [isLog, setIsLog] = React.useState(false);
   // const [hiddenSections, setHiddenSections] = React.useState([]);
 
   const isRoleDeveloper = store.credentials.data.role_is_developer == 1;
@@ -165,7 +159,6 @@ const DashboardNavigation = ({ menu, submenu }) => {
       setIsOpenUserList(false);
       setIsOpenRole(false);
       setIsReceiver(false);
-      setIsLog(false);
     }
 
     setTimeout(() => {
@@ -237,29 +230,6 @@ const DashboardNavigation = ({ menu, submenu }) => {
         "footer",
       ])
     );
-  };
-
-  const handleLog = () => {
-    setActiveSection("log");
-    setIsLog(true);
-
-    // Hide the specified sections
-    dispatch(
-      setHiddenSections([
-        "header",
-        "about",
-        "coffee",
-        "spaSalon",
-        "contactUs",
-        "testimonial",
-        "reachUs",
-        "footer",
-      ])
-    );
-  };
-
-  const handleNotifOpen = () => {
-    setIsNotifOpen((prev) => !prev);
   };
 
   const handleUser = () => {
@@ -372,7 +342,18 @@ const DashboardNavigation = ({ menu, submenu }) => {
               </li>
 
               <li
-                className={`flex justify-between items-center ${
+                className={
+                  activeSection === "receiver"
+                    ? "text-black underline underline-offset-4"
+                    : "text-black/60 hover:text-secondary"
+                }
+                onClick={handleReceiver}
+              >
+                <a className="cursor-pointer">Notification</a>
+              </li>
+
+              <li
+                className={`flex justify-between items-center cursor-pointer ${
                   activeSection === "userList" || activeSection === "role"
                     ? "text-black underline underline-offset-4"
                     : "text-black/60 hover:text-secondary"
@@ -380,7 +361,7 @@ const DashboardNavigation = ({ menu, submenu }) => {
                 onClick={handleUser}
               >
                 <div className="flex items-center justify-between w-full pr-1">
-                  <a className="cursor-pointer">User</a>
+                  <a className="">User</a>
                   <IoChevronDownSharp
                     className={`transition-transform duration-300 ${
                       isOpenUser ? "rotate-180" : ""
@@ -414,57 +395,6 @@ const DashboardNavigation = ({ menu, submenu }) => {
                   <a className="cursor-pointer">Role</a>
                 </li>
               </ul>
-
-              <li
-                className={`flex justify-between items-center  ${
-                  activeSection === "receiver" || activeSection === "log"
-                    ? "text-black underline underline-offset-4"
-                    : "text-black/60 hover:text-secondary"
-                }`}
-                onClick={handleNotifOpen}
-              >
-                <div className="flex items-center justify-between w-full pr-1">
-                  <a className="cursor-pointer">Notification</a>
-                  <IoChevronDownSharp
-                    className={`transition-transform duration-300 ${
-                      isNotifOpen ? "rotate-180" : ""
-                    }`}
-                  />
-                </div>
-              </li>
-
-              <ul
-                className={`transition-all duration-300 overflow-hidden ${
-                  isNotifOpen
-                    ? "max-h-[200px] opacity-100"
-                    : "max-h-0 opacity-0"
-                } submenu ml-5`}
-              >
-                <li
-                  className={` flex justify-between items-center p-1 !mb-0.5
-                ${
-                  activeSection === "receiver"
-                    ? "text-black"
-                    : "text-black/60 hover:text-secondary"
-                }
-              `}
-                  onClick={handleReceiver}
-                >
-                  <a className="cursor-pointer">Receiver</a>
-                </li>
-                <li
-                  className={` flex justify-between items-center p-1 !mb-0.5
-                ${
-                  activeSection === "log"
-                    ? "text-black "
-                    : "text-black/60 hover:text-secondary"
-                }
-              `}
-                  onClick={handleLog}
-                >
-                  <a className="cursor-pointer">Log</a>
-                </li>
-              </ul>
             </ul>
           </nav>
         </div>
@@ -481,7 +411,7 @@ const DashboardNavigation = ({ menu, submenu }) => {
               {initials}
             </div>
             {isOpen && (
-              <div className="absolute top-8 ml-[50px] bg-dashSecondary shadow-lg flex flex-col gap-2 p-4 min-w-[180px] rounded-md">
+              <div className="absolute top-8 ml-[50px] bg-dashSecondary shadow-lg flex flex-col gap-1 p-4 min-w-[180px] rounded-md">
                 <p className="text-black font-rubikRegular text-sm font-semibold tracking-wide">
                   {fullname}
                 </p>
@@ -528,8 +458,6 @@ const DashboardNavigation = ({ menu, submenu }) => {
       {isOpenRole && activeSection === "role" && <Role />}
 
       {isReceiver && activeSection === "receiver" && <Receiver />}
-
-      {isLog && activeSection === "log" && <Log />}
     </>
   );
 };

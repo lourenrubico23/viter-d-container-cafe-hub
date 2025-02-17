@@ -127,7 +127,7 @@ const ContactUsForm = () => {
   return (
     <>
       <ModalWrapperCenter
-        className={`relative transition-all ease-in-out transform duration-200 md:h-[700px] md:w-[500px] h-[680px] w-[320px] bg-light ${animate} overflow-auto `}
+        className={`relative transition-all ease-in-out transform duration-200 md:h-[700px] md:w-[500px] h-[680px] w-[350px] bg-light ${animate} overflow-auto `}
         handleClose={handleClose}
         opacity="opacity-50"
       >

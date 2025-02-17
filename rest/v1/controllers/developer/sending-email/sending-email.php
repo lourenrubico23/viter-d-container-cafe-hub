@@ -65,15 +65,6 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
     }
 
     if ($mail["mail_success"] == true) {
-        $notif->notification_log_name = $data["client_name"];
-        $notif->notification_log_email = $data["client_email"];
-        $notif->notification_log_phone = $data["client_phone"];
-        $notif->notification_log_message = $data["client_message"];
-        $notif->notification_log_receiver = $receiverList;
-        $notif->notification_log_created = date("Y-m-d H:i:s");
-
-        $query = checkCreate($notif);
-
         $returnData["data"] = $mail;
         $returnData["count"] = 0;
         $returnData["success"] = true;

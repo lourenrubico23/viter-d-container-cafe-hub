@@ -172,45 +172,6 @@ const ModalAddBanner = ({ itemEdit, headerData, setIsBanner, setItemEdit }) => {
                   <div className="form-input">
                     <div className="mt-5">
                       <span className="top-20 px-2 text-[12px]"></span>
-                      {/* <div className="relative w-fit m-auto group">
-                      {!headerData?.data?.[0]?.header_banner_img && !photo ? (
-                        <div className="group-hover:opacity-20 bg-dashAccent mb-4 items-center gap-2 w-[322px] h-[90px] border rounded-md p-2 grid place-items-center ">
-                          <IoImageOutline className="text-[40px] text-[gray] mx-auto" />
-                          <h1 className="mb-0 leading-tight text-[gray] text-[15px] text-center">
-                            Upload Image
-                          </h1>
-                        </div>
-                      ) : (
-                        <img
-                          src={
-                            photo
-                              ? URL.createObjectURL(photo)
-                              : headerData?.data?.[0]?.header_banner_img // Get image from headerData if no new photo
-                              ? `${devBaseImgUrl}/${headerData.data[0].header_banner_img}`
-                              : ""
-                          }
-                          alt="Logo"
-                          className="group-hover:opacity-30 duration-200 relative h-[90px] object-contain object-[50%,50%] m-auto "
-                        />
-                      )}
-
-                      <div className="btnImgUpload">
-                        <button>
-                          <MdOutlineFileUpload />
-                          <InputPhotoUpload
-                            name="photo"
-                            type="file"
-                            id="myFile"
-                            accept="image/*"
-                            title="Upload Logo"
-                            onChange={(e) =>
-                              handleChangePhoto(e, initVal.header_banner_img)
-                            }
-                            className="opacity-0 absolute right-0 top-0 h-full left-0 m-auto cursor-pointer z-[999] "
-                          />
-                        </button>
-                      </div>
-                    </div> */}
                       <div
                         className={`relative mt-7 mb-6 border border-gray-300 rounded-md hover:border-primary hover:border-dashed ${
                           withFile && "border-primary border-dashed"

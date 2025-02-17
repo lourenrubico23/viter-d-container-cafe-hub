@@ -51,7 +51,7 @@ const DashboardUpperNav = ({ menu }) => {
                 />
               </Link>
             </div>
-            <div className="">
+            {/* <div className="">
               <Link
                 to={`${devNavUrl}/${urlAdmin}/dashboard`}
                 className="tooltip-desktop"
@@ -65,7 +65,7 @@ const DashboardUpperNav = ({ menu }) => {
                   }`}
                 />
               </Link>
-            </div>
+            </div> */}
 
             <div>
               <Link

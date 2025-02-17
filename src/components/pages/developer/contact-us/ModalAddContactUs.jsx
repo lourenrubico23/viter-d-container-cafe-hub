@@ -98,7 +98,7 @@ const ModalAddContactUs = ({ contactUsData, itemEdit, setIsContact }) => {
                   </div>
                   <div className="input-wrapper">
                     <InputText
-                      label="Button"
+                      label="Button Text"
                       type="text"
                       name="contact_us_button"
                       disabled={mutation.isPending}

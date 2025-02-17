@@ -59,24 +59,18 @@ if ($isUpdateServices == "coffeeButtonUpdate") {
     $services->services_coffee_button_a = $data["services_coffee_button_a"];
     $services->services_coffee_button_b = $data["services_coffee_button_b"];
     $services->services_coffee_facebook_link = $data["services_coffee_facebook_link"];
-    $services->services_datetime = date("Y-m-d H:i:s");
-
-    $query = checkCreateCoffeeButton($services);
-}
-if ($isUpdateServices == "coffeeMenuUpdate") {
     $services->services_coffee_menu_images = $data["services_coffee_menu_images"];
     $services->services_datetime = date("Y-m-d H:i:s");
 
     $services_coffee_menu_images_old = $data['services_coffee_menu_images_old'];
-
     // UPLOAD FILE TO GOOGLE DRIVE  
     $services->services_coffee_menu_images = checkToUploadGoogleDrive(
         $services->services_coffee_menu_images, // FILES
         $services_coffee_menu_images_old, // OLD FILES
     );
-
-    $query = checkCreateCoffeeMenu($services);
+    $query = checkCreateCoffeeButton($services);
 }
+
 if ($isUpdateServices == "salonImgUpdate") {
     $services->services_salon_img = $data["services_salon_img"];
     $services->services_datetime = date("Y-m-d H:i:s");
@@ -117,11 +111,6 @@ if ($isUpdateServices == "salonButtonUpdate") {
     $services->services_salon_button_a = $data["services_salon_button_a"];
     $services->services_salon_button_b = $data["services_salon_button_b"];
     $services->services_salon_facebook_link = $data["services_salon_facebook_link"];
-    $services->services_datetime = date("Y-m-d H:i:s");
-
-    $query = checkCreateSalonButton($services);
-}
-if ($isUpdateServices == "salonServicesUpdate") {
     $services->services_salon_services_images = $data["services_salon_services_images"];
     $services->services_datetime = date("Y-m-d H:i:s");
 
@@ -132,8 +121,9 @@ if ($isUpdateServices == "salonServicesUpdate") {
         $services->services_salon_services_images, // FILES
         $services_salon_services_images_old, // OLD FILES
     );
-    $query = checkCreateSalonServices($services);
+    $query = checkCreateSalonButton($services);
 }
+
 
 // Return response
 returnSuccess($services, "services", $query);

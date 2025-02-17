@@ -234,7 +234,7 @@ const ModalAddCoffeeGallery = ({
                               return (
                                 <React.Fragment key={key}>
                                   <li
-                                    className={`relative z-10 h-48 w-48 group cursor-pointer overflow-hidden ${
+                                    className={`relative z-10 h-48 w-36 group cursor-pointer overflow-hidden ${
                                       (mutation.isPending || loading) &&
                                       `!cursor-not-allowed`
                                     }`}

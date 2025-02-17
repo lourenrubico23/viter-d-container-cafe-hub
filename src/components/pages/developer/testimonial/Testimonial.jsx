@@ -83,14 +83,14 @@ const Testimonial = () => {
         >
           <div className="container">
             <div className="feedback-title flex flex-col items-center pb-5 md:pb-20">
-              <a
-                className="absolute cursor-pointer tooltip-header z-[1] right-[200px]"
-                data-tooltip="Upload Text"
-                onClick={handleAddTitle}
-              >
-                <HiPencil className=" bg-[#C7AC27] text-black rounded-full  w-[25px] h-[25px] p-[5px] border-[1px]" />
-              </a>
-              <h2 className="text-[clamp(1rem,5vw,48px)] font-montserrat text-center leading-tight">
+              <h2 className="text-[clamp(1rem,5vw,48px)] font-montserrat text-center leading-tight relative">
+                <a
+                  className="absolute cursor-pointer tooltip-header z-[1] -top-10 -left-8 font-rubikRegular font-light"
+                  data-tooltip="Upload Text"
+                  onClick={handleAddTitle}
+                >
+                  <HiPencil className=" bg-[#C7AC27] text-black rounded-full  w-[25px] h-[25px] p-[5px] border-[1px]" />
+                </a>
                 {testimonialData?.data?.length > 0 &&
                 testimonialData.data[0]?.testimonial_title
                   ? testimonialData?.data[0].testimonial_title

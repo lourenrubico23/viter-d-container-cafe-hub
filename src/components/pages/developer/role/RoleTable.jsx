@@ -108,8 +108,8 @@ const RoleTable = ({ setIsOpenRole }) => {
     <>
       <section id="role" className="p-4 ">
         <div className="flex items-center justify-between gap-2 w-full pb-4">
-          <div className="text-sm ">Role</div>
-          <div>
+          <div className="text-sm font-semibold">Role</div>
+          {/* <div>
             <button
               type="button"
               className="flex items-center gap-2 hover:text-primary underline"
@@ -117,34 +117,13 @@ const RoleTable = ({ setIsOpenRole }) => {
             >
               <FaPlus /> Add
             </button>
-          </div>
+          </div> */}
         </div>
-        {/* <div>
-          <div className="flex flex-col md:flex-row justify-between md:items-end gap-4 mb-6">
-            <div className="relative flex flex-col gap-1 w-[8rem]">
-              <label htmlFor="status" className="text-xs text-textNav">
-                Status
-              </label>
-              <select
-                className="py-1.5 px-2 text-xs text-textSelect  rounded-md cursor-pointer"
-                name="status"
-                id=""
-                value={filterData}
-                onChange={(e) => handleFilterStatus(e)}
-              >
-                <option value="">All</option>
-                <option value="1">Active</option>
-                <option value="0">Inactive</option>
-              </select>
-            </div>
-            <div className=""></div>
-          </div>
-        </div> */}
         <div className="shadow-md rounded-md overflow-y-auto min-h-full md:min-h-[calc(70dvh)] lg:max-h-[calc(90dvh)] mb-10 lg:mb-0 lg:min-h-0 relative">
           <div className="relative w-full rounded-md overflow-auto">
             {isFetching && !isLoading && <FetchingSpinner />}
             <table>
-              <thead >
+              <thead>
                 <tr>
                   <th className="w-[3rem] text-left pl-3 px-6">#</th>
                   <th className="w-[7rem] text-left px-2">Status</th>

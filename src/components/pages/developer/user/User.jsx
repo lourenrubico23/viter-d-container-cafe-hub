@@ -96,7 +96,7 @@ const User = () => {
                 <div className="outer-wrapper">
                   <div className="mx-5 pt-4 h-[100dvh]">
                     <div className="flex items-center justify-between gap-2 w-full  pt-[65px]">
-                      <div className="text-sm ">User</div>
+                      <div className="text-sm font-semibold">User</div>
                       <div>
                         <button
                           type="button"

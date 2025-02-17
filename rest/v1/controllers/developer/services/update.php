@@ -86,18 +86,8 @@ if (array_key_exists("servicesid", $_GET)) {
     $services->services_coffee_button_a = $data["services_coffee_button_a"];
     $services->services_coffee_button_b = $data["services_coffee_button_b"];
     $services->services_coffee_facebook_link = $data["services_coffee_facebook_link"];
-
-    $services->services_datetime = date("Y-m-d H:i:s");
-    checkId($services->services_aid);
-    // update
-    $query = checkUpdateCoffeeButton($services);
-    returnSuccess($services, "services", $query);
-  }
-  if ($isUpdateServices == "coffeeMenuUpdate") {
-    $services->services_aid = $_GET['servicesid'];
     $services->services_coffee_menu_images = $data["services_coffee_menu_images"];
     $services_coffee_menu_images_old = $data['services_coffee_menu_images_old'];
-
 
     $services->services_datetime = date("Y-m-d H:i:s");
     checkId($services->services_aid);
@@ -113,9 +103,8 @@ if (array_key_exists("servicesid", $_GET)) {
       $services->services_coffee_menu_images, // FILES
       $pendingDeleteFile // TO DELETE FILES
     );
-
     // update
-    $query = checkUpdateCoffeeMenu($services);
+    $query = checkUpdateCoffeeButton($services);
     returnSuccess($services, "services", $query);
   }
   if ($isUpdateServices == "salonImgUpdate") {
@@ -184,20 +173,12 @@ if (array_key_exists("servicesid", $_GET)) {
     $services->services_salon_button_a = $data["services_salon_button_a"];
     $services->services_salon_button_b = $data["services_salon_button_b"];
     $services->services_salon_facebook_link = $data["services_salon_facebook_link"];
-
-    $services->services_datetime = date("Y-m-d H:i:s");
-    checkId($services->services_aid);
-    // update
-    $query = checkUpdateSalonButton($services);
-    returnSuccess($services, "services", $query);
-  }
-  if ($isUpdateServices == "salonServicesUpdate") {
-    $services->services_aid = $_GET['servicesid'];
     $services->services_salon_services_images = $data["services_salon_services_images"];
     $services_salon_services_images_old = $data['services_salon_services_images_old'];
 
     $services->services_datetime = date("Y-m-d H:i:s");
     checkId($services->services_aid);
+
     $pendingDeleteFile = $data['pendingDeleteFile'];
 
     // UPLOAD FILE TO GOOGLDE DRIVE  
@@ -212,7 +193,7 @@ if (array_key_exists("servicesid", $_GET)) {
     );
 
     // update
-    $query = checkUpdateSalonServices($services);
+    $query = checkUpdateSalonButton($services);
     returnSuccess($services, "services", $query);
   }
 }

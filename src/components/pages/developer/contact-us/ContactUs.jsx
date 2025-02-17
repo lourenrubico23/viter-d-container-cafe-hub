@@ -43,15 +43,15 @@ const ContactUs = () => {
         } bg-light `}
       >
         <div className="h-[437px] bg-light">
-          <a
-            className="absolute cursor-pointer tooltip-header z-[1] right-20 mt-10"
-            data-tooltip="Upload Contents"
-            onClick={handleAddContact}
-          >
-            <HiPencil className=" bg-[#C7AC27] text-black rounded-full  w-[25px] h-[25px] p-[5px] border-[1px]" />
-          </a>
           <div className="container flex flex-col gap-6 py-[100px] lg:py-[142px] text-center items-center">
-            <p className="text-[clamp(20px,3vw,24px)] font-rubikRegular leading-8 max-w-[1007px]">
+            <p className="text-[clamp(20px,3vw,24px)] font-rubikRegular leading-8 max-w-[1007px] relative">
+              <a
+                className="absolute cursor-pointer tooltip-header z-[1] left-0 -top-10"
+                data-tooltip="Upload Contents"
+                onClick={handleAddContact}
+              >
+                <HiPencil className=" bg-[#C7AC27] text-black rounded-full  w-[25px] h-[25px] p-[5px] border-[1px]" />
+              </a>
               {contactUsData?.data?.length > 0 &&
               contactUsData.data[0]?.contact_us_description
                 ? contactUsData?.data[0].contact_us_description

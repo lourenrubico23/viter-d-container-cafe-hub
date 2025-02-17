@@ -45,7 +45,7 @@ const About = () => {
         <div className="h-[498px] bg-light  ">
           <div className="flex flex-col gap-16 items-center py-[75px]">
             <a
-              className="absolute cursor-pointer tooltip-header z-[1] right-[300px] "
+              className="absolute cursor-pointer tooltip-header z-[1] left-[350px] "
               data-tooltip="Upload Contents"
               onClick={handleAddAbout}
             >

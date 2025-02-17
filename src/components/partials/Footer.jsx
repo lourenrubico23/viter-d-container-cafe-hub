@@ -116,7 +116,7 @@ const Footer = () => {
                 )}
               </li>
             </ul>
-            <div className="text-center text-[clamp(.5rem,4vw,16px)] text-white font-rubikRegular font-light">
+            <div className="text-center text-[clamp(.5rem,4vw,16px)] text-white font-rubikRegular font-light w-[200px]">
               &copy;{" "}
               {copyrightData?.data?.length > 0 &&
               copyrightData.data[0]?.copyright_title ? (

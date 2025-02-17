@@ -146,7 +146,7 @@ const Footer = () => {
               </li>
             </ul>
 
-            <div className="text-center text-[clamp(.5rem,4vw,16px)] text-white font-rubikRegular font-light flex ">
+            <div className="text-center text-[clamp(.5rem,4vw,16px)] text-white font-rubikRegular font-light flex w-[200px] ">
               <a
                 className="cursor-pointer relative tooltip-header-nav"
                 data-tooltip="Edit text"

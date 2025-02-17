@@ -309,6 +309,7 @@ const ModalAddTestimonialC = ({
                         label="Message"
                         type="text"
                         name="testimonial_client_message_c"
+                        className="h-[200px]"
                         disabled={mutation.isPending}
                       />
                     </div>

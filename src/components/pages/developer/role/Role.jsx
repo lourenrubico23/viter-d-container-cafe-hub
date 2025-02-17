@@ -61,10 +61,10 @@ const Role = () => {
         <div className=" bg-[#f5f5f3] ">
           <div className="main ml-[220px] w-[calc(100%_-_230px)] z-10">
             <DashboardUpperNav menu="dashboard" />
-            <div className=" w-[calc(100%_-_10px)] pt-[65px] relative">
-              <div className="headerCover fixed top-0 left-[200px] w-full h-[60px]  bg-dashPrimary z-[9]"></div>
+            <div className=" w-[calc(100%_-_10px)] pt-[65px] relative ">
+              <div className="headerCover fixed top-0 left-[200px] w-full h-[60px] bg-dashPrimary z-[9]"></div>
               <div className="addShadowDash bg-[#f5f5f3] h-screen">
-                <div className="outer-wrapper">
+                <div className="outer-wrapper ">
                   <RoleTable />
                 </div>
               </div>

@@ -175,7 +175,7 @@ const ToggleNavigation = ({ setIsOpen, headerData }) => {
                   )}
                 </button>
               </li>
-              <h3 className="text-center text-[clamp(.5rem,4vw,12px)] text-white font-rubikRegular font-light">
+              <h3 className="text-center text-[clamp(.5rem,4vw,12px)] text-white font-rubikRegular font-light w-[200px]">
                 &copy;{" "}
                 {copyrightData?.data?.length > 0 &&
                 copyrightData.data[0]?.copyright_title ? (

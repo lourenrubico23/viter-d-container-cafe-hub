@@ -290,25 +290,28 @@ const ModalAddAbout = ({ itemEdit, setIsAbout, aboutData }) => {
 
                     <div className="input-wrapper">
                       <InputTextArea
-                        label="Description 1"
+                        label="First Paragraph"
                         type="text"
                         name="about_description_a"
+                        className="h-[170px]"
                         disabled={mutation.isPending}
                       />
                     </div>
                     <div className="input-wrapper">
                       <InputTextArea
-                        label="Description 2"
+                        label="Second Paragraph"
                         type="text"
                         name="about_description_b"
+                        className="h-[170px]"
                         disabled={mutation.isPending}
                       />
                     </div>
                     <div className="input-wrapper">
                       <InputTextArea
-                        label="Description 3"
+                        label="Third Paragraph"
                         type="text"
                         name="about_description_c"
+                        className="h-[170px]"
                         disabled={mutation.isPending}
                       />
                     </div>

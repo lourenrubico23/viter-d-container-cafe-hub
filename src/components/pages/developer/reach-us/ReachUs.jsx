@@ -70,14 +70,14 @@ const ReachUs = () => {
         <div className="bg-light overflow-hidden">
           <div className="container flex flex-col lg:grid lg:grid-cols-[_1fr_1.5fr] relative gap-7 py-[80px] ">
             <div className="address flex flex-col gap-16 lg:my-32">
-              <a
-                className="absolute cursor-pointer tooltip-header z-[1] top-24"
-                data-tooltip="Upload Contents"
-                onClick={handleAddReachUs}
-              >
-                <HiPencil className=" bg-[#C7AC27] text-black rounded-full  w-[25px] h-[25px] p-[5px] border-[1px]" />
-              </a>
               <h2 className="text-accent font-rubikBold text-[clamp(30px,4vw,36px)] ">
+                <a
+                  className="absolute cursor-pointer tooltip-header z-[1] font-rubikRegular font-light top-40"
+                  data-tooltip="Upload Contents"
+                  onClick={handleAddReachUs}
+                >
+                  <HiPencil className=" bg-[#C7AC27] text-black rounded-full  w-[25px] h-[25px] p-[5px] border-[1px]" />
+                </a>
                 {reachUsData?.data?.length > 0 &&
                 reachUsData.data[0]?.reach_us_title
                   ? reachUsData?.data[0].reach_us_title

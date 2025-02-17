@@ -305,7 +305,7 @@
     @apply bg-transparent leading-none;
   }
   .tooltip-colors::after {
-    @apply content-[attr(data-tooltip)] capitalize absolute -translate-x-2/4 bottom-[35px] bg-black/80 text-white p-1 -ml-3 rounded-sm h-fit leading-none z-20 whitespace-nowrap text-center opacity-0 text-[10px] pointer-events-none transition ease-linear scale-0 duration-75 right-[17px] -top-0.5;
+    @apply content-[attr(data-tooltip)] capitalize absolute -translate-x-2/4 bottom-[35px] bg-black/80 text-white p-1 -ml-3 rounded-sm h-fit leading-none z-20 whitespace-nowrap text-center opacity-0 text-[10px] pointer-events-none transition ease-linear scale-0 duration-75 -right-[10px] -top-0.5;
   }
   .tooltip-colors:hover::after {
     @apply scale-100 opacity-100;

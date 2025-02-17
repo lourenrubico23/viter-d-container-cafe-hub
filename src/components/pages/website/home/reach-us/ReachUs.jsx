@@ -50,7 +50,7 @@ const ReachUs = () => {
               <ul className="font-montserrat text-[clamp(16px,4vw,20px)] [&>li]:flex [&>li]:items-center [&>li]:gap-[33px] flex flex-col gap-8 ">
                 <li>
                   <div>
-                    <BsPhone />
+                    <BsPhone className="h-6 w-6" />
                   </div>
                   {servicesData?.data?.length > 0 &&
                   servicesData.data[0]?.services_contact
@@ -59,7 +59,7 @@ const ReachUs = () => {
                 </li>
                 <li>
                   <div>
-                    <GrLocation />
+                    <GrLocation className="h-6 w-6"/>
                   </div>
                   {reachUsData?.data?.length > 0 &&
                   reachUsData.data[0]?.reach_us_address
@@ -68,16 +68,18 @@ const ReachUs = () => {
                 </li>
                 <li>
                   <div>
-                    <LuFacebook />
+                    <LuFacebook className="h-6 w-6"/>
                   </div>
-                  {reachUsData?.data?.length > 0 &&
-                  reachUsData.data[0]?.reach_us_facebook
-                    ? reachUsData?.data[0].reach_us_facebook
-                    : " Lorem ipsum dolor sit"}
+                  <div className="">
+                    {reachUsData?.data?.length > 0 &&
+                    reachUsData.data[0]?.reach_us_facebook
+                      ? reachUsData?.data[0].reach_us_facebook
+                      : " Lorem ipsum dolor sit"}
+                  </div>
                 </li>
                 <li>
                   <div>
-                    <FaInstagram />
+                    <FaInstagram className="h-6 w-6"/>
                   </div>
                   {reachUsData?.data?.length > 0 &&
                   reachUsData.data[0]?.reach_us_instagram

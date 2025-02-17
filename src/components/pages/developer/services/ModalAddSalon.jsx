@@ -104,17 +104,19 @@ const ModalAddSalon = ({ itemEdit, setIsSalon, servicesData }) => {
                   </div>
                   <div className="input-wrapper">
                     <InputTextArea
-                      label="First Description"
+                      label="First Paragraph"
                       type="text"
                       name="services_salon_description_a"
+                      className="h-[200px]"
                       disabled={mutation.isPending}
                     />
                   </div>
                   <div className="input-wrapper">
                     <InputTextArea
-                      label="Second Description"
+                      label="Second Paragraph"
                       type="text"
                       name="services_salon_description_b"
+                      className="h-[200px]"
                       disabled={mutation.isPending}
                     />
                   </div>

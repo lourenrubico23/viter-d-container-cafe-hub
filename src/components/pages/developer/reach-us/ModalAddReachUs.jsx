@@ -128,7 +128,7 @@ const ModalAddReachUs = ({ itemEdit, setIsReachUs, reachUsData }) => {
                   </div>
                   <div className="input-wrapper">
                     <InputText
-                      label="Button"
+                      label="Button Text"
                       type="text"
                       name="reach_us_button"
                       disabled={mutation.isPending}
@@ -139,6 +139,7 @@ const ModalAddReachUs = ({ itemEdit, setIsReachUs, reachUsData }) => {
                       label="Map Link"
                       type="text"
                       name="reach_us_map_link"
+                      className="h-[200px]"
                       disabled={mutation.isPending}
                     />
                   </div>
