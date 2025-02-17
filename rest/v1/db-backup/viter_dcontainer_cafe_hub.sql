@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 17, 2025 at 06:15 AM
+-- Generation Time: Feb 17, 2025 at 06:45 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -104,7 +104,7 @@ CREATE TABLE `dcchv1_copyright` (
 --
 
 INSERT INTO `dcchv1_copyright` (`copyright_aid`, `copyright_title`, `copyright_datetime`) VALUES
-(1, 'D\'ContainerHub sadsad  asd asd as asd asdas dasdasd ', 2025);
+(1, 'D\'ContainerHub', 2025);
 
 -- --------------------------------------------------------
 
