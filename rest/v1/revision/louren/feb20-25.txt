@@ -7,4 +7,4 @@ Upload Image
 OTHER FOLDER 
     -> rest/v1/notification/template/reset-password.php
     -> rest/v1/notification/template/verify-account.php
-    -> rest/v1/notification/template/verify-email.php
+    -> rest/v1/notification/template/verify-email.php 
