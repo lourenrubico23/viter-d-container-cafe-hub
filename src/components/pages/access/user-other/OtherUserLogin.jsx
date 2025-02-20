@@ -118,7 +118,7 @@ const OtherUserLogin = () => {
                         type="text"
                         name="user_email"
                         disabled={mutation.isPending}
-                        className="!bg-white"
+                        className="!bg-white h-[33px]"
                       />
                     </div>
                     <div className="relative mb-5">

@@ -1,9 +1,13 @@
 import React from "react";
 
-const urlDContainerCafeHub =
-  "http://localhost/react-vite/viter-d-container-cafe-hub";
-const urlDContainerCafeHubImg =
-  "http://localhost/react-vite/viter-d-container-cafe-hub/public/img";
+// const urlDContainerCafeHub =
+//   "http://localhost/react-vite/viter-d-container-cafe-hub";
+// const urlDContainerCafeHubImg =
+//   "http://localhost/react-vite/viter-d-container-cafe-hub/public/img";
+
+// Online Demo url
+export const urlDContainerCafeHub = "https://dccafehub.com";
+export const urlDContainerCafeHubImg = "http://dccafehub.com/img";
 
 // ONLINE DEV and LOCAL hris
 export const devApiUrl = `${urlDContainerCafeHub}/rest`;
