@@ -437,7 +437,7 @@ const Services = () => {
                   <h3 className="text-[clamp(.5rem,4vw,18px)] py-1 lg:mt-10 lg:py-3 font-montserrat font-bold text-black">
                     Our Direct Line:
                   </h3>
-                  <h2 className="text-accent text-[clamp(1.2rem,4vw,48px)] mb-4">
+                  <h2 className="text-accent text-[clamp(1.2rem,4vw,36px)] mb-4">
                     {servicesData?.data?.length > 0 &&
                     servicesData.data[0]?.services_contact
                       ? servicesData?.data[0].services_contact

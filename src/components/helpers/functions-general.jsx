@@ -1,5 +1,6 @@
 import React from "react";
 
+// Local
 // const urlDContainerCafeHub =
 //   "http://localhost/react-vite/viter-d-container-cafe-hub";
 // const urlDContainerCafeHubImg =
