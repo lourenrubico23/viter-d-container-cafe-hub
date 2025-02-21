@@ -7,6 +7,7 @@ import {
 import { queryData } from "@/components/helpers/queryData.jsx";
 import ModalError from "@/components/partials/modal/ModalError.jsx";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner.jsx";
+import { setError, setMessage } from "@/store/StoreAction";
 import { StoreContext } from "@/store/StoreContext.jsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
@@ -21,7 +22,7 @@ const UserForgotPassword = () => {
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: (values) =>
-      queryData(`/${devApiVersion}/user/reset`, "post", values),
+      queryData(`${devApiVersion}/user/reset`, "post", values),
     onSuccess: (data) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["system"] });

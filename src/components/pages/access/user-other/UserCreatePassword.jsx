@@ -37,7 +37,7 @@ const UserCreatePassword = () => {
     error,
     data: userKey,
   } = useQueryData(
-    `/${devApiVersion}/user/key/${paramKey}`, // endpoint
+    `${devApiVersion}/user/key/${paramKey}`, // endpoint
     "get", // method
     "userKey" // key
   );
